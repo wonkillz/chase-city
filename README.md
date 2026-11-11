@@ -32,7 +32,9 @@ src/
   ui/interface.js      시작, 일시정지, 게임오버, HUD
   style.css            반응형 UI와 안전 영역
 public/_headers        Cloudflare 정적 응답 헤더
- tests/                 시뮬레이션과 브라우저 회귀 테스트
+wrangler.jsonc         Cloudflare Pages 출력 디렉터리
+.node-version          빌드 환경 Node.js 22
+tests/                  시뮬레이션과 브라우저 회귀 테스트
 ```
 
 시뮬레이션은 Three.js와 DOM에 의존하지 않습니다. 미션·보석·차량·월드 시스템을 추가할 때 시뮬레이션과 설정/월드 데이터로 상태를 확장하고 렌더러와 UI에서 표시할 수 있습니다. 현재는 한 월드, 한 차량, 경찰 4대의 기본 버전입니다. 경찰은 도로 교차점을 경유하고 근접 추격하며, 건물 충돌을 동일하게 적용합니다. 전역 최단 경로 탐색은 사용하지 않습니다.
@@ -55,5 +57,7 @@ npm run preview
 2. 프로덕션 브랜치: `main`, 빌드 명령: `npm run build`, 출력 디렉터리: `dist`.
 3. 환경 변수 `NODE_VERSION=22`를 설정합니다. 루트 디렉터리는 저장소 루트입니다.
 4. 배포하면 HTTPS 주소에서 PC와 iPhone Safari로 플레이할 수 있습니다.
+
+Cloudflare CLI를 사용하는 경우 `npm run build` 후 `npx wrangler pages deploy dist --project-name chase-city`로 배포할 수 있습니다(Cloudflare 로그인 및 프로젝트 생성 필요).
 
 서버·DB·API 키·런타임 환경 변수는 필요하지 않습니다. Three.js는 번들에 포함됩니다. Google Fonts는 선택적 외부 글꼴이며 오프라인에서는 시스템 글꼴로 표시됩니다. 배포는 별도 Cloudflare 계정 연결 후 진행합니다.

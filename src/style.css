@@ -1,2 +1,425 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Noto+Sans+KR:wght@400;600;800&display=swap');
-:root{font-family:'Noto Sans KR',sans-serif;color:#fff8e7;background:#102a32;font-synthesis:none}*{box-sizing:border-box}body{margin:0;overflow:hidden;overscroll-behavior:none}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #ffce19;outline-offset:5px}#game{position:fixed;width:100%;height:100%;inset:0;display:block}#hud{position:fixed;inset:30px 36px auto;display:flex;align-items:start;justify-content:space-between;z-index:3;pointer-events:none}.brand{font-family:'Barlow Condensed',Impact,sans-serif;text-decoration:none;color:#fff8e7;font-size:35px;font-weight:900;letter-spacing:-1px;line-height:.85;pointer-events:auto;text-shadow:0 2px 16px #102a3250}.brand span{color:#ffd120}.brand small{display:block;font:9px sans-serif;letter-spacing:3px;margin-top:10px}.stats{display:flex;gap:32px;align-items:start;background:#102a32e8;padding:14px 18px;border-radius:4px}.stats small{display:block;font-size:10px;color:#a8c2bb}.stats strong{font-family:'Barlow Condensed',monospace;font-size:29px;line-height:1.4}.stats button{pointer-events:auto;border:1px solid #72938a;background:none;color:white;border-radius:3px;width:35px;height:35px}.meter{height:3px;background:#54716b;width:85px}.meter i{display:block;height:100%;background:#ffce19;width:100%;transition:width .1s}.district{position:fixed;bottom:30px;left:36px;font:700 13px monospace;letter-spacing:2px;z-index:3}.district small{display:block;margin-top:8px;font:10px 'Noto Sans KR',sans-serif;letter-spacing:1px;color:#d7e6d8}.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ffcf16;margin-right:6px}#heat{position:fixed;right:36px;top:145px;display:grid;justify-items:end;z-index:2;text-shadow:0 2px 8px #102a32}#heat>span{font:10px monospace;letter-spacing:3px}#heat b{color:#ffce19;font-size:26px;letter-spacing:4px}#heat small{font-size:10px;margin:6px 0}#heat .meter{width:125px}#arrest-bar{background:#ff513b;width:0}.overlay{position:fixed;inset:0;display:flex;align-items:center;z-index:2;background:linear-gradient(90deg,#092e37f7 0%,#092e37eb 30%,#092e3755 65%,transparent 100%);padding:100px 8vw 70px}.overlay[hidden]{display:none}.eyebrow{font:700 11px monospace;letter-spacing:3px;color:#ffce19;margin-bottom:20px}h1{font-family:'Barlow Condensed',Impact,sans-serif;font-size:clamp(70px,9vw,140px);line-height:.84;letter-spacing:-2px;margin:0;font-weight:900;font-style:italic}h1 em{color:#ffce19;font-style:inherit}.overlay p{font-size:13px;line-height:1.9;color:#d8e4d9;margin:25px 0}.primary{background:#ffce19;color:#102a32;border:0;font-weight:800;padding:17px 23px;width:250px;text-align:left;box-shadow:5px 5px 0 #051e28}.primary span{float:right;font-size:22px;line-height:22px}.primary:hover{background:#ffe26b;transform:translateY(-2px)}.instructions{display:flex;gap:15px;margin-top:30px;font-size:10px;color:#bccdc3}.instructions span{white-space:nowrap}kbd{border:1px solid #6b8984;border-radius:2px;padding:3px 6px;font:10px monospace;margin-right:3px}.mobile-hint{display:block;color:#b9d0c5;font-size:10px;margin-top:18px}.stamp{position:absolute;right:6vw;bottom:75px;font:800 28px/.95 'Barlow Condensed',Impact,sans-serif;transform:rotate(-8deg);border:2px solid #fff8e7;padding:15px}.stamp span{display:block;font:8px monospace;letter-spacing:1px;margin-top:10px}#speed{position:fixed;bottom:25px;right:36px;display:flex;align-items:baseline;gap:8px}#speed strong{font:800 60px 'Barlow Condensed',monospace}#speed span{font:10px monospace;color:#dde6d4}#touch{display:none;position:fixed;left:20px;right:20px;bottom:max(22px,env(safe-area-inset-bottom));justify-content:space-between;z-index:4;pointer-events:none}#touch button{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;border:1px solid #ffffff80;color:#fff8e7;background:#102a32c9;border-radius:50%;width:70px;height:70px;font-size:30px;box-shadow:0 4px 0 #09252b}.steering{display:flex;gap:15px}#touch .drift{font:800 16px 'Barlow Condensed',sans-serif;background:#ffd120;color:#102a32;border:0;width:82px;height:82px}#touch .drift span{display:block;font:8px monospace;letter-spacing:2px;margin-top:4px}#touch button.pressed{transform:translateY(3px);background:#fff8e7;color:#102a32}#notice{position:fixed;top:100px;left:20px} @media (pointer:coarse){.playing #touch{display:flex}.playing #speed{bottom:115px}.playing .district{display:none}}@media(max-width:700px){#hud{inset:max(20px,env(safe-area-inset-top)) 20px auto}.brand{font-size:27px}.stats{gap:14px;padding:9px 12px}.stats strong{font-size:23px}.stats .meter{width:60px}.stats small{font-size:8px}#heat{right:20px;top:115px}.overlay{padding:130px 7vw 85px;background:linear-gradient(90deg,#092e37ed,#092e3790)}h1{font-size:91px}.eyebrow{font-size:9px}.stamp{display:none}.instructions{gap:9px;font-size:9px}.district{left:20px;bottom:20px;font-size:10px}#speed{right:20px}.overlay p{font-size:12px}.primary{width:240px}}@media(max-height:520px){.overlay{padding-top:85px;padding-bottom:20px}h1{font-size:65px}.overlay p{margin:12px 0}.instructions{margin-top:16px}.eyebrow{margin-bottom:10px}#heat{top:95px}.mobile-hint{margin-top:10px}.stamp{bottom:35px}}
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Noto+Sans+KR:wght@400;600;800&display=swap");
+:root {
+  font-family: "Noto Sans KR", sans-serif;
+  color: #fff8e7;
+  background: #102a32;
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #ffce19;
+  outline-offset: 5px;
+}
+#game {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  display: block;
+}
+#hud {
+  position: fixed;
+  inset: 30px 36px auto;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  z-index: 3;
+  pointer-events: none;
+}
+.brand {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  text-decoration: none;
+  color: #fff8e7;
+  font-size: 35px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 0.85;
+  pointer-events: auto;
+  text-shadow: 0 2px 16px #102a3250;
+}
+.brand span {
+  color: #ffd120;
+}
+.brand small {
+  display: block;
+  font: 9px sans-serif;
+  letter-spacing: 3px;
+  margin-top: 10px;
+}
+.stats {
+  display: flex;
+  gap: 32px;
+  align-items: start;
+  background: #102a32e8;
+  padding: 14px 18px;
+  border-radius: 4px;
+}
+.stats small {
+  display: block;
+  font-size: 10px;
+  color: #a8c2bb;
+}
+.stats strong {
+  font-family: "Barlow Condensed", monospace;
+  font-size: 29px;
+  line-height: 1.4;
+}
+.stats button {
+  pointer-events: auto;
+  border: 1px solid #72938a;
+  background: none;
+  color: white;
+  border-radius: 3px;
+  width: 35px;
+  height: 35px;
+}
+.meter {
+  height: 3px;
+  background: #54716b;
+  width: 85px;
+}
+.meter i {
+  display: block;
+  height: 100%;
+  background: #ffce19;
+  width: 100%;
+  transition: width 0.1s;
+}
+.district {
+  position: fixed;
+  bottom: 30px;
+  left: 36px;
+  font: 700 13px monospace;
+  letter-spacing: 2px;
+  z-index: 3;
+}
+.district small {
+  display: block;
+  margin-top: 8px;
+  font:
+    10px "Noto Sans KR",
+    sans-serif;
+  letter-spacing: 1px;
+  color: #d7e6d8;
+}
+.live {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffcf16;
+  margin-right: 6px;
+}
+#heat {
+  position: fixed;
+  right: 36px;
+  top: 145px;
+  display: grid;
+  justify-items: end;
+  z-index: 2;
+  text-shadow: 0 2px 8px #102a32;
+}
+#heat > span {
+  font: 10px monospace;
+  letter-spacing: 3px;
+}
+#heat b {
+  color: #ffce19;
+  font-size: 26px;
+  letter-spacing: 4px;
+}
+#heat small {
+  font-size: 10px;
+  margin: 6px 0;
+}
+#heat .meter {
+  width: 125px;
+}
+#arrest-bar {
+  background: #ff513b;
+  width: 0;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    #092e37f7 0%,
+    #092e37eb 30%,
+    #092e3755 65%,
+    transparent 100%
+  );
+  padding: 100px 8vw 70px;
+}
+.overlay[hidden] {
+  display: none;
+}
+.eyebrow {
+  font: 700 11px monospace;
+  letter-spacing: 3px;
+  color: #ffce19;
+  margin-bottom: 20px;
+}
+h1 {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: clamp(70px, 9vw, 140px);
+  line-height: 0.84;
+  letter-spacing: -2px;
+  margin: 0;
+  font-weight: 900;
+  font-style: italic;
+}
+h1 em {
+  color: #ffce19;
+  font-style: inherit;
+}
+.overlay p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #d8e4d9;
+  margin: 25px 0;
+}
+.primary {
+  background: #ffce19;
+  color: #102a32;
+  border: 0;
+  font-weight: 800;
+  padding: 17px 23px;
+  width: 250px;
+  text-align: left;
+  box-shadow: 5px 5px 0 #051e28;
+}
+.primary span {
+  float: right;
+  font-size: 22px;
+  line-height: 22px;
+}
+.primary:hover {
+  background: #ffe26b;
+  transform: translateY(-2px);
+}
+.instructions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  font-size: 10px;
+  color: #bccdc3;
+}
+.instructions span {
+  white-space: nowrap;
+}
+kbd {
+  border: 1px solid #6b8984;
+  border-radius: 2px;
+  padding: 3px 6px;
+  font: 10px monospace;
+  margin-right: 3px;
+}
+.mobile-hint {
+  display: block;
+  color: #b9d0c5;
+  font-size: 10px;
+  margin-top: 18px;
+}
+.stamp {
+  position: absolute;
+  right: 6vw;
+  bottom: 75px;
+  font:
+    800 28px/0.95 "Barlow Condensed",
+    Impact,
+    sans-serif;
+  transform: rotate(-8deg);
+  border: 2px solid #fff8e7;
+  padding: 15px;
+}
+.stamp span {
+  display: block;
+  font: 8px monospace;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
+#speed {
+  position: fixed;
+  bottom: 25px;
+  right: 36px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+#speed strong {
+  font:
+    800 60px "Barlow Condensed",
+    monospace;
+}
+#speed span {
+  font: 10px monospace;
+  color: #dde6d4;
+}
+#touch {
+  display: none;
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  justify-content: space-between;
+  z-index: 4;
+  pointer-events: none;
+}
+#touch button {
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  border: 1px solid #ffffff80;
+  color: #fff8e7;
+  background: #102a32c9;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  font-size: 30px;
+  box-shadow: 0 4px 0 #09252b;
+}
+.steering {
+  display: flex;
+  gap: 15px;
+}
+#touch .drift {
+  font:
+    800 16px "Barlow Condensed",
+    sans-serif;
+  background: #ffd120;
+  color: #102a32;
+  border: 0;
+  width: 82px;
+  height: 82px;
+}
+#touch .drift span {
+  display: block;
+  font: 8px monospace;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+#touch button.pressed {
+  transform: translateY(3px);
+  background: #fff8e7;
+  color: #102a32;
+}
+#notice {
+  position: fixed;
+  top: 100px;
+  left: 20px;
+}
+@media (pointer: coarse) {
+  .playing #touch {
+    display: flex;
+  }
+  .playing #speed {
+    bottom: 115px;
+  }
+  .playing .district {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  #hud {
+    inset: max(20px, env(safe-area-inset-top)) 20px auto;
+  }
+  .brand {
+    font-size: 27px;
+  }
+  .stats {
+    gap: 14px;
+    padding: 9px 12px;
+  }
+  .stats strong {
+    font-size: 23px;
+  }
+  .stats .meter {
+    width: 60px;
+  }
+  .stats small {
+    font-size: 8px;
+  }
+  #heat {
+    right: 20px;
+    top: 115px;
+  }
+  .overlay {
+    padding: 130px 7vw 85px;
+    background: linear-gradient(90deg, #092e37ed, #092e3790);
+  }
+  h1 {
+    font-size: 91px;
+  }
+  .eyebrow {
+    font-size: 9px;
+  }
+  .stamp {
+    display: none;
+  }
+  .instructions {
+    gap: 9px;
+    font-size: 9px;
+  }
+  .district {
+    left: 20px;
+    bottom: 20px;
+    font-size: 10px;
+  }
+  #speed {
+    right: 20px;
+  }
+  .overlay p {
+    font-size: 12px;
+  }
+  .primary {
+    width: 240px;
+  }
+}
+@media (max-height: 520px) {
+  .overlay {
+    padding-top: 85px;
+    padding-bottom: 20px;
+  }
+  h1 {
+    font-size: 65px;
+  }
+  .overlay p {
+    margin: 12px 0;
+  }
+  .instructions {
+    margin-top: 16px;
+  }
+  .eyebrow {
+    margin-bottom: 10px;
+  }
+  #heat {
+    top: 95px;
+  }
+  .mobile-hint {
+    margin-top: 10px;
+  }
+  .stamp {
+    bottom: 35px;
+  }
+}

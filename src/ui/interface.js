@@ -1,8 +1,55 @@
-export const formatTime=t=>`${Math.floor(t/60).toString().padStart(2,'0')}:${Math.floor(t%60).toString().padStart(2,'0')}`;
-export class Interface{
- constructor(){this.overlay=document.querySelector('#overlay');this.start=document.querySelector('#start');this.best=0;try{this.best=Number(localStorage.getItem('chase-city-best'))||0;}catch{} }
- update(sim){document.querySelector('#time').textContent=formatTime(sim.elapsed);document.querySelector('#health').textContent=`${Math.ceil(sim.health)}%`;document.querySelector('#health-bar').style.width=`${sim.health}%`;document.querySelector('#arrest-bar').style.width=`${sim.arrest/4*100}%`;document.querySelector('#arrest').textContent=sim.arrest>.1?'체포 위험! 속도를 높이세요':'경찰을 따돌리세요';document.querySelector('#speed strong').textContent=Math.round(Math.hypot(sim.player.vx,sim.player.vz)*3.6);}
- hide(){this.overlay.hidden=true;document.body.classList.add('playing');}
- showPause(){this.overlay.hidden=false;document.querySelector('#eyebrow').textContent='TAKE A BREATHER';document.querySelector('#title').innerHTML='잠시<br><em>정차 중.</em>';document.querySelector('#message').textContent='준비되면 다시 도시로 돌아가세요.';this.start.innerHTML='계속 달리기 <span>↗</span>';document.body.classList.remove('playing');}
- gameover(sim){this.best=Math.max(this.best,Math.floor(sim.elapsed));try{localStorage.setItem('chase-city-best',String(this.best));}catch{}this.overlay.hidden=false;document.querySelector('#eyebrow').textContent=sim.result==='arrested'?'BUSTED / 경찰 체포':'WRECKED / 차량 파괴';document.querySelector('#title').innerHTML='ONE MORE<br><em>RUN?</em>';document.querySelector('#message').textContent=`도주 ${formatTime(sim.elapsed)} · 최고 기록 ${formatTime(this.best)}. 다시 도전하세요.`;this.start.innerHTML='다시 도주하기 <span>↗</span>';document.body.classList.remove('playing');}
+export const formatTime = (t) =>
+  `${Math.floor(t / 60)
+    .toString()
+    .padStart(2, "0")}:${Math.floor(t % 60)
+    .toString()
+    .padStart(2, "0")}`;
+export class Interface {
+  constructor() {
+    this.overlay = document.querySelector("#overlay");
+    this.start = document.querySelector("#start");
+    this.best = 0;
+    try {
+      this.best = Number(localStorage.getItem("chase-city-best")) || 0;
+    } catch {}
+  }
+  update(sim) {
+    document.querySelector("#time").textContent = formatTime(sim.elapsed);
+    document.querySelector("#health").textContent = `${Math.ceil(sim.health)}%`;
+    document.querySelector("#health-bar").style.width = `${sim.health}%`;
+    document.querySelector("#arrest-bar").style.width =
+      `${(sim.arrest / 4) * 100}%`;
+    document.querySelector("#arrest").textContent =
+      sim.arrest > 0.1 ? "체포 위험! 속도를 높이세요" : "경찰을 따돌리세요";
+    document.querySelector("#speed strong").textContent = Math.round(
+      Math.hypot(sim.player.vx, sim.player.vz) * 3.6,
+    );
+  }
+  hide() {
+    this.overlay.hidden = true;
+    document.body.classList.add("playing");
+  }
+  showPause() {
+    this.overlay.hidden = false;
+    document.querySelector("#eyebrow").textContent = "TAKE A BREATHER";
+    document.querySelector("#title").innerHTML = "잠시<br><em>정차 중.</em>";
+    document.querySelector("#message").textContent =
+      "준비되면 다시 도시로 돌아가세요.";
+    this.start.innerHTML = "계속 달리기 <span>↗</span>";
+    document.body.classList.remove("playing");
+  }
+  gameover(sim) {
+    this.best = Math.max(this.best, Math.floor(sim.elapsed));
+    try {
+      localStorage.setItem("chase-city-best", String(this.best));
+    } catch {}
+    this.overlay.hidden = false;
+    document.querySelector("#eyebrow").textContent =
+      sim.result === "arrested" ? "BUSTED / 경찰 체포" : "WRECKED / 차량 파괴";
+    document.querySelector("#title").innerHTML = "ONE MORE<br><em>RUN?</em>";
+    document.querySelector("#message").textContent =
+      `도주 ${formatTime(sim.elapsed)} · 최고 기록 ${formatTime(this.best)}. 다시 도전하세요.`;
+    this.start.innerHTML = "다시 도주하기 <span>↗</span>";
+    document.body.classList.remove("playing");
+  }
 }
