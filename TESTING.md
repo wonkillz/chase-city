@@ -17,4 +17,4 @@
 
 ## GitHub 상태
 
-로컬에 구현 및 커밋을 보존했다. CLI push는 403 `Permission denied`, GitHub 연결 도구의 파일 생성도 403 `Resource not accessible by integration`으로 거부되었다. 계정 메타데이터의 push 권한은 실제 연동 앱의 Contents 쓰기 권한을 보장하지 않는다. 원격 반영에는 GitHub 연결 권한 수정이 필요하다.
+GitHub 권한 설정 변경 후 `git push -u origin main`이 성공했다. 게임 코드, 테스트, Cloudflare Pages 설정을 `wonkillz/chase-city`의 `main` 브랜치에 반영했다. 반영 시점에 `npm test` 6개 통과와 `npm run build` 성공을 다시 확인했다. 브라우저 테스트 및 프로덕션 실행 결과는 위에 기록한 동일 게임 코드에 대한 검증 결과다.
