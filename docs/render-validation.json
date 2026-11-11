@@ -1,0 +1,76 @@
+{
+  "desktop-chromium": {
+    "opaque": {
+      "pixels": 0,
+      "energy": 0
+    },
+    "legacyFaded": {
+      "pixels": 0,
+      "energy": 0
+    },
+    "faded": {
+      "pixels": 184,
+      "energy": 26535
+    },
+    "restored": {
+      "pixels": 0,
+      "energy": 0
+    },
+    "opacities": [
+      0.35
+    ],
+    "components": [
+      [
+        "body",
+        "roof",
+        "rooftop",
+        "windows",
+        "door",
+        "sign"
+      ]
+    ],
+    "restoredMaterials": true,
+    "colliders": 112,
+    "captureSize": {
+      "width": 480,
+      "height": 360
+    }
+  },
+  "iphone-webkit": {
+    "opaque": {
+      "pixels": 8,
+      "energy": 2776
+    },
+    "legacyFaded": {
+      "pixels": 8,
+      "energy": 2776
+    },
+    "faded": {
+      "pixels": 194,
+      "energy": 32584
+    },
+    "restored": {
+      "pixels": 8,
+      "energy": 2776
+    },
+    "opacities": [
+      0.35
+    ],
+    "components": [
+      [
+        "body",
+        "roof",
+        "rooftop",
+        "windows",
+        "door",
+        "sign"
+      ]
+    ],
+    "restoredMaterials": true,
+    "colliders": 112,
+    "captureSize": {
+      "width": 480,
+      "height": 360
+    }
+  }
+}

@@ -542,3 +542,80 @@ kbd {
     top: 85px;
   }
 }
+
+.stats #mute {
+  width: auto;
+  min-width: 56px;
+  font-size: 10px;
+  padding: 0 6px;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .stats {
+    gap: 8px;
+    padding: 8px;
+  }
+  .stats #mute {
+    min-width: 44px;
+    font-size: 9px;
+  }
+  .brand {
+    font-size: 24px;
+  }
+  .brand small {
+    font-size: 7px;
+    letter-spacing: 2px;
+  }
+}
+/* Keep the additional sound button inside narrow iPhone viewports, including
+   the wider system-font fallback when web fonts cannot be loaded. */
+@media (max-width: 700px) {
+  #hud {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+  }
+  .brand {
+    font-size: 20px;
+  }
+  .brand small {
+    font-size: 6px;
+    letter-spacing: 1.3px;
+  }
+  .stats {
+    gap: 6px;
+    padding: 8px;
+  }
+  .stats strong {
+    font-size: 20px;
+  }
+  .stats .meter {
+    width: 50px;
+  }
+  .stats #pause {
+    width: 28px;
+  }
+  .stats #mute {
+    min-width: 44px;
+  }
+}
+@media (max-width: 360px) {
+  #hud {
+    grid-template-columns: 1fr;
+  }
+  .brand {
+    font-size: 18px;
+  }
+  .brand small {
+    display: none;
+  }
+  .stats {
+    justify-self: end;
+  }
+  #mission-hud {
+    top: 115px;
+  }
+  #heat {
+    top: 130px;
+  }
+}

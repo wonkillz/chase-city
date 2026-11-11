@@ -31,13 +31,15 @@ export function makePolice(i, generation = 0, player = null) {
     wreckAge: 0,
     stuck: 0,
     turn: 0,
+    wallCooldown: 0,
+    pairCooldown: 0,
   };
 }
 export function steerPolice(c, index, player, dt) {
   // Different prediction horizons and flanking offsets converge at corners:
   // officers try to intercept rather than gaining unlimited straight-line speed.
-  const lead = [0, 0.85, 1.5, 0.5][index % 4];
-  const flank = [0, 4, -4, 2][index % 4];
+  const lead = [0.25, 1.1, 1.6, 0.7][index % 4];
+  const flank = [0, 2.5, -2.5, 0][index % 4];
   const targetX = clamp(
     player.x + player.vx * lead + Math.cos(player.angle) * flank,
     -100,
@@ -104,8 +106,24 @@ export function collidePolice(a, b) {
   a.vz -= nz * impulse;
   b.vx += nx * impulse;
   b.vz += nz * impulse;
-  const damage = Math.max(0, closing - 2) * 4;
-  a.health = Math.max(0, a.health - damage);
-  b.health = Math.max(0, b.health - damage);
+  const damage = impactDamage(closing, CONFIG.pairDamageScale);
+  let applied = 0;
+  for (const car of [a, b])
+    if ((car.pairCooldown || 0) <= 0 && damage > 0) {
+      car.health = Math.max(0, car.health - damage);
+      car.pairCooldown = CONFIG.impactCooldown;
+      applied = damage;
+    }
+  return applied;
+}
+
+export function impactDamage(impact, scale) {
+  return Math.pow(Math.max(0, impact - CONFIG.minimumImpact), 1.4) * scale;
+}
+export function wallImpact(car, impact) {
+  const damage = impactDamage(impact, CONFIG.wallDamageScale);
+  if ((car.wallCooldown || 0) > 0 || damage <= 0) return 0;
+  car.health = Math.max(0, car.health - damage);
+  car.wallCooldown = CONFIG.impactCooldown;
   return damage;
 }

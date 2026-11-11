@@ -24,7 +24,15 @@ export function createLayout() {
           });
         }
     }
-  return { buildings, parks };
+  // Benches use the same dimensions and positions as the visible park props.
+  const obstacles = parks.map((p) => ({
+    x: p.x + 4,
+    z: p.z,
+    w: 3,
+    d: 0.8,
+    kind: "bench",
+  }));
+  return { buildings, parks, obstacles };
 }
 export function resolveBuilding(body, box, radius = CONFIG.radius) {
   const nx = Math.max(box.x - box.w / 2, Math.min(body.x, box.x + box.w / 2));

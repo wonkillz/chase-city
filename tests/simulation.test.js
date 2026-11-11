@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { Simulation } from "../src/game/simulation.js";
 import { CONFIG } from "../src/game/config.js";
-import { makePolice, collidePolice } from "../src/game/police.js";
+import { makePolice, collidePolice, wallImpact } from "../src/game/police.js";
 import { createLayout, resolveBuilding } from "../src/world/layout.js";
 const none = { left: false, right: false };
 const create = (layout = { buildings: [] }) => {
@@ -106,7 +106,9 @@ test("separating and resting police contacts do not repeatedly damage cars", () 
 });
 test("several moderate impacts accumulate damage and high-energy impact is lethal", () => {
   const [a, b] = pair(6);
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 8; i++) {
+    a.pairCooldown = 0;
+    b.pairCooldown = 0;
     a.x = 0;
     b.x = 2;
     a.vx = 6;
@@ -245,4 +247,70 @@ test("ordinary flanking pursuit produces police accidents without scripted explo
     s.update(1 / 60, { left: i % 480 < 110, right: i % 480 > 330 });
   }
   assert.ok(explosions + s.events.length > 0);
+});
+
+test("police wall impacts use normal closing speed, threshold and cooldown", () => {
+  const c = makePolice(0);
+  assert.equal(wallImpact(c, 3), 0);
+  assert.equal(c.health, 100);
+  const damage = wallImpact(c, 20);
+  assert.ok(damage > 0);
+  assert.ok(c.health > 0);
+  const health = c.health;
+  for (let i = 0; i < 50; i++) wallImpact(c, 20);
+  assert.equal(c.health, health);
+  c.wallCooldown = 0;
+  wallImpact(c, 20);
+  assert.ok(c.health < health);
+});
+test("actual building contact damages police and repeated hard collisions explode", () => {
+  const s = create({ buildings: [{ x: 0, z: 0, w: 8, d: 8 }] });
+  s.player.x = 60;
+  s.player.z = -60;
+  s.police = [
+    Object.assign(makePolice(0), { x: 0, z: 7, angle: 0, vx: 0, vz: -20 }),
+  ];
+  for (let impact = 0; impact < 8 && s.police[0].state === "active"; impact++) {
+    Object.assign(s.police[0], {
+      x: 0,
+      z: 5.6,
+      angle: 0,
+      vx: 0,
+      vz: -20,
+      wallCooldown: 0,
+    });
+    s.update(1 / 60, {});
+  }
+  assert.equal(s.police[0].state, "wreck");
+  assert.ok(s.stats.wallDamage >= 100);
+  assert.equal(s.stats.explosions, 1);
+});
+test("resting wall contact and rapid repeated light pair contacts cannot instantly explode", () => {
+  const [a, b] = pair(4);
+  const first = collidePolice(a, b);
+  const health = a.health;
+  for (let i = 0; i < 100; i++) {
+    Object.assign(a, { x: 0, z: 0, vx: 4 });
+    Object.assign(b, { x: 2, z: 0, vx: -4 });
+    collidePolice(a, b);
+  }
+  assert.ok(first > 0);
+  assert.equal(a.health, health);
+  assert.ok(a.health > 90);
+});
+
+test("visible park obstacles share the police impact/health pipeline", () => {
+  const s = create({
+    buildings: [],
+    obstacles: [{ x: 0, z: 0, w: 3, d: 0.8, kind: "bench" }],
+  });
+  s.player.x = 60;
+  s.player.z = -60;
+  s.police = [
+    Object.assign(makePolice(0), { x: 0, z: 1.9, angle: 0, vx: 0, vz: -20 }),
+  ];
+  s.update(1 / 60, {});
+  assert.ok(s.police[0].health < 100);
+  assert.ok(s.stats.wallCollisions > 0);
+  assert.ok(createLayout().obstacles.length > 0);
 });

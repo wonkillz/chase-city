@@ -15,7 +15,7 @@ export class ExplosionEffects {
     group.position.set(event.x, 0, event.z);
     this.scene.add(group);
     const flameMaterial = new THREE.MeshBasicMaterial({
-      color: 0xff7911,
+      color: 0xffb218,
       transparent: true,
       depthWrite: false,
     });
@@ -24,6 +24,29 @@ export class ExplosionEffects {
       transparent: true,
       depthWrite: false,
     });
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(1, 0.07, 4, 32),
+      new THREE.MeshBasicMaterial({
+        color: 0xffef9d,
+        transparent: true,
+        opacity: 0.9,
+        depthWrite: false,
+      }),
+    );
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = 0.28;
+    group.add(ring);
+    const core = new THREE.Mesh(
+      this.puffGeometry,
+      new THREE.MeshBasicMaterial({
+        color: 0xfff4ad,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      }),
+    );
+    core.position.y = 1.6;
+    group.add(core);
     const parts = [];
     for (let i = 0; i < 18; i++) {
       const angle = i * 2.399 + event.id,
@@ -66,6 +89,8 @@ export class ExplosionEffects {
     }
     this.active.push({
       group,
+      ring,
+      core,
       parts,
       time: event.time,
       flameMaterial,
@@ -84,7 +109,15 @@ export class ExplosionEffects {
         this.remove(effect);
         continue;
       }
-      effect.flameMaterial.opacity = Math.max(0, 1 - t / 1.25);
+      effect.ring.scale.setScalar(1 + t * 12);
+      effect.ring.material.opacity = Math.max(0, 0.9 - t * 1.8);
+      effect.ring.visible = t < 0.5;
+      effect.core.visible = t < 0.7;
+      effect.core.scale.setScalar(
+        1 + Math.sin(Math.min(t / 0.7, 1) * Math.PI) * 2,
+      );
+      effect.core.material.opacity = Math.max(0, 1 - t / 0.7);
+      effect.flameMaterial.opacity = Math.max(0, 1 - t / 1.65);
       effect.smokeMaterial.opacity = Math.max(0, 0.6 * (1 - t / 4));
       for (const p of effect.parts) {
         if (p.kind === "debris") {
@@ -96,10 +129,10 @@ export class ExplosionEffects {
           p.mesh.rotation.set(t * 3, t * 4, t * 2);
           p.mesh.scale.setScalar(Math.max(0.05, 1 - Math.max(0, t - 2) / 2));
         } else if (p.kind === "flame") {
-          p.mesh.visible = t < 1.25;
+          p.mesh.visible = t < 1.65;
           p.mesh.position.set(p.vx * t, 1 + p.vy * t, p.vz * t);
           p.mesh.scale.setScalar(
-            0.6 + Math.sin(Math.min(t, 1) * Math.PI) * 1.5,
+            1.1 + Math.sin(Math.min(t, 1) * Math.PI) * 1.5,
           );
         } else {
           p.mesh.position.set(p.vx * t, 1 + p.vy * t, p.vz * t);
@@ -110,6 +143,9 @@ export class ExplosionEffects {
   }
   remove(effect) {
     this.scene.remove(effect.group);
+    effect.core.material.dispose();
+    effect.ring.geometry.dispose();
+    effect.ring.material.dispose();
     effect.flameMaterial.dispose();
     effect.smokeMaterial.dispose();
     this.active.splice(this.active.indexOf(effect), 1);

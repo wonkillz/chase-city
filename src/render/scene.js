@@ -106,11 +106,21 @@ export class CityRenderer {
       mesh.castShadow = true;
       mesh.receiveShadow = true;
       mesh.userData.building = true;
+      mesh.userData.components = [
+        "body",
+        "roof",
+        "rooftop",
+        "windows",
+        "door",
+        "sign",
+      ];
+      mesh.geometry.computeBoundingBox();
       this.scene.add(mesh);
       mesh.updateMatrixWorld(true);
       this.buildings.push({
         mesh,
         bounds: b,
+        visualBounds: mesh.geometry.boundingBox,
         opacity: 1,
         occluded: false,
         intersects(camera, target) {
@@ -261,8 +271,24 @@ export class CityRenderer {
       this.follow.z + 40,
     );
     this.camera.lookAt(this.follow.x, 0, this.follow.z - 6);
+    this.camera.updateMatrixWorld(true);
+    this.player.updateMatrixWorld(true);
     this.occlusion.update(this.camera.position, p, dt);
     this.renderer.render(this.scene, this.camera);
+  }
+  captureFrame(width, height) {
+    const target = new THREE.WebGLRenderTarget(width, height);
+    const previous = this.renderer.getRenderTarget();
+    const pixels = new Uint8Array(width * height * 4);
+    try {
+      this.renderer.setRenderTarget(target);
+      this.renderer.render(this.scene, this.camera);
+      this.renderer.readRenderTargetPixels(target, 0, 0, width, height, pixels);
+      return pixels;
+    } finally {
+      this.renderer.setRenderTarget(previous);
+      target.dispose();
+    }
   }
   reset() {
     this.follow.set(0, 0, 8);

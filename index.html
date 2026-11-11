@@ -8,7 +8,7 @@
     />
     <meta name="theme-color" content="#102a32" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>CHASE CITY V1.1 — 60초의 도주</title>
+    <title>CHASE CITY V1.2 — 60초의 도주</title>
   </head>
   <body>
     <canvas id="game" aria-label="3D 자동차 추격 게임"></canvas>
@@ -22,6 +22,9 @@
           <small>차량 내구도</small><strong id="health">100%</strong>
           <div class="meter"><i id="health-bar"></i></div>
         </div>
+        <button id="mute" aria-label="효과음 음소거" aria-pressed="false">
+          소리 ON
+        </button>
         <button id="pause" aria-label="일시정지">Ⅱ</button>
       </div>
     </div>
@@ -47,7 +50,7 @@
       aria-describedby="message"
     >
       <section>
-        <div class="eyebrow" id="eyebrow">MISSION BRIEFING / V1.1</div>
+        <div class="eyebrow" id="eyebrow">MISSION BRIEFING / V1.2</div>
         <h1 id="title">60초의 도주</h1>
         <p id="message">경찰을 피해 60초간 생존하세요.</p>
         <dl id="mission-details">

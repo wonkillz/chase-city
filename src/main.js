@@ -1,4 +1,6 @@
 import "./style.css";
+import { SoundSystem } from "./audio/sound.js";
+const audio = new SoundSystem();
 import { createLayout } from "./world/layout.js";
 import { Simulation } from "./game/simulation.js";
 import { Input } from "./game/input.js";
@@ -12,9 +14,12 @@ function pause() {
   if (state === "running") {
     state = "paused";
     input.clear();
+    audio.setRunning(false);
     ui.showPause();
   } else if (state === "paused") {
     state = "running";
+    audio.unlock();
+    audio.setRunning(true);
     ui.hide();
   }
 }
@@ -32,17 +37,30 @@ ui.start.addEventListener("click", () => {
   if (state === "over") {
     sim.reset();
     renderer.reset();
+    audio.reset();
     state = "ready";
     input.clear();
     ui.showMission(sim);
     return;
   }
-  if (state === "ready") sim.start();
+  audio.unlock();
+  if (state === "ready") {
+    sim.start();
+    audio.reset();
+  }
+  audio.setRunning(true);
   state = "running";
   input.clear();
   ui.hide();
 });
 document.querySelector("#pause").addEventListener("click", pause);
+const mute = document.querySelector("#mute");
+mute.addEventListener("click", () => {
+  audio.setMuted(!audio.muted);
+  if (!audio.muted && state === "running") audio.unlock();
+  mute.textContent = audio.muted ? "소리 OFF" : "소리 ON";
+  mute.setAttribute("aria-pressed", String(audio.muted));
+});
 document.addEventListener("visibilitychange", () => {
   if (document.hidden && state === "running") pause();
 });
@@ -62,11 +80,13 @@ function frame(ms) {
       accumulator -= 1 / 60;
       if (sim.result) {
         state = "over";
+        audio.finish(sim.result === "success");
         ui.gameover(sim);
         break;
       }
     }
   } else accumulator = 0;
+  if (state === "running") audio.update(sim);
   ui.update(sim);
   renderer?.render(sim, state === "running" || state === "ready" ? dt : 0);
 }
@@ -78,6 +98,7 @@ if (import.meta.env.DEV && new URLSearchParams(location.search).has("debug"))
     sim,
     input,
     renderer,
+    audio,
     get state() {
       return state;
     },

@@ -73,3 +73,27 @@ test("broad-phase overlap does not fade geometry that misses the exact ray test"
   assert.equal(e.occluded, false);
   assert.equal(e.opacity, 1);
 });
+
+test("transparent shader variants are invalidated for body/roof/window materials and restored", async () => {
+  const { MeshStandardMaterial } = await import("three");
+  const { applyBuildingOpacity } = await import("../src/render/occlusion.js");
+  const materials = Array.from({ length: 4 }, () => new MeshStandardMaterial());
+  const e = { meshes: materials.map((material) => ({ material })), opacity: 1 };
+  const versions = materials.map((m) => m.version);
+  applyBuildingOpacity(e, 0.35);
+  materials.forEach((m, i) => {
+    assert.ok(m.version > versions[i]);
+    assert.equal(m.transparent, true);
+    assert.equal(m.opacity, 0.35);
+  });
+  const faded = materials.map((m) => m.version);
+  applyBuildingOpacity(e, 0.3);
+  materials.forEach((m, i) => assert.equal(m.version, faded[i]));
+  applyBuildingOpacity(e, 1);
+  materials.forEach((m, i) => {
+    assert.ok(m.version > faded[i]);
+    assert.equal(m.transparent, false);
+    assert.equal(m.depthWrite, true);
+    m.dispose();
+  });
+});
