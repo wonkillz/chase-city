@@ -1,0 +1,98 @@
+{
+  "version": "1.3",
+  "uniqueScenarios": 18,
+  "passed": 18,
+  "note": "Full suite plus two rechecks after fixing the wall fixture to start outside the solid block rather than inside a too-narrow gap. The nearby-road spawn fallback was also hardened and covered by a new unit test.",
+  "results": [
+    {
+      "project": "desktop-chromium",
+      "title": "mission briefing freezes cars; keyboard/touch steering, pause, destruction and retry",
+      "status": "passed"
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "mission briefing freezes cars; keyboard/touch steering, pause, destruction and retry",
+      "status": "passed"
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "survival mission succeeds once and retry returns to briefing",
+      "status": "passed"
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "survival mission succeeds once and retry returns to briefing",
+      "status": "passed"
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real building materials fade and restore; chain explosions render debris/fire/smoke, launch wrecks and respawn",
+      "status": "passed"
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real building materials fade and restore; chain explosions render debris/fire/smoke, launch wrecks and respawn",
+      "status": "passed"
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "rendered pixels reveal the whole car through complete building geometry and restore",
+      "status": "passed"
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "rendered pixels reveal the whole car through complete building geometry and restore",
+      "status": "passed"
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real Web Audio unlock, engine/siren/skid, mute, pause and UI sounds",
+      "status": "passed"
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real Web Audio unlock, engine/siren/skid, mute, pause and UI sounds",
+      "status": "passed"
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "unavailable Web Audio leaves START, pause and gameplay working",
+      "status": "passed"
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "unavailable Web Audio leaves START, pause and gameplay working",
+      "status": "passed"
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "HUD sound and pause buttons fit phone viewports with fallback fonts",
+      "status": "passed"
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "HUD sound and pause buttons fit phone viewports with fallback fonts",
+      "status": "passed"
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+      "status": "passed"
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+      "status": "passed"
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "player wall sliding costs zero health and remains controllable on keyboard/touch",
+      "status": "passed"
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "player wall sliding costs zero health and remains controllable on keyboard/touch",
+      "status": "passed"
+    }
+  ]
+}

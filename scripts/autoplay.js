@@ -103,7 +103,10 @@ export function runAutoplay(
     runs,
   };
 }
-if (process.argv[1]?.endsWith("/autoplay.js")) {
+if (
+  typeof process !== "undefined" &&
+  process.argv[1]?.endsWith("/autoplay.js")
+) {
   const seeds = [
     ...Array.from({ length: 40 }, (_, i) => i + 1),
     ...Array.from({ length: 20 }, (_, i) => 1001 + i),

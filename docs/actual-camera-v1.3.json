@@ -1,0 +1,49 @@
+{
+  "method": "32 simulated seconds at fixed 60Hz, seed 7 road inputs; actual renderer meshes, camera and exact merged-building ray tests; rendering sampled every 0.4s with a frozen shadow map. This checks real renderer integration, not device FPS.",
+  "projects": {
+    "desktop-chromium": {
+      "screen": {
+        "sampledSeconds": 31.99999999999995,
+        "policeVisibleSeconds": 30.399999999999956,
+        "visibleExplosions": 0,
+        "explosions": 0,
+        "nearestDistanceTime": 593.7456343149904,
+        "chaseSeconds": 31.59999999999995
+      },
+      "searches": 484,
+      "replans": 480,
+      "fleet": 8,
+      "meshes": 8,
+      "visibleDust": 2,
+      "visibleSkids": 4,
+      "dustPool": 48,
+      "skidPool": 64,
+      "health": 90,
+      "wallContacts": 8,
+      "wallDamage": 0,
+      "policeVisible": 8
+    },
+    "iphone-webkit": {
+      "screen": {
+        "sampledSeconds": 31.99999999999995,
+        "policeVisibleSeconds": 20.39999999999999,
+        "visibleExplosions": 0,
+        "explosions": 0,
+        "nearestDistanceTime": 593.7456343149906,
+        "chaseSeconds": 31.59999999999995
+      },
+      "searches": 484,
+      "replans": 480,
+      "fleet": 8,
+      "meshes": 8,
+      "visibleDust": 2,
+      "visibleSkids": 4,
+      "dustPool": 48,
+      "skidPool": 64,
+      "health": 90,
+      "wallContacts": 8,
+      "wallDamage": 0,
+      "policeVisible": 8
+    }
+  }
+}

@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { ChaseCamera } from "./camera.js";
+import { VehicleTrails } from "./trails.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { CONFIG } from "../game/config.js";
 import { BuildingOcclusion } from "./occlusion.js";
@@ -17,7 +19,8 @@ export class CityRenderer {
     this.renderer.setClearColor(0x83c8d3);
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.Fog(0x83c8d3, 105, 240);
-    this.camera = new THREE.PerspectiveCamera(43, 1, 0.1, 350);
+    this.cameraRig = new ChaseCamera(innerWidth, innerHeight);
+    this.camera = this.cameraRig.camera;
     this.scene.add(new THREE.HemisphereLight(0xe9f9ff, 0x35513c, 2.2));
     const sun = new THREE.DirectionalLight(0xffefd6, 3);
     sun.position.set(-45, 90, 35);
@@ -147,6 +150,8 @@ export class CityRenderer {
     );
     this.occlusion = new BuildingOcclusion(this.buildings);
     this.effects = new ExplosionEffects(this.scene);
+    this.trails = new VehicleTrails(this.scene);
+    this.resetMetrics();
     this.follow = new THREE.Vector3(0, 0, 0);
     this.resize();
     window.addEventListener("resize", () => this.resize());
@@ -223,10 +228,9 @@ export class CityRenderer {
     const w = innerWidth,
       h = innerHeight;
     this.renderer.setSize(w, h);
-    this.camera.aspect = w / h;
-    this.camera.updateProjectionMatrix();
+    this.cameraRig.resize(w, h);
   }
-  render(sim, dt) {
+  render(sim, dt, running = sim.started && !sim.result) {
     const p = sim.player;
     this.player.position.set(p.x, 0, p.z);
     this.player.rotation.y = p.angle;
@@ -239,6 +243,10 @@ export class CityRenderer {
     this.player.visible = !(
       sim.hitCooldown > 0.4 && Math.floor(sim.elapsed * 15) % 2
     );
+    while (this.police.length < sim.police.length)
+      this.police.push(this.car(0xf2f0e5, true));
+    for (let i = sim.police.length; i < this.police.length; i++)
+      this.police[i].visible = false;
     sim.police.forEach((c, i) => {
       const mesh = this.police[i];
       mesh.visible = c.state === "active" || c.wreckAge < CONFIG.wreckSeconds;
@@ -263,17 +271,12 @@ export class CityRenderer {
       }
     });
     this.effects.update(sim.events, sim.elapsed);
-    this.follow.lerp(new THREE.Vector3(p.x, 0, p.z), 1 - Math.exp(-dt * 5));
-    const mobile = innerWidth < 700;
-    this.camera.position.set(
-      this.follow.x + (mobile ? 26 : 30),
-      mobile ? 60 : 60,
-      this.follow.z + 40,
-    );
-    this.camera.lookAt(this.follow.x, 0, this.follow.z - 6);
+    this.cameraRig.update(p, dt);
+    this.trails.update(p, dt, running);
     this.camera.updateMatrixWorld(true);
     this.player.updateMatrixWorld(true);
     this.occlusion.update(this.camera.position, p, dt);
+    if (running) this.sampleMetrics(sim, dt);
     this.renderer.render(this.scene, this.camera);
   }
   captureFrame(width, height) {
@@ -290,7 +293,45 @@ export class CityRenderer {
       target.dispose();
     }
   }
+  resetMetrics() {
+    this.screenMetrics = {
+      sampledSeconds: 0,
+      policeVisibleSeconds: 0,
+      visibleExplosions: 0,
+      explosions: 0,
+      nearestDistanceTime: 0,
+      chaseSeconds: 0,
+    };
+    this.metricTime = 0;
+    this.lastExplosionMetric = 0;
+  }
+  sampleMetrics(sim, dt) {
+    for (const event of sim.events)
+      if (event.id > this.lastExplosionMetric) {
+        this.lastExplosionMetric = event.id;
+        this.screenMetrics.explosions++;
+        if (this.cameraRig.visible({ ...event, y: 2 }, this.buildings))
+          this.screenMetrics.visibleExplosions++;
+      }
+    this.metricTime += dt;
+    if (this.metricTime < 0.2) return;
+    const duration = this.metricTime;
+    this.metricTime = 0;
+    const active = sim.police.filter((c) => c.state === "active");
+    const nearest = Math.min(
+      220,
+      ...active.map((c) => Math.hypot(c.x - sim.player.x, c.z - sim.player.z)),
+    );
+    this.screenMetrics.sampledSeconds += duration;
+    this.screenMetrics.nearestDistanceTime += nearest * duration;
+    if (nearest < 35) this.screenMetrics.chaseSeconds += duration;
+    if (active.some((c) => this.cameraRig.visible(c, this.buildings)))
+      this.screenMetrics.policeVisibleSeconds += duration;
+  }
   reset() {
+    this.cameraRig.reset();
+    this.trails.reset();
+    this.resetMetrics();
     this.follow.set(0, 0, 8);
     this.occlusion.reset();
     this.effects.reset();

@@ -33,55 +33,85 @@ export function makePolice(i, generation = 0, player = null) {
     turn: 0,
     wallCooldown: 0,
     pairCooldown: 0,
+    route: [],
+    routeTimer: 0,
+    role: "pursuit",
+    replans: 0,
+    blocked: 0,
   };
 }
-export function steerPolice(c, index, player, dt) {
-  // Different prediction horizons and flanking offsets converge at corners:
-  // officers try to intercept rather than gaining unlimited straight-line speed.
-  const lead = [0.25, 1.1, 1.6, 0.7][index % 4];
-  const flank = [0, 2.5, -2.5, 0][index % 4];
-  const targetX = clamp(
-    player.x + player.vx * lead + Math.cos(player.angle) * flank,
-    -100,
-    100,
-  );
-  const targetZ = clamp(
-    player.z + player.vz * lead - Math.sin(player.angle) * flank,
-    -100,
-    100,
-  );
-  const roadX = Math.round(c.x / 30) * 30,
-    roadZ = Math.round(c.z / 30) * 30;
-  let tx = targetX,
-    tz = targetZ;
-  if (Math.hypot(player.x - c.x, player.z - c.z) > 16) {
-    if (Math.abs(c.x - roadX) < Math.abs(c.z - roadZ)) {
-      tx = roadX;
-      tz = Math.round(targetZ / 30) * 30;
-      if (Math.abs(c.z - tz) < 4) {
-        tx = targetX;
-        tz = targetZ;
-      }
-    } else {
-      tx = Math.round(targetX / 30) * 30;
-      tz = roadZ;
-      if (Math.abs(c.x - tx) < 4) {
-        tx = targetX;
-        tz = targetZ;
-      }
+export function steerPolice(c, index, player, dt, navigation, fleet = []) {
+  if (!navigation) return;
+  c.routeTimer = (c.routeTimer || 0) - dt;
+  const ranked = fleet
+    .filter((p) => p.state === "active")
+    .sort(
+      (a, b) =>
+        Math.hypot(a.x - player.x, a.z - player.z) -
+        Math.hypot(b.x - player.x, b.z - player.z),
+    );
+  const rank = ranked.indexOf(c),
+    close = Math.hypot(c.x - player.x, c.z - player.z);
+  c.role = rank <= 1 ? "pursuit" : "intercept";
+  const lead = c.role === "pursuit" ? 0 : 1.1 + (index % 3) * 0.55;
+  const prediction = {
+    x: clamp(player.x + player.vx * lead, -95, 95),
+    z: clamp(player.z + player.vz * lead, -95, 95),
+  };
+  const direct = close < 22 && navigation.clear(c, player);
+  let waypoint;
+  if (direct) {
+    waypoint = player;
+    c.route = [];
+    c.routeTimer = 0;
+  } else {
+    const goal = navigation.nearest(prediction);
+    if (c.routeTimer <= 0 || !c.route?.length || c.goalId !== goal?.id) {
+      c.route = navigation.findPath(c, prediction);
+      c.goalId = goal?.id;
+      c.routeTimer = 0.5 + (index % 3) * 0.08;
+      c.replans = (c.replans || 0) + 1;
+    }
+    while (
+      c.route.length > 1 &&
+      Math.hypot(c.x - c.route[0].x, c.z - c.route[0].z) < 2
+    )
+      c.route.shift();
+    // Only shortcut a waypoint when the full swept corridor is clear.
+    while (c.route.length > 1 && navigation.clear(c, c.route[1]))
+      c.route.shift();
+    waypoint = c.route[0];
+    if (waypoint && Math.hypot(c.x - waypoint.x, c.z - waypoint.z) < 1.5) {
+      c.route.shift();
+      waypoint = c.route[0];
+    }
+    if (!waypoint) {
+      c.vx *= Math.exp(-dt * 10);
+      c.vz *= Math.exp(-dt * 10);
+      c.turn = 0;
+      return;
     }
   }
-  if (c.stuck > 1) {
-    tx = c.x + Math.sin(c.angle) * 12;
-    tz = c.z + Math.cos(c.angle) * 12;
-  }
-  const desired = Math.atan2(-(tx - c.x), -(tz - c.z));
-  const delta = clamp(angleDelta(desired, c.angle), -2.5 * dt, 2.5 * dt);
+  const dx = waypoint.x - c.x,
+    dz = waypoint.z - c.z,
+    d = Math.hypot(dx, dz);
+  const desired = Math.atan2(-dx, -dz),
+    error = angleDelta(desired, c.angle);
+  const delta = clamp(error, -3.8 * dt, 3.8 * dt);
   c.angle += delta;
   c.turn = delta / dt;
-  const grip = 1 - Math.exp(-3.5 * dt);
-  c.vx += (-Math.sin(c.angle) * c.speed - c.vx) * grip;
-  c.vz += (-Math.cos(c.angle) * c.speed - c.vz) * grip;
+  const corner = clamp(1 - Math.abs(error) * 0.45, 0.35, 1);
+  const speed = c.speed * corner;
+  const grip = 1 - Math.exp(-dt * 7);
+  c.vx += ((dx / (d || 1)) * speed - c.vx) * grip;
+  c.vz += ((dz / (d || 1)) * speed - c.vz) * grip;
+  const next = { x: c.x + c.vx * dt * 3, z: c.z + c.vz * dt * 3 };
+  if (!navigation.clear(c, next, CONFIG.policeRadius - 0.02)) {
+    c.vx = 0;
+    c.vz = 0;
+    c.routeTimer = 0;
+    c.blocked = (c.blocked || 0) + dt;
+  } else c.blocked = 0;
 }
 // Equal-mass contact impulse: only closing velocity damages cars. Resting and
 // separating contacts are depenetrated without repeated contact damage.
@@ -111,6 +141,7 @@ export function collidePolice(a, b) {
   for (const car of [a, b])
     if ((car.pairCooldown || 0) <= 0 && damage > 0) {
       car.health = Math.max(0, car.health - damage);
+      car.lastDamageCause = "vehicle";
       car.pairCooldown = CONFIG.impactCooldown;
       applied = damage;
     }
@@ -124,6 +155,7 @@ export function wallImpact(car, impact) {
   const damage = impactDamage(impact, CONFIG.wallDamageScale);
   if ((car.wallCooldown || 0) > 0 || damage <= 0) return 0;
   car.health = Math.max(0, car.health - damage);
+  car.lastDamageCause = "wall";
   car.wallCooldown = CONFIG.impactCooldown;
   return damage;
 }

@@ -1,4 +1,5 @@
-import { CONFIG, clamp } from "./config.js";
+import { CONFIG, clamp, angleDelta } from "./config.js";
+import { RoadNavigation } from "./navigation.js";
 import { resolveBuilding } from "../world/layout.js";
 import { createMission, updateMission } from "./missions.js";
 import {
@@ -11,6 +12,7 @@ export class Simulation {
   constructor(layout) {
     this.layout = layout;
     this.solids = [...layout.buildings, ...(layout.obstacles || [])];
+    this.navigation = new RoadNavigation(this.solids);
     this.reset();
   }
   reset(missionId = "survival60") {
@@ -22,6 +24,9 @@ export class Simulation {
       vz: -CONFIG.playerSpeed,
       speed: CONFIG.playerSpeed,
       turn: 0,
+      steering: 0,
+      slip: 0,
+      wallContacts: 0,
     };
     this.health = 100;
     this.elapsed = 0;
@@ -44,6 +49,7 @@ export class Simulation {
       wallDamage: 0,
       pairDamage: 0,
     };
+    this.nextReinforcement = 10;
     this.police = Array.from({ length: CONFIG.policeCount }, (_, i) =>
       makePolice(i),
     );
@@ -70,7 +76,7 @@ export class Simulation {
   damage(amount) {
     if (this.hitCooldown <= 0) {
       this.health = Math.max(0, this.health - amount);
-      this.hitCooldown = 0.65;
+      this.hitCooldown = 1.0;
       this.collisions++;
     }
   }
@@ -114,11 +120,27 @@ export class Simulation {
         const nx = body.x - predicted.x,
           nz = body.z - predicted.z,
           length = Math.hypot(nx, nz);
-        if (length > 1e-8)
+        if (length > 1e-8) {
           body.lastImpact = Math.max(
             body.lastImpact,
             Math.max(0, -(body.vx * nx + body.vz * nz) / length),
           );
+          if (body === this.player) {
+            const ux = nx / length,
+              uz = nz / length,
+              inward = Math.min(0, body.vx * ux + body.vz * uz);
+            body.vx -= ux * inward;
+            body.vz -= uz * inward;
+            const side = body.steering < 0 ? -1 : 1;
+            let tx = -uz * side,
+              tz = ux * side;
+            if (body.vx * tx + body.vz * tz < 0) {
+              tx = -tx;
+              tz = -tz;
+            }
+            body.escapeAngle = Math.atan2(-tx, -tz);
+          }
+        }
       }
     }
     return hit;
@@ -140,9 +162,12 @@ export class Simulation {
       this.events.push({
         id: ++this.eventId,
         type: "explosion",
+        cause: c.lastDamageCause || "unknown",
         x: c.x,
         z: c.z,
         time: this.elapsed,
+        playerX: this.player.x,
+        playerZ: this.player.z,
       });
       if (this.events.length > 64) this.events.shift();
       for (const other of this.police) {
@@ -160,7 +185,10 @@ export class Simulation {
         other.vx += (d ? dx / d : 1) * strength * 12;
         other.vz += (d ? dz / d : 0) * strength * 12;
         if (other.health <= 0) {
-          if (beforeHealth > 0) chained.add(other);
+          if (beforeHealth > 0) {
+            chained.add(other);
+            other.lastDamageCause = "blast";
+          }
           queue.push(other);
         }
       }
@@ -175,26 +203,69 @@ export class Simulation {
     const previous = new Map(
       [p, ...this.police].map((c) => [c, { x: c.x, z: c.z }]),
     );
-    p.turn = ((input.left ? 1 : 0) - (input.right ? 1 : 0)) * CONFIG.turnRate;
+    const steering = (input.left ? 1 : 0) - (input.right ? 1 : 0);
+    p.steering =
+      (p.steering || 0) +
+      (steering - (p.steering || 0)) * (1 - Math.exp(-dt * 7));
+    p.turn = p.steering * CONFIG.turnRate;
     p.angle += p.turn * dt;
     p.speed += (CONFIG.playerSpeed - p.speed) * (1 - Math.exp(-2 * dt));
     const grip = 1 - Math.exp(-10 * dt);
     p.vx += (-Math.sin(p.angle) * p.speed - p.vx) * grip;
     p.vz += (-Math.cos(p.angle) * p.speed - p.vz) * grip;
     if (this.move(p, dt)) {
-      if (this.hitCooldown <= 0)
+      p.wallContacts++;
+      if (this.elapsed - (p.lastWallSound || -1) > 0.5) {
         this.recordImpact(p, p.lastImpact, "player-wall");
-      this.damage(12);
-      p.speed = 7;
-      p.vx *= 0.55;
-      p.vz *= 0.55;
+        p.lastWallSound = this.elapsed;
+      }
+      // Preserve tangential movement. When head-on, smoothly choose a wall
+      // tangent so auto-forward driving never locks the car against a facade.
+      if (Math.hypot(p.vx, p.vz) < 5) {
+        const desired =
+          p.escapeAngle ?? p.angle + ((p.steering < 0 ? -1 : 1) * Math.PI) / 2;
+        p.angle += clamp(angleDelta(desired, p.angle), -3 * dt, 3 * dt);
+      }
+    }
+    p.slip = Math.abs(p.vx * Math.cos(p.angle) - p.vz * Math.sin(p.angle));
+    if (
+      this.elapsed >= this.nextReinforcement &&
+      this.police.length < CONFIG.maxPolice
+    ) {
+      const active = this.police.filter((c) => c.state === "active");
+      const nearest = Math.min(
+        Infinity,
+        ...active.map((c) => Math.hypot(c.x - p.x, c.z - p.z)),
+      );
+      if (nearest > 16 || this.elapsed >= 22) {
+        const id = this.police.length,
+          spawn = this.navigation.spawn(p, this.police, id);
+        if (spawn) {
+          const c = makePolice(id);
+          Object.assign(c, spawn, { angle: Math.atan2(c.x - p.x, c.z - p.z) });
+          c.angle = Math.atan2(c.x - p.x, c.z - p.z);
+          this.police.push(c);
+          previous.set(c, { x: c.x, z: c.z });
+        }
+      }
+      this.nextReinforcement = this.elapsed + 6;
     }
     for (let i = 0; i < this.police.length; i++) {
       const c = this.police[i];
       if (c.state !== "active") {
         c.wreckAge += dt;
         if (c.wreckAge >= CONFIG.respawnSeconds) {
-          this.police[i] = makePolice(c.id, c.generation + 1, p);
+          const spawn = this.navigation.spawn(
+            p,
+            this.police,
+            c.id,
+            c.generation + 1,
+          );
+          if (!spawn) continue;
+          this.police[i] = Object.assign(
+            makePolice(c.id, c.generation + 1, p),
+            spawn,
+          );
           previous.set(this.police[i], {
             x: this.police[i].x,
             z: this.police[i].z,
@@ -204,7 +275,7 @@ export class Simulation {
       }
       c.wallCooldown = Math.max(0, (c.wallCooldown || 0) - dt);
       c.pairCooldown = Math.max(0, (c.pairCooldown || 0) - dt);
-      steerPolice(c, i, p, dt);
+      steerPolice(c, i, p, dt, this.navigation, this.police);
       if (this.move(c, dt, CONFIG.policeRadius)) {
         const damage = wallImpact(c, c.lastImpact);
         if (damage > 0) {
@@ -213,7 +284,7 @@ export class Simulation {
           this.recordImpact(c, c.lastImpact, "police-wall");
         }
         c.stuck += dt;
-        c.angle += dt * 2;
+        c.routeTimer = 0;
         c.vx *= 0.75;
         c.vz *= 0.75;
       } else c.stuck = Math.max(0, c.stuck - dt * 0.5);
@@ -254,8 +325,8 @@ export class Simulation {
             Math.hypot(p.vx - c.vx, p.vz - c.vz),
             "player-police",
           );
-        this.damage(8);
-        p.speed = Math.max(3, p.speed - dt * 15);
+        this.damage(5);
+        p.speed = Math.max(12, p.speed - dt * 8);
       }
       if (d < 7) nearby++;
     }

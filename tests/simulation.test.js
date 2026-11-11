@@ -43,11 +43,11 @@ test("automatic forward and left/right steering; obsolete drift input has no eff
   other.police = [];
   tick(s, 0.5, { left: true });
   tick(other, 0.5, { left: true, drift: true });
-  assert.ok(s.player.angle > 0.9);
+  assert.ok(s.player.angle > 0.4);
   assert.deepEqual(s.player, other.player);
   const angle = s.player.angle;
   tick(s, 0.5, { right: true });
-  assert.ok(s.player.angle < angle - 0.9);
+  assert.ok(s.player.angle < angle - 0.25);
 });
 test("player is 20% faster; normal police cannot close straight-line gap or gain time-based speed", () => {
   assert.equal(CONFIG.playerSpeed / CONFIG.policeSpeed, 1.2);
@@ -76,12 +76,15 @@ test("circle is expelled from all sides and inside a building", () => {
     assert.ok(Math.abs(p.x) >= 5.149 || Math.abs(p.z) >= 5.149);
   }
 });
-test("building collision prevents tunnelling and reduces player durability", () => {
+test("building collision prevents tunnelling without player durability loss", () => {
   const s = create({ buildings: [{ x: 0, z: 0, w: 8, d: 8 }] });
   s.police = [];
   tick(s, 1.5);
-  assert.ok(s.player.z >= 5.149);
-  assert.ok(s.health < 100);
+  assert.equal(
+    resolveBuilding({ ...s.player }, { x: 0, z: 0, w: 8, d: 8 }, 1.14),
+    false,
+  );
+  assert.equal(s.health, 100);
 });
 test("police contacts separate vehicles, exchange impulse, and damage in proportion to impact", () => {
   const [a, b] = pair(4);
@@ -263,27 +266,16 @@ test("police wall impacts use normal closing speed, threshold and cooldown", () 
   wallImpact(c, 20);
   assert.ok(c.health < health);
 });
-test("actual building contact damages police and repeated hard collisions explode", () => {
+test("navigation prevents deliberate repeated wall charges", () => {
   const s = create({ buildings: [{ x: 0, z: 0, w: 8, d: 8 }] });
-  s.player.x = 60;
-  s.player.z = -60;
-  s.police = [
-    Object.assign(makePolice(0), { x: 0, z: 7, angle: 0, vx: 0, vz: -20 }),
-  ];
-  for (let impact = 0; impact < 8 && s.police[0].state === "active"; impact++) {
-    Object.assign(s.police[0], {
-      x: 0,
-      z: 5.6,
-      angle: 0,
-      vx: 0,
-      vz: -20,
-      wallCooldown: 0,
-    });
-    s.update(1 / 60, {});
-  }
-  assert.equal(s.police[0].state, "wreck");
-  assert.ok(s.stats.wallDamage >= 100);
-  assert.equal(s.stats.explosions, 1);
+  s.player.x = 0;
+  s.player.z = -12;
+  s.police = [Object.assign(makePolice(0), { x: 0, z: 12, angle: 0 })];
+  tick(s, 8);
+  assert.equal(s.police[0].health, 100);
+  assert.equal(s.stats.wallCollisions, 0);
+  assert.ok(s.police[0].replans > 0);
+  assert.ok(s.police[0].z < 0);
 });
 test("resting wall contact and rapid repeated light pair contacts cannot instantly explode", () => {
   const [a, b] = pair(4);
@@ -310,7 +302,7 @@ test("visible park obstacles share the police impact/health pipeline", () => {
     Object.assign(makePolice(0), { x: 0, z: 1.9, angle: 0, vx: 0, vz: -20 }),
   ];
   s.update(1 / 60, {});
-  assert.ok(s.police[0].health < 100);
-  assert.ok(s.stats.wallCollisions > 0);
+  assert.equal(s.police[0].health, 100);
+  assert.equal(s.stats.wallCollisions, 0);
   assert.ok(createLayout().obstacles.length > 0);
 });

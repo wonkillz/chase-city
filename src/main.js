@@ -88,7 +88,11 @@ function frame(ms) {
   } else accumulator = 0;
   if (state === "running") audio.update(sim);
   ui.update(sim);
-  renderer?.render(sim, state === "running" || state === "ready" ? dt : 0);
+  renderer?.render(
+    sim,
+    state === "running" || state === "ready" ? dt : 0,
+    state === "running",
+  );
 }
 if (renderer) ui.showMission(sim);
 requestAnimationFrame(frame);
