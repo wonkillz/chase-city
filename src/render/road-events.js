@@ -73,10 +73,14 @@ export class RoadEventsRenderer {
     const group = new THREE.Group();
     this.scene.add(group);
     group.visible = false;
-    this.box(group, 0, 0.65, 0, 5.8, 1.1, 1.2, 0x142e40);
-    for (let x = -2.5; x <= 2.5; x += 0.7)
-      this.box(group, x, 0.85, -0.62, 0.32, 0.65, 0.06, 0xffce19);
-    for (const x of [-2.5, 2.5]) {
+    this.box(group, 0, 0.65, 0, 11.2, 1.1, 1.2, 0xffd500);
+    for (let x = -5; x <= 5; x += 0.85) {
+      for (const z of [-0.62, 0.62]) {
+        const stripe = this.box(group, x, 0.85, z, 0.33, 0.95, 0.06, 0x101820);
+        stripe.rotation.z = -0.4;
+      }
+    }
+    for (const x of [-5, 5]) {
       this.box(group, x, 0.18, 0, 0.7, 0.3, 1.5, 0x23373e);
       this.box(group, x, 1.4, 0, 0.3, 0.4, 0.3, 0xff2e20);
     }

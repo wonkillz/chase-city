@@ -69,6 +69,13 @@ export function steerPolice(
     c.role === "pursuit"
       ? 0
       : 1.1 + Math.min(1, elapsed / 60) * 0.6 + (index % 3) * 0.55;
+  const surrounding = Math.hypot(player.vx, player.vz) < 8 && close < 18;
+  const slotAngle = player.angle + ((c.id % 4) * Math.PI) / 2;
+  const slot = {
+    x: player.x - Math.sin(slotAngle) * (c.id < 4 ? 3.4 : 5.4),
+    z: player.z - Math.cos(slotAngle) * (c.id < 4 ? 3.4 : 5.4),
+  };
+  c.role = surrounding ? "contain" : c.role;
   const ahead = {
     x: player.x + player.vx * lead,
     z: player.z + player.vz * lead,
@@ -78,10 +85,11 @@ export function steerPolice(
     : navigation.allowed(player)
       ? { x: player.x, z: player.z }
       : { x: clamp(player.x, -95, 95), z: clamp(player.z, -95, 95) };
-  const direct = close < 22 && navigation.clear(c, player);
+  const target = surrounding ? slot : player;
+  const direct = close < 22 && navigation.clear(c, target);
   let waypoint;
   if (direct) {
-    waypoint = player;
+    waypoint = target;
     c.route = [];
     c.routeTimer = 0;
   } else {
@@ -151,7 +159,24 @@ export function steerPolice(
     c.boostTimer = 2.8 + difficulty * 0.6;
   }
   c.effectiveSpeed = c.boostTimer > 0 ? 26 + difficulty * 2 : c.speed;
-  const speed = c.effectiveSpeed * corner;
+  let speed = c.effectiveSpeed * corner;
+  if (surrounding) speed = Math.min(speed, Math.max(0, d - 0.12) * 2.2, 7);
+  // Gently match a nearby slower car instead of accelerating into a stationary cordon.
+  for (const other of fleet)
+    if (surrounding && other !== c && other.state === "active") {
+      const ox = other.x - c.x,
+        oz = other.z - c.z,
+        dist = Math.hypot(ox, oz);
+      if (
+        dist < 4.8 &&
+        dist > 0 &&
+        (ox * dx + oz * dz) / (dist * (d || 1)) > 0.7
+      )
+        speed = Math.min(
+          speed,
+          Math.hypot(other.vx, other.vz) + Math.max(0, dist - 3.2) * 2,
+        );
+    }
   const grip = 1 - Math.exp(-dt * 7);
   c.vx += ((dx / (d || 1)) * speed - c.vx) * grip;
   c.vz += ((dz / (d || 1)) * speed - c.vz) * grip;
@@ -207,11 +232,15 @@ export function collidePolice(a, b) {
   b.x += nx * correction;
   b.z += nz * correction;
   if (closing <= 0) return 0;
+  const relative = Math.hypot(a.vx - b.vx, a.vz - b.vz);
+  const peakSpeed = Math.max(Math.hypot(a.vx, a.vz), Math.hypot(b.vx, b.vz));
   const impulse = closing * 0.65;
   a.vx -= nx * impulse;
   a.vz -= nz * impulse;
   b.vx += nx * impulse;
   b.vz += nz * impulse;
+  // Impulse/depenetration still applies, but a slow stationary cordon has no crash damage.
+  if (closing < 10 || relative < 10 || peakSpeed < 8) return 0;
   const damage = impactDamage(closing, CONFIG.pairDamageScale);
   let applied = 0;
   for (const car of [a, b])

@@ -31,7 +31,7 @@ export function measureEscape(
     });
   }
   return {
-    version: "1.4",
+    version: "1.5",
     method:
       "Legal roadblock-aware left/right controller through the full mission, no position/health edits or forced completion; 180-second limit.",
     runs,

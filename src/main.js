@@ -40,8 +40,6 @@ ui.start.addEventListener("click", () => {
     audio.reset();
     state = "ready";
     input.clear();
-    ui.showMission(sim);
-    return;
   }
   audio.unlock();
   if (state === "ready") {

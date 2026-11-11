@@ -1,0 +1,172 @@
+{
+  "version": "1.5",
+  "uniqueScenarios": 26,
+  "passed": 26,
+  "fullRun": {
+    "passed": 25,
+    "failed": 1
+  },
+  "recheckRun": {
+    "passed": 6,
+    "failed": 0
+  },
+  "note": "Initial Chromium cordon test reached BUSTED but the subsequent WRECKED UI did not update within the five-second assertion window on the software GPU. Independent reproduction passed. The test now waits for a fresh running frame and allows 45 seconds for the failure UI. Persistent-effect fixtures synchronize wreck animation age with simulation time. Road-only reinforcement filtering and conservative wreck/smoke visibility bounds were then hardened, covered by units, and all six affected pursuit/failure/persistent-effect scenarios were rechecked on the final code.",
+  "results": [
+    {
+      "project": "desktop-chromium",
+      "title": "mission briefing freezes cars; keyboard/touch steering, pause, destruction and retry",
+      "status": "passed",
+      "durationMs": 33025
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "mission briefing freezes cars; keyboard/touch steering, pause, destruction and retry",
+      "status": "passed",
+      "durationMs": 15642
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "survival opens escape without payout; final gate succeeds once and retry resets",
+      "status": "passed",
+      "durationMs": 25793
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "survival opens escape without payout; final gate succeeds once and retry resets",
+      "status": "passed",
+      "durationMs": 11070
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real building materials fade and restore; chain explosions render debris/fire/smoke, launch wrecks and respawn",
+      "status": "passed",
+      "durationMs": 51411
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real building materials fade and restore; chain explosions render debris/fire/smoke, launch wrecks and respawn",
+      "status": "passed",
+      "durationMs": 15672
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "rendered pixels reveal the whole car through complete building geometry and restore",
+      "status": "passed",
+      "durationMs": 36427
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "rendered pixels reveal the whole car through complete building geometry and restore",
+      "status": "passed",
+      "durationMs": 13916
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real Web Audio unlock, engine/siren/skid, mute, pause and UI sounds",
+      "status": "passed",
+      "durationMs": 39638
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real Web Audio unlock, engine/siren/skid, mute, pause and UI sounds",
+      "status": "passed",
+      "durationMs": 26124
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "unavailable Web Audio leaves START, pause and gameplay working",
+      "status": "passed",
+      "durationMs": 36732
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "unavailable Web Audio leaves START, pause and gameplay working",
+      "status": "passed",
+      "durationMs": 13604
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "HUD sound and pause buttons fit phone viewports with fallback fonts",
+      "status": "passed",
+      "durationMs": 29334
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "HUD sound and pause buttons fit phone viewports with fallback fonts",
+      "status": "passed",
+      "durationMs": 14946
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+      "status": "passed",
+      "durationMs": 90624
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+      "status": "passed",
+      "durationMs": 19401
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "player wall sliding costs zero health and remains controllable on keyboard/touch",
+      "status": "passed",
+      "durationMs": 24024
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "player wall sliding costs zero health and remains controllable on keyboard/touch",
+      "status": "passed",
+      "durationMs": 7520
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "two-second road-control warning, actual barrier meshes and escape-clear navigation",
+      "status": "passed",
+      "durationMs": 44453
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "two-second road-control warning, actual barrier meshes and escape-clear navigation",
+      "status": "passed",
+      "durationMs": 7390
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "green outside gate, direction/distance UI, post-60 chase and final ESCAPED reward",
+      "status": "passed",
+      "durationMs": 72006
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "green outside gate, direction/distance UI, post-60 chase and final ESCAPED reward",
+      "status": "passed",
+      "durationMs": 10988
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real cordon produces BUSTED, releases no explosions, stops sound and restarts; destruction is WRECKED",
+      "status": "passed",
+      "durationMs": 20639
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real cordon produces BUSTED, releases no explosions, stops sound and restarts; destruction is WRECKED",
+      "status": "passed",
+      "durationMs": 9946
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "yellow full roadblock and persistent burned body/fire/smoke/debris render after eight seconds and reset",
+      "status": "passed",
+      "durationMs": 57441
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "yellow full roadblock and persistent burned body/fire/smoke/debris render after eight seconds and reset",
+      "status": "passed",
+      "durationMs": 12791
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { clearSegment, distance } from "./navigation.js";
+import { RoadNavigation, distance } from "./navigation.js";
 export const BARRICADE_TIMES = Object.freeze([10, 20, 30, 40, 50]);
 export function overlap(a, b, margin = 0) {
   return (
@@ -21,22 +21,17 @@ export function planBarricade(player, navigation, solids, active, fleet, id) {
     if (dist < 25 || dist > 80) continue;
     const b = {
       id,
-      x: node.x + (vertical ? -2.4 : 0),
-      z: node.z + (horizontal ? -2.4 : 0),
-      w: vertical ? 5.8 : 1.2,
-      d: vertical ? 1.2 : 5.8,
+      x: node.x,
+      z: node.z,
+      w: vertical ? 11.2 : 1.2,
+      d: vertical ? 1.2 : 11.2,
       kind: "barricade",
       vertical,
       road: { x: node.x, z: node.z },
-      gap: {
-        x: node.x + (vertical ? 3 : 0),
-        z: node.z + (horizontal ? 3 : 0),
-        width: 5,
-      },
       forward: { x: fx, z: fz },
     };
     if (
-      solids.some((box) => overlap(b, box, 1.5)) ||
+      solids.some((box) => overlap(b, box, 0.8)) ||
       active.some((box) => distance(box, b) < 20) ||
       fleet.some(
         (c) =>
@@ -58,22 +53,17 @@ export function planBarricade(player, navigation, solids, active, fleet, id) {
         x: node.x + (vertical ? 0 : 6),
         z: node.z + (vertical ? 6 : 0),
       };
-    const gapBefore = {
-        x: b.gap.x - (vertical ? 0 : 6),
-        z: b.gap.z - (vertical ? 6 : 0),
-      },
-      gapAfter = {
-        x: b.gap.x + (vertical ? 0 : 6),
-        z: b.gap.z + (vertical ? 6 : 0),
-      };
-    if (!clearSegment(gapBefore, gapAfter, [...solids, b], 1.5)) continue;
-    if (!navigation.findPath(before, after).length) continue;
-    candidates.push({ b, score });
+    candidates.push({ b, score, before, after });
   }
   candidates.sort(
     (a, b) => a.score - b.score || a.b.x - b.b.x || a.b.z - b.b.z,
   );
-  return candidates[0]?.b || null;
+  for (const candidate of candidates) {
+    const trial = new RoadNavigation([...solids, ...active, candidate.b]);
+    const detour = trial.findPath(candidate.before, candidate.after);
+    if (detour.length >= 4) return { ...candidate.b, detour };
+  }
+  return null;
 }
 export function updateBarricades(sim) {
   let changed = false;
@@ -89,7 +79,7 @@ export function updateBarricades(sim) {
       const b = planBarricade(
         sim.player,
         sim.navigation,
-        sim.staticSolids,
+        [...sim.staticSolids, ...sim.wrecks.filter((w) => w.solid)],
         sim.barricades,
         sim.police,
         time / 10,

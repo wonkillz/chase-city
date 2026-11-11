@@ -1,6 +1,8 @@
 import { CONFIG, clamp, angleDelta } from "./config.js";
 import { RoadNavigation } from "./navigation.js";
 import { resolveBuilding } from "../world/layout.js";
+import { inspectEnclosure } from "./arrest.js";
+import { addWreck, updateWrecks } from "./wrecks.js";
 import { chooseExit, constrainToWorld } from "./escape.js";
 import { updateBarricades } from "./barricades.js";
 import { createMission, updateMission } from "./missions.js";
@@ -8,6 +10,7 @@ import {
   makePolice,
   steerPolice,
   collidePolice,
+  policeContact,
   wallImpact,
 } from "./police.js";
 export class Simulation {
@@ -22,7 +25,11 @@ export class Simulation {
     this.reset();
   }
   refreshNavigation() {
-    this.solids = [...this.staticSolids, ...this.barricades];
+    this.solids = [
+      ...this.staticSolids,
+      ...this.barricades,
+      ...this.wrecks.filter((w) => w.solid),
+    ];
     this.navigation.setSolids(this.solids);
     for (const car of this.police) {
       car.route = [];
@@ -39,6 +46,11 @@ export class Simulation {
   }
   reset(missionId = "survival60") {
     this.runNumber++;
+    this.wrecks = [];
+    this.retiringWrecks = [];
+    this.wreckId = 0;
+    this.hasWreckVisibility = false;
+    this.enclosure = { trapped: false, exits: 24, nearby: 0 };
     this.barricades = [];
     this.barricadeEvents = [];
     this.barricadeWarnings = new Set();
@@ -206,6 +218,7 @@ export class Simulation {
       if (c.state !== "active") continue;
       this.stats.explosions++;
       if (chained.has(c)) this.stats.chainExplosions++;
+      addWreck(this, c);
       c.state = "wreck";
       c.health = 0;
       c.wreckAge = 0;
@@ -245,6 +258,7 @@ export class Simulation {
         }
       }
     }
+    this.refreshNavigation();
   }
   update(dt, input = {}) {
     if (!this.started || this.result || dt <= 0) return;
@@ -252,6 +266,7 @@ export class Simulation {
     this.elapsed += dt;
     this.hitCooldown -= dt;
     const p = this.player;
+    updateWrecks(this);
     this.previousPlayer = { x: p.x, z: p.z };
     if (this.escape.phase === "locked" && this.barricadesEnabled)
       updateBarricades(this);
@@ -392,22 +407,24 @@ export class Simulation {
       const dx = p.x - c.x,
         dz = p.z - c.z,
         d = Math.hypot(dx, dz);
-      if (d < 2.55) {
-        const nx = d > 1e-6 ? dx / d : 1,
-          nz = d > 1e-6 ? dz / d : 0,
-          overlap = (2.55 - d) / 2;
-        p.x += nx * overlap;
-        p.z += nz * overlap;
-        c.x -= nx * overlap;
-        c.z -= nz * overlap;
-        if (this.hitCooldown <= 0)
-          this.recordImpact(
-            p,
-            Math.hypot(p.vx - c.vx, p.vz - c.vz),
-            "player-police",
-          );
-        this.damage(5);
-        p.speed = Math.max(12, p.speed - dt * 8);
+      const contact = policeContact(p, c);
+      if (contact) {
+        const { x: nx, z: nz, depth } = contact;
+        p.x -= nx * (depth * 0.8 + 0.001);
+        p.z -= nz * (depth * 0.8 + 0.001);
+        c.x += nx * depth * 0.2;
+        c.z += nz * depth * 0.2;
+        const closing = Math.max(0, (p.vx - c.vx) * nx + (p.vz - c.vz) * nz);
+        p.vx -= nx * closing * 0.9;
+        p.vz -= nz * closing * 0.9;
+        c.vx += nx * closing * 0.1;
+        c.vz += nz * closing * 0.1;
+        if (closing > 3) {
+          if (this.hitCooldown <= 0)
+            this.recordImpact(p, closing, "player-police");
+          this.damage(5);
+        }
+        p.speed = Math.max(0, p.speed - closing * 0.25);
       }
       if (d < 7) nearby++;
     }
@@ -431,8 +448,18 @@ export class Simulation {
     }
     for (const c of this.police)
       if (c.state === "active" && c.health <= 0) this.explodePolice(c);
+    const groundSpeed =
+      Math.hypot(p.x - this.previousPlayer.x, p.z - this.previousPlayer.z) / dt;
+    p.groundSpeed = groundSpeed;
+    this.enclosure =
+      groundSpeed < 3
+        ? inspectEnclosure(p, this.police, this.solids, (pose) =>
+            this.navigation.allowed(pose),
+          )
+        : { trapped: false, exits: 24, nearby: 0 };
     this.arrest = clamp(
-      this.arrest + (nearby >= 2 && Math.hypot(p.vx, p.vz) < 6 ? dt : -dt),
+      this.arrest +
+        (this.enclosure.trapped && groundSpeed < 3 ? dt : -dt * 2.5),
       0,
       CONFIG.arrestSeconds,
     );

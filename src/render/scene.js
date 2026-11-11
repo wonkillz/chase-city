@@ -1,3 +1,4 @@
+import { WreckRenderer } from "./wrecks.js";
 import * as THREE from "three";
 import { RoadEventsRenderer } from "./road-events.js";
 import { ChaseCamera } from "./camera.js";
@@ -152,6 +153,7 @@ export class CityRenderer {
     this.occlusion = new BuildingOcclusion(this.buildings);
     this.effects = new ExplosionEffects(this.scene);
     this.trails = new VehicleTrails(this.scene);
+    this.wreckRenderer = new WreckRenderer(this.scene);
     this.roadEvents = new RoadEventsRenderer(this.scene);
     this.resetMetrics();
     this.follow = new THREE.Vector3(0, 0, 0);
@@ -278,6 +280,7 @@ export class CityRenderer {
     this.camera.updateMatrixWorld(true);
     this.player.updateMatrixWorld(true);
     this.roadEvents.update(sim, this.camera);
+    this.wreckRenderer.update(sim, this.camera);
     this.occlusion.update(this.camera.position, p, dt);
     if (running) this.sampleMetrics(sim, dt);
     this.renderer.render(this.scene, this.camera);
@@ -333,6 +336,7 @@ export class CityRenderer {
   }
   reset() {
     this.roadEvents.reset();
+    this.wreckRenderer.reset();
     this.cameraRig.reset();
     this.trails.reset();
     this.resetMetrics();

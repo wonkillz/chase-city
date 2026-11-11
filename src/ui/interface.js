@@ -36,7 +36,9 @@ export class Interface {
     e["arrest-bar"].style.width =
       `${(sim.arrest / CONFIG.arrestSeconds) * 100}%`;
     e.arrest.textContent =
-      sim.arrest > 0.1 ? "체포 위험! 속도를 높이세요" : "경찰을 따돌리세요";
+      sim.arrest > 0.1
+        ? "포위 위험! 열린 방향으로 탈출하세요"
+        : "경찰을 따돌리세요";
     document.querySelector("#speed strong").textContent = Math.round(
       sim.started && !sim.result
         ? Math.hypot(sim.player.vx, sim.player.vz) * 3.6
@@ -50,7 +52,7 @@ export class Interface {
     if (sim.escape.phase === "open" && sim.elapsed - sim.escape.openedAt < 4)
       notice.textContent = "ESCAPE ROUTE OPEN!";
     else if (sim.barricadeWarning)
-      notice.textContent = `${Math.max(1, Math.ceil(sim.barricadeWarning.time - sim.elapsed))}초 후 전방 도로 통제 · 열린 틈으로 통과하세요`;
+      notice.textContent = `${Math.max(1, Math.ceil(sim.barricadeWarning.time - sim.elapsed))}초 후 전방 도로 통제 · 다른 도로로 우회하세요`;
     else notice.textContent = "";
     const guidance = document.querySelector("#escape-guidance");
     guidance.hidden = sim.escape.phase !== "open";
@@ -75,7 +77,7 @@ export class Interface {
   showMission(sim) {
     const mission = sim.mission.definition;
     this.show(
-      "MISSION BRIEFING / V1.4",
+      "MISSION BRIEFING / V1.5",
       mission.title,
       mission.objective,
       "START →",
@@ -111,12 +113,10 @@ export class Interface {
       );
     } else {
       this.show(
-        sim.result === "arrested"
-          ? "BUSTED / 경찰 체포"
-          : "WRECKED / 차량 파괴",
-        "다시 도전할까요?",
-        `도주 ${formatTime(sim.elapsed)} · 최고 기록 ${formatTime(this.best)}`,
-        "미션 다시 준비 →",
+        sim.result === "arrested" ? "BUSTED!" : "WRECKED!",
+        sim.result === "arrested" ? "경찰에게 체포됨" : "차량 파괴",
+        `${sim.result === "arrested" ? "포위에서 빠져나오지 못했습니다." : "차량 내구도가 모두 소진됐습니다."} 도주 ${formatTime(sim.elapsed)} · 최고 기록 ${formatTime(this.best)}`,
+        "RESTART →",
       );
     }
   }

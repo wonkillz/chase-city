@@ -7,7 +7,7 @@ export const CONFIG = Object.freeze({
   turnRate: 1.75,
   radius: 1.15,
   maxHealth: 100,
-  arrestSeconds: 5,
+  arrestSeconds: 3,
   policeCount: 4,
   maxPolice: 8,
   policeHealth: 100,
@@ -20,7 +20,9 @@ export const CONFIG = Object.freeze({
   policeRadius: 1.4,
   explosionRadius: 10,
   explosionDamage: 90,
-  wreckSeconds: 3,
+  wreckSeconds: 0.9,
+  maxWrecks: 16,
+  wreckLifetime: 30,
   respawnSeconds: 5,
 });
 export const clamp = (n, a, b) => Math.max(a, Math.min(b, n));

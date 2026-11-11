@@ -25,8 +25,20 @@ export function stageDriver(seed, mode = "roads") {
   const base = mode === "evasive" ? evasiveDriver(seed) : driver(seed);
   let exitPath = [],
     pathAt = -100,
-    exitId = null;
+    exitId = null,
+    detour = [],
+    detourId = null,
+    previousTime = -1;
+  const passed = new Set();
   return (sim) => {
+    if (sim.elapsed < previousTime) {
+      detour = [];
+      detourId = null;
+      exitPath = [];
+      exitId = null;
+      passed.clear();
+    }
+    previousTime = sim.elapsed;
     const p = sim.player;
     if (sim.escape?.phase === "open") {
       const e = sim.escape.exit,
@@ -52,6 +64,15 @@ export function stageDriver(seed, mode = "roads") {
         exitPath.shift();
       return steerTo(sim, exitPath[0] || goal);
     }
+    if (detour.length) {
+      while (
+        detour.length &&
+        Math.hypot(detour[0].x - p.x, detour[0].z - p.z) < 12
+      )
+        detour.shift();
+      if (detour.length) return steerTo(sim, detour[0]);
+      passed.add(detourId);
+    }
     const speed = Math.hypot(p.vx, p.vz),
       fx = speed > 3 ? p.vx / speed : -Math.sin(p.angle),
       fz = speed > 3 ? p.vz / speed : -Math.cos(p.angle);
@@ -59,6 +80,7 @@ export function stageDriver(seed, mode = "roads") {
       .filter((b) => {
         const ahead = (b.road.x - p.x) * fx + (b.road.z - p.z) * fz;
         return (
+          !passed.has(b.id) &&
           Math.abs((b.road.x - p.x) * fz - (b.road.z - p.z) * fx) < 8 &&
           (b.vertical ? Math.abs(fz) > 0.8 : Math.abs(fx) > 0.8) &&
           ahead > -5 &&
@@ -75,12 +97,25 @@ export function stageDriver(seed, mode = "roads") {
         axis = b.vertical
           ? { x: 0, z: Math.sign(fz) || -1 }
           : { x: Math.sign(fx) || -1, z: 0 };
-      const before = (p.x - b.road.x) * axis.x + (p.z - b.road.z) * axis.z;
-      const target = {
-        x: b.gap.x + axis.x * (before < -9 ? -8 : 10),
-        z: b.gap.z + axis.z * (before < -9 ? -8 : 10),
-      };
-      return steerTo(sim, target);
+      const raw = sim.navigation.findPath(
+        p,
+        { x: b.road.x + axis.x * 20, z: b.road.z + axis.z * 20 },
+        1.12,
+      );
+      detour = raw.filter(
+        (n, i) =>
+          i === raw.length - 1 ||
+          i === 0 ||
+          n.x - raw[i - 1].x !== raw[i + 1].x - n.x ||
+          n.z - raw[i - 1].z !== raw[i + 1].z - n.z,
+      );
+      detourId = b.id;
+      while (
+        detour.length &&
+        Math.hypot(detour[0].x - p.x, detour[0].z - p.z) < 12
+      )
+        detour.shift();
+      if (detour.length) return steerTo(sim, detour[0]);
     }
     return base(sim);
   };
@@ -201,7 +236,7 @@ export function measurePursuit(
   }
   const mean = (key) => runs.reduce((sum, r) => sum + r[key], 0) / runs.length;
   return {
-    version: "1.4",
+    version: "1.5",
     mode,
     method:
       "Roadblock-aware normal left/right seeded driving, fixed 60Hz; camera projection plus building line-of-sight, 5Hz visibility sampling; faded player-occluding buildings count as transparent. No health edits, teleports or forced explosions.",

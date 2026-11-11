@@ -107,14 +107,14 @@ test("mission briefing freezes cars; keyboard/touch steering, pause, destruction
   await page.evaluate(() => (window.__CHASE__.sim.health = 0));
   await expect(page.locator("#eyebrow")).toContainText("WRECKED");
   await page.locator("#start").click();
-  await expect(page.locator("#start")).toHaveText("START →");
+  await expect(page.locator("#overlay")).toBeHidden();
   expect(
     await page.evaluate(() => ({
       health: window.__CHASE__.sim.health,
       started: window.__CHASE__.sim.started,
-      time: window.__CHASE__.sim.elapsed,
+      fresh: window.__CHASE__.sim.elapsed < 2,
     })),
-  ).toEqual({ health: 100, started: false, time: 0 });
+  ).toEqual({ health: 100, started: true, fresh: true });
   expect(errors).toEqual([]);
 });
 test("survival opens escape without payout; final gate succeeds once and retry resets", async ({
@@ -158,7 +158,7 @@ test("survival opens escape without payout; final gate succeeds once and retry r
     })),
   ).toEqual(result);
   await page.locator("#start").click();
-  await expect(page.locator("#start")).toHaveText("START →");
+  await expect(page.locator("#overlay")).toBeHidden();
   expect(await page.evaluate(() => window.__CHASE__.sim.credits)).toBe(0);
 });
 test("real building materials fade and restore; chain explosions render debris/fire/smoke, launch wrecks and respawn", async ({

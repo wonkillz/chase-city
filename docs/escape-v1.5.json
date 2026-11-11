@@ -1,0 +1,52 @@
+{
+  "version": "1.5",
+  "method": "Legal roadblock-aware left/right controller through the full mission, no position/health edits or forced completion; 180-second limit.",
+  "runs": [
+    {
+      "seed": 1,
+      "exit": "south-60",
+      "result": "success",
+      "elapsed": 71.04999999999725,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 75,
+      "arrest": 0,
+      "remaining": 0.6783108649262898
+    },
+    {
+      "seed": 2,
+      "exit": "west--60",
+      "result": "destroyed",
+      "elapsed": 70.41666666666396,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 0,
+      "health": 0,
+      "arrest": 0,
+      "remaining": 157.06927240160024
+    },
+    {
+      "seed": 3,
+      "exit": "south-60",
+      "result": "destroyed",
+      "elapsed": 79.1499999999968,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 0,
+      "health": 0,
+      "arrest": 0,
+      "remaining": 179.63713340465497
+    },
+    {
+      "seed": 4,
+      "exit": "north-0",
+      "result": "success",
+      "elapsed": 86.6333333333297,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 35,
+      "arrest": 0,
+      "remaining": 1.6444585179951436
+    }
+  ],
+  "successes": 2,
+  "successRate": 0.5
+}

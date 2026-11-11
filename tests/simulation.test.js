@@ -99,7 +99,7 @@ test("building collision prevents tunnelling without player durability loss", ()
 test("police contacts separate vehicles, exchange impulse, and damage in proportion to impact", () => {
   const [a, b] = pair(4);
   const light = collidePolice(a, b);
-  assert.ok(light > 0);
+  assert.equal(light, 0);
   assert.equal(policeContact(a, b), null);
   assert.ok(a.vx < 4 && b.vx > -4);
   const [c, d] = pair(10);
@@ -118,14 +118,14 @@ test("separating and resting police contacts do not repeatedly damage cars", () 
   assert.equal(b.health, 100);
 });
 test("several moderate impacts accumulate damage and high-energy impact is lethal", () => {
-  const [a, b] = pair(6);
+  const [a, b] = pair(8);
   for (let i = 0; i < 8; i++) {
     a.pairCooldown = 0;
     b.pairCooldown = 0;
     a.x = 0;
     b.x = 2;
-    a.vx = 6;
-    b.vx = -6;
+    a.vx = 8;
+    b.vx = -8;
     collidePolice(a, b);
   }
   assert.equal(a.health, 0);
@@ -206,10 +206,14 @@ test("destroyed, arrested, and reset lifecycle is retained", () => {
   s.player.speed = 0;
   s.player.vx = 0;
   s.player.vz = 0;
-  s.police = [
-    Object.assign(makePolice(0), { x: 3, z: 8, speed: 0 }),
-    Object.assign(makePolice(1), { x: -3, z: 8, speed: 0 }),
-  ];
+  s.police = Array.from({ length: 4 }, (_, i) =>
+    Object.assign(makePolice(i), {
+      x: Math.sin((i * Math.PI) / 2) * 3.4,
+      z: 8 + Math.cos((i * Math.PI) / 2) * 3.4,
+      angle: (i * Math.PI) / 2,
+      speed: 0,
+    }),
+  );
   s.update(0.05, none);
   assert.equal(s.result, "arrested");
 });
@@ -317,7 +321,7 @@ test("resting wall contact and rapid repeated light pair contacts cannot instant
     Object.assign(b, { x: 2, z: 0, vx: -4 });
     collidePolice(a, b);
   }
-  assert.ok(first > 0);
+  assert.equal(first, 0);
   assert.equal(a.health, health);
   assert.ok(a.health > 85);
 });

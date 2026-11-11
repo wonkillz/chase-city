@@ -19,13 +19,13 @@ test("two-second road-control warning, actual barrier meshes and escape-clear na
     s.update(0.02, {});
     return {
       events: s.barricadeEvents,
-      gap: s.barricades[0].gap.width,
+      width: Math.max(s.barricades[0].w, s.barricades[0].d),
       physics: s.navigation.solids.includes(s.barricades[0]),
     };
   });
   expect(result.events[0].time).toBe(10);
   expect(result.events[0].placed).toBe(true);
-  expect(result.gap).toBeGreaterThanOrEqual(4.5);
+  expect(result.width).toBeGreaterThanOrEqual(11);
   expect(result.physics).toBe(true);
   await expect
     .poll(() =>

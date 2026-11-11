@@ -1,0 +1,53 @@
+{
+  "method": "41 simulated seconds at fixed 60Hz, stageDriver seed 1; actual renderer with merged-building ray tests and render calls every 0.4 seconds. This is renderer integration rather than device FPS.",
+  "projects": {
+    "desktop-chromium": {
+      "elapsed": 40.999999999998956,
+      "result": null,
+      "screen": {
+        "sampledSeconds": 41.19999999999992,
+        "policeVisibleSeconds": 40.39999999999992,
+        "visibleExplosions": 1,
+        "explosions": 1,
+        "nearestDistanceTime": 408.4087112998896,
+        "chaseSeconds": 41.19999999999992
+      },
+      "searches": 2650,
+      "replans": 2587,
+      "fleet": 8,
+      "meshes": 8,
+      "visibleDust": 2,
+      "visibleSkids": 14,
+      "dustPool": 48,
+      "skidPool": 64,
+      "health": 90,
+      "wallContacts": 550,
+      "wallDamage": 0,
+      "policeVisible": 8
+    },
+    "iphone-webkit": {
+      "elapsed": 40.999999999998956,
+      "result": null,
+      "screen": {
+        "sampledSeconds": 41.19999999999992,
+        "policeVisibleSeconds": 40.39999999999992,
+        "visibleExplosions": 1,
+        "explosions": 1,
+        "nearestDistanceTime": 407.425289948222,
+        "chaseSeconds": 41.19999999999992
+      },
+      "searches": 2627,
+      "replans": 2568,
+      "fleet": 8,
+      "meshes": 8,
+      "visibleDust": 2,
+      "visibleSkids": 18,
+      "dustPool": 48,
+      "skidPool": 64,
+      "health": 85,
+      "wallContacts": 556,
+      "wallDamage": 0,
+      "policeVisible": 8
+    }
+  }
+}

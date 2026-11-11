@@ -91,7 +91,7 @@ test("outside shoulders clamp locally instead of teleporting the player back int
   assert.equal(city.x, 106);
   assert.equal(city.z, 60);
 });
-test("10/20/30/40/50 road controls warn two seconds ahead and leave a car-width passage", () => {
+test("10/20/30/40/50 road controls warn two seconds ahead and block the road and leave a validated street detour", () => {
   const s = create();
   s.police = [];
   for (const time of BARRICADE_TIMES) {
@@ -105,20 +105,20 @@ test("10/20/30/40/50 road controls warn two seconds ahead and leave a car-width 
     assert.ok(event.placed);
     assert.ok(Math.abs(event.actualTime - time) < 0.001);
     const b = s.barricades.find((b) => b.id === time / 10);
-    assert.ok(b.gap.width >= 4.5);
-    assert.ok(s.staticSolids.every((box) => !overlap(b, box, 1.5)));
-    const a = b.vertical
-        ? { x: b.gap.x, z: b.z - 7 }
-        : { x: b.x - 7, z: b.gap.z },
-      c = b.vertical ? { x: b.gap.x, z: b.z + 7 } : { x: b.x + 7, z: b.gap.z };
-    assert.ok(clearSegment(a, c, s.solids, 1.5));
+    assert.equal(b.gap, undefined);
+    assert.ok(Math.max(b.w, b.d) >= 11);
+    assert.ok(s.staticSolids.every((box) => !overlap(b, box, 0.8)));
     const before = b.vertical
         ? { x: b.road.x, z: b.z - 10 }
         : { x: b.x - 10, z: b.road.z },
       after = b.vertical
         ? { x: b.road.x, z: b.z + 10 }
         : { x: b.x + 10, z: b.road.z };
-    assert.ok(s.navigation.findPath(before, after).length);
+    assert.equal(clearSegment(before, after, s.solids, 1.15), false);
+    const route = s.navigation.findPath(before, after);
+    assert.ok(route.length >= 4);
+    for (let i = 1; i < route.length; i++)
+      assert.ok(s.navigation.clear(route[i - 1], route[i]));
   }
   assert.deepEqual(
     s.barricadeEvents.map((e) => e.time),

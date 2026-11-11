@@ -73,11 +73,40 @@ export class RoadNavigation {
         if (other && this.clear(n, other)) n.neighbors.push(other.id);
       }
   }
+  stripBypasses() {
+    this.baseNodeCount ??= this.nodes.length;
+    this.nodes.length = this.baseNodeCount;
+    for (const n of this.nodes)
+      n.neighbors = n.neighbors.filter((id) => id < this.baseNodeCount);
+  }
+  buildBypasses() {
+    for (const w of this.solids.filter((b) => b.kind === "wreck"))
+      for (const x of [w.x - w.w / 2 - 1.8, w.x + w.w / 2 + 1.8])
+        for (const z of [w.z - w.d / 2 - 1.8, w.z + w.d / 2 + 1.8]) {
+          const n = { x, z, id: this.nodes.length, neighbors: [] };
+          if (!this.clear(n, n)) continue;
+          const links = this.nodes
+            .map((o) => ({ o, d: distance(n, o) }))
+            .filter((v) => v.d < 28)
+            .sort((a, b) => a.d - b.d)
+            .filter((v) => this.clear(n, v.o))
+            .slice(0, 12);
+          if (!links.length) continue;
+          this.nodes.push(n);
+          for (const { o } of links) {
+            n.neighbors.push(o.id);
+            o.neighbors.push(n.id);
+          }
+        }
+  }
   setSolids(solids) {
+    this.stripBypasses();
     this.solids = solids;
+    this.buildBypasses();
     this.revision++;
   }
   addExit(exit) {
+    this.stripBypasses();
     this.exit = exit;
     for (let forward = 100; forward <= 150; forward += 10) {
       const x = exit.dx ? exit.dx * forward : exit.x,
@@ -93,6 +122,8 @@ export class RoadNavigation {
         prev.neighbors.push(n.id);
       }
     }
+    this.baseNodeCount = this.nodes.length;
+    this.buildBypasses();
     this.revision++;
   }
   allowed(point) {
@@ -127,7 +158,7 @@ export class RoadNavigation {
     const open = new Set([from.id]),
       came = new Map(),
       g = new Map([[from.id, 0]]);
-    const h = (n) => Math.abs(n.x - to.x) + Math.abs(n.z - to.z);
+    const h = (n) => distance(n, to);
     while (open.size) {
       let id = -1,
         best = Infinity;
@@ -149,7 +180,7 @@ export class RoadNavigation {
       open.delete(id);
       for (const next of this.nodes[id].neighbors) {
         if (!this.clear(this.nodes[id], this.nodes[next])) continue;
-        const cost = g.get(id) + 10;
+        const cost = g.get(id) + distance(this.nodes[id], this.nodes[next]);
         if (cost < (g.get(next) ?? Infinity)) {
           came.set(next, id);
           g.set(next, cost);
@@ -167,6 +198,7 @@ export class RoadNavigation {
     const candidates = this.nodes.filter((n) => {
       const d = distance(n, player);
       return (
+        (this.baseNodeCount === undefined || n.id < this.baseNodeCount) &&
         this.clear(n, n) &&
         d >= 27 &&
         d <= 48 &&
