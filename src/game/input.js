@@ -4,9 +4,7 @@ export class Input {
     this.pointers = new Map();
     this.onPause = onPause;
     window.addEventListener("keydown", (e) => {
-      if (
-        ["ArrowLeft", "ArrowRight", " ", "ArrowUp", "ArrowDown"].includes(e.key)
-      )
+      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key))
         e.preventDefault();
       this.keys.add(e.code);
       if (!e.repeat && (e.code === "KeyP" || e.code === "Escape")) onPause();
@@ -49,11 +47,6 @@ export class Input {
       this.keys.has("ArrowRight") ||
       this.keys.has("KeyD") ||
       [...this.pointers.values()].includes("right")
-    );
-  }
-  get drift() {
-    return (
-      this.keys.has("Space") || [...this.pointers.values()].includes("drift")
     );
   }
 }

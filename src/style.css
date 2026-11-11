@@ -303,22 +303,6 @@ kbd {
   display: flex;
   gap: 15px;
 }
-#touch .drift {
-  font:
-    800 16px "Barlow Condensed",
-    sans-serif;
-  background: #ffd120;
-  color: #102a32;
-  border: 0;
-  width: 82px;
-  height: 82px;
-}
-#touch .drift span {
-  display: block;
-  font: 8px monospace;
-  letter-spacing: 2px;
-  margin-top: 4px;
-}
 #touch button.pressed {
   transform: translateY(3px);
   background: #fff8e7;
@@ -421,5 +405,140 @@ kbd {
   }
   .stamp {
     bottom: 35px;
+  }
+}
+
+/* V1.1 mission briefing and two-button driving */
+.overlay {
+  justify-content: center;
+  padding: 100px 20px 35px;
+  background: #071f2b80;
+  backdrop-filter: blur(3px);
+}
+.overlay section {
+  width: min(480px, 100%);
+  padding: 32px;
+  background: #102e37f5;
+  border: 1px solid #6b8c7b;
+  border-top: 4px solid #ffcf19;
+  box-shadow: 10px 12px 0 #08232b80;
+}
+.overlay h1 {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: clamp(30px, 5vw, 46px);
+  line-height: 1.2;
+  letter-spacing: -2px;
+  font-weight: 800;
+  color: #ffcf19;
+  font-style: normal;
+}
+.overlay .eyebrow {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.overlay p {
+  margin: 18px 0;
+  font-size: 13px;
+}
+.overlay .primary {
+  width: 100%;
+  margin-top: 8px;
+}
+.overlay .instructions {
+  justify-content: center;
+}
+#mission-details {
+  font-size: 12px;
+  margin: 20px 0;
+  padding: 16px 0;
+  border-block: 1px solid #47656c;
+}
+#mission-details[hidden] {
+  display: none;
+}
+#mission-details div {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 8px 0;
+}
+#mission-details dt {
+  color: #9fbeb9;
+}
+#mission-details dd {
+  margin: 0;
+  text-align: right;
+}
+#mission-hud {
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 110px;
+  transform: translateX(-50%);
+  background: #102a32e0;
+  border: 1px solid #54716b;
+  padding: 10px 20px;
+  text-align: center;
+}
+#mission-hud span {
+  display: block;
+  font: 9px monospace;
+  letter-spacing: 2px;
+  color: #ffcf19;
+}
+#mission-hud strong {
+  display: block;
+  font-size: 13px;
+  margin-top: 5px;
+}
+#touch .steering {
+  width: 100%;
+  justify-content: space-between;
+}
+@media (max-width: 700px) {
+  #mission-hud {
+    top: 100px;
+    left: 20px;
+    transform: none;
+    padding: 8px 12px;
+  }
+  .overlay section {
+    padding: 24px;
+  }
+  .overlay .instructions {
+    margin-top: 18px;
+  }
+  .overlay .mobile-hint {
+    font-size: 9px;
+  }
+}
+@media (max-height: 520px) {
+  .overlay {
+    padding: 65px 15px 12px;
+  }
+  .overlay section {
+    padding: 14px 22px;
+    max-width: 520px;
+  }
+  .overlay h1 {
+    font-size: 28px;
+  }
+  .overlay p {
+    margin: 8px 0;
+  }
+  #mission-details {
+    padding: 4px 0;
+    margin: 8px 0;
+  }
+  .overlay .eyebrow {
+    margin-bottom: 6px;
+  }
+  .overlay .instructions,
+  .overlay .mobile-hint {
+    display: none;
+  }
+  #mission-hud {
+    top: 85px;
   }
 }

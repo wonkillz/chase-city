@@ -29,10 +29,15 @@ try {
 }
 ui.start.addEventListener("click", () => {
   if (!renderer) return;
-  if (state !== "paused") {
+  if (state === "over") {
     sim.reset();
     renderer.reset();
+    state = "ready";
+    input.clear();
+    ui.showMission(sim);
+    return;
   }
+  if (state === "ready") sim.start();
   state = "running";
   input.clear();
   ui.hide();
@@ -63,14 +68,16 @@ function frame(ms) {
     }
   } else accumulator = 0;
   ui.update(sim);
-  renderer?.render(sim, dt, state === "running" && input.drift);
+  renderer?.render(sim, state === "running" || state === "ready" ? dt : 0);
 }
+if (renderer) ui.showMission(sim);
 requestAnimationFrame(frame);
 // Opt-in diagnostics for automated local tests; never enabled by normal play.
 if (import.meta.env.DEV && new URLSearchParams(location.search).has("debug"))
   window.__CHASE__ = {
     sim,
     input,
+    renderer,
     get state() {
       return state;
     },

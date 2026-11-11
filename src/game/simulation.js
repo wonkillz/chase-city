@@ -1,27 +1,42 @@
-import { CONFIG, clamp, angleDelta } from "./config.js";
+import { CONFIG, clamp } from "./config.js";
 import { resolveBuilding } from "../world/layout.js";
+import { createMission, updateMission } from "./missions.js";
+import { makePolice, steerPolice, collidePolice } from "./police.js";
 export class Simulation {
   constructor(layout) {
     this.layout = layout;
     this.reset();
   }
-  reset() {
-    this.player = { x: 0, z: 8, angle: 0, vx: 0, vz: -18, speed: 18 };
+  reset(missionId = "survival60") {
+    this.player = {
+      x: 0,
+      z: 8,
+      angle: 0,
+      vx: 0,
+      vz: -CONFIG.playerSpeed,
+      speed: CONFIG.playerSpeed,
+      turn: 0,
+    };
     this.health = 100;
     this.elapsed = 0;
     this.arrest = 0;
     this.hitCooldown = 0;
     this.result = null;
     this.collisions = 0;
-    this.police = Array.from({ length: CONFIG.policeCount }, (_, i) => ({
-      x: (i % 2 ? 1 : -1) * 3,
-      z: 30 + i * 9,
-      angle: 0,
-      vx: 0,
-      vz: 0,
-      speed: 17 + i * 0.4,
-      stuck: 0,
-    }));
+    this.started = false;
+    this.credits = 0;
+    this.mission = createMission(missionId);
+    this.events = [];
+    this.eventId = 0;
+    this.police = Array.from({ length: CONFIG.policeCount }, (_, i) =>
+      makePolice(i),
+    );
+  }
+  start() {
+    if (!this.result) {
+      this.started = true;
+      this.mission.status = "active";
+    }
   }
   damage(amount) {
     if (this.hitCooldown <= 0) {
@@ -30,36 +45,94 @@ export class Simulation {
       this.collisions++;
     }
   }
-  move(body, dt) {
+  constrain(body, radius, fallback) {
     let hit = false;
-    const steps = Math.ceil((Math.hypot(body.vx, body.vz) * dt) / 0.6) || 1;
+    // Tight alleys can be narrower than a car. Iterate neighboring contacts,
+    // then keep the last valid pose instead of pushing through another wall.
+    for (let pass = 0; pass < 8; pass++) {
+      let contact = false;
+      for (const b of this.layout.buildings)
+        if (resolveBuilding(body, b, radius)) {
+          contact = true;
+          hit = true;
+        }
+      if (!contact) break;
+    }
+    if (
+      this.layout.buildings.some((b) =>
+        resolveBuilding({ ...body }, b, radius - 1e-6),
+      )
+    ) {
+      body.x = fallback.x;
+      body.z = fallback.z;
+      hit = true;
+    }
+    const x = body.x,
+      z = body.z;
+    body.x = clamp(x, -106, 106);
+    body.z = clamp(z, -106, 106);
+    return hit || x !== body.x || z !== body.z;
+  }
+  move(body, dt, radius = CONFIG.radius) {
+    let hit = false;
+    const steps = Math.ceil((Math.hypot(body.vx, body.vz) * dt) / 0.5) || 1;
     for (let i = 0; i < steps; i++) {
+      const previous = { x: body.x, z: body.z };
       body.x += (body.vx * dt) / steps;
       body.z += (body.vz * dt) / steps;
-      for (const b of this.layout.buildings)
-        if (resolveBuilding(body, b)) hit = true;
-      const x = body.x,
-        z = body.z;
-      body.x = clamp(x, -106, 106);
-      body.z = clamp(z, -106, 106);
-      if (x !== body.x || z !== body.z) hit = true;
+      if (this.constrain(body, radius, previous)) hit = true;
     }
     return hit;
   }
-  update(dt, input) {
-    if (this.result) return;
+  explodePolice(car) {
+    if (car.state !== "active") return;
+    const queue = [car];
+    while (queue.length) {
+      const c = queue.shift();
+      if (c.state !== "active") continue;
+      c.state = "wreck";
+      c.health = 0;
+      c.wreckAge = 0;
+      c.vx = 0;
+      c.vz = 0;
+      this.events.push({
+        id: ++this.eventId,
+        type: "explosion",
+        x: c.x,
+        z: c.z,
+        time: this.elapsed,
+      });
+      if (this.events.length > 64) this.events.shift();
+      for (const other of this.police) {
+        if (other === c || other.state !== "active") continue;
+        const dx = other.x - c.x,
+          dz = other.z - c.z,
+          d = Math.hypot(dx, dz);
+        if (d >= CONFIG.explosionRadius) continue;
+        const strength = 1 - d / CONFIG.explosionRadius;
+        other.health = Math.max(
+          0,
+          other.health - CONFIG.explosionDamage * strength,
+        );
+        other.vx += (d ? dx / d : 1) * strength * 12;
+        other.vz += (d ? dz / d : 0) * strength * 12;
+        if (other.health <= 0) queue.push(other);
+      }
+    }
+  }
+  update(dt, input = {}) {
+    if (!this.started || this.result || dt <= 0) return;
     dt = Math.min(dt, 0.05);
     this.elapsed += dt;
     this.hitCooldown -= dt;
     const p = this.player;
-    p.angle +=
-      ((input.left ? 1 : 0) - (input.right ? 1 : 0)) *
-      CONFIG.turnRate *
-      (input.drift ? 1.45 : 1) *
-      dt;
-    const target = input.drift ? CONFIG.driftSpeed : CONFIG.playerSpeed;
-    p.speed += (target - p.speed) * dt * 2;
-    const grip = 1 - Math.exp(-(input.drift ? 3 : 10) * dt);
+    const previous = new Map(
+      [p, ...this.police].map((c) => [c, { x: c.x, z: c.z }]),
+    );
+    p.turn = ((input.left ? 1 : 0) - (input.right ? 1 : 0)) * CONFIG.turnRate;
+    p.angle += p.turn * dt;
+    p.speed += (CONFIG.playerSpeed - p.speed) * (1 - Math.exp(-2 * dt));
+    const grip = 1 - Math.exp(-10 * dt);
     p.vx += (-Math.sin(p.angle) * p.speed - p.vx) * grip;
     p.vz += (-Math.cos(p.angle) * p.speed - p.vz) * grip;
     if (this.move(p, dt)) {
@@ -68,73 +141,58 @@ export class Simulation {
       p.vx *= 0.55;
       p.vz *= 0.55;
     }
-    let nearby = 0;
     for (let i = 0; i < this.police.length; i++) {
       const c = this.police[i];
-      const dx = p.x - c.x,
-        dz = p.z - c.z,
-        dist = Math.hypot(dx, dz);
-      // Road graph routing: reach a road centre, then use an intersection before approaching the player.
-      const roadX = Math.round(c.x / 30) * 30,
-        roadZ = Math.round(c.z / 30) * 30;
-      let tx = p.x,
-        tz = p.z;
-      if (dist > 14) {
-        if (Math.abs(c.x - roadX) < Math.abs(c.z - roadZ)) {
-          tx = roadX;
-          tz = Math.round(p.z / 30) * 30;
-          if (Math.abs(c.z - tz) < 3) {
-            tx = p.x;
-            tz = Math.round(p.z / 30) * 30;
-          }
-        } else {
-          tx = Math.round(p.x / 30) * 30;
-          tz = roadZ;
-          if (Math.abs(c.x - tx) < 3) {
-            tx = Math.round(p.x / 30) * 30;
-            tz = p.z;
-          }
+      if (c.state !== "active") {
+        c.wreckAge += dt;
+        if (c.wreckAge >= CONFIG.respawnSeconds) {
+          this.police[i] = makePolice(c.id, c.generation + 1, p);
+          previous.set(this.police[i], {
+            x: this.police[i].x,
+            z: this.police[i].z,
+          });
         }
+        continue;
       }
-      if (c.stuck > 1) {
-        tx = c.x + Math.sin(c.angle) * 12;
-        tz = c.z + Math.cos(c.angle) * 12;
-      }
-      const desired = Math.atan2(-(tx - c.x), -(tz - c.z));
-      c.angle += clamp(angleDelta(desired, c.angle), -2.4 * dt, 2.4 * dt);
-      const speed = Math.min(23, c.speed + this.elapsed * 0.025);
-      c.vx = -Math.sin(c.angle) * speed;
-      c.vz = -Math.cos(c.angle) * speed;
-      if (this.move(c, dt)) {
+      steerPolice(c, i, p, dt);
+      if (this.move(c, dt, CONFIG.policeRadius)) {
         c.stuck += dt;
         c.angle += dt * 2;
+        c.vx *= 0.75;
+        c.vz *= 0.75;
       } else c.stuck = Math.max(0, c.stuck - dt * 0.5);
       if (c.stuck > 2.5) c.stuck = 0;
-      const separation = Math.hypot(p.x - c.x, p.z - c.z);
-      if (separation < 2.5) {
-        const nx = (p.x - c.x) / (separation || 1),
-          nz = (p.z - c.z) / (separation || 1);
-        p.x += nx * 0.18;
-        p.z += nz * 0.18;
-        c.x -= nx * 0.18;
-        c.z -= nz * 0.18;
+    }
+    // Contacts use the same fixed simulation step as vehicle movement.
+    for (let i = 0; i < this.police.length; i++)
+      for (let j = 0; j < i; j++) collidePolice(this.police[i], this.police[j]);
+    for (const c of this.police)
+      if (c.state === "active" && c.health <= 0) this.explodePolice(c);
+    let nearby = 0;
+    for (const c of this.police) {
+      if (c.state !== "active") continue;
+      const dx = p.x - c.x,
+        dz = p.z - c.z,
+        d = Math.hypot(dx, dz);
+      if (d < 2.55) {
+        const nx = d > 1e-6 ? dx / d : 1,
+          nz = d > 1e-6 ? dz / d : 0,
+          overlap = (2.55 - d) / 2;
+        p.x += nx * overlap;
+        p.z += nz * overlap;
+        c.x -= nx * overlap;
+        c.z -= nz * overlap;
         this.damage(8);
         p.speed = Math.max(3, p.speed - dt * 15);
       }
-      if (separation < 7) nearby++;
-      for (let j = 0; j < i; j++) {
-        const other = this.police[j],
-          d = Math.hypot(c.x - other.x, c.z - other.z);
-        if (d < 2.6 && d > 0.001) {
-          c.x += ((c.x - other.x) / d) * 0.1;
-          c.z += ((c.z - other.z) / d) * 0.1;
-        }
-      }
+      if (d < 7) nearby++;
     }
-    // Resolve post-impact displacement as well, so no push can put a vehicle through a building.
-    for (const b of this.layout.buildings) {
-      resolveBuilding(p, b);
-      for (const c of this.police) resolveBuilding(c, b);
+    for (const c of [p, ...this.police]) {
+      this.constrain(
+        c,
+        c === p ? CONFIG.radius : CONFIG.policeRadius,
+        previous.get(c),
+      );
     }
     this.arrest = clamp(
       this.arrest +
@@ -144,5 +202,6 @@ export class Simulation {
     );
     if (this.health <= 0) this.result = "destroyed";
     else if (this.arrest >= CONFIG.arrestSeconds) this.result = "arrested";
+    updateMission(this);
   }
 }

@@ -1,5 +1,8 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import { CONFIG } from "../game/config.js";
+import { BuildingOcclusion } from "./occlusion.js";
+import { ExplosionEffects } from "./explosions.js";
 const palette = [0xf34b32, 0xffbf22, 0x087cba, 0x13a783, 0xf38617, 0x2364ce];
 export class CityRenderer {
   constructor(canvas, layout) {
@@ -60,7 +63,13 @@ export class CityRenderer {
         for (const dz of [-6, 6]) this.tree(p.x + dx, p.z + dz);
       this.box(p.x + 4, 0.75, p.z, 3, 0.5, 0.8, 0xa84b1e);
     }
+    this.buildings = [];
+    const occlusionRay = new THREE.Raycaster();
+    const rayOrigin = new THREE.Vector3(),
+      rayTarget = new THREE.Vector3(),
+      rayDirection = new THREE.Vector3();
     for (const b of layout.buildings) {
+      const previous = new Set(this.scene.children);
       this.box(b.x, b.h / 2 + 0.4, b.z, b.w, b.h, b.d, palette[b.color]);
       this.box(b.x, b.h + 0.55, b.z, b.w + 0.35, 0.3, b.d + 0.35, 0xf8e6bd);
       this.box(b.x + 1, b.h + 1, b.z, 2, 0.8, 2, 0x71878b);
@@ -71,6 +80,49 @@ export class CityRenderer {
         }
       this.box(b.x, 1.3, b.z + b.d / 2 + 0.12, 2.4, 1.8, 0.2, 0x113a46);
       this.box(b.x, 2.4, b.z + b.d / 2 + 0.7, 3.8, 0.2, 1.5, 0xffd021);
+      const pieces = this.scene.children.filter(
+        (child) => !previous.has(child),
+      );
+      const geometries = pieces.map((piece) => {
+        piece.updateMatrix();
+        const geometry = piece.geometry.clone().applyMatrix4(piece.matrix);
+        const color = piece.material.color;
+        const colors = new Float32Array(geometry.attributes.position.count * 3);
+        for (let i = 0; i < colors.length; i += 3) {
+          colors[i] = color.r;
+          colors[i + 1] = color.g;
+          colors[i + 2] = color.b;
+        }
+        geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+        this.scene.remove(piece);
+        piece.geometry.dispose();
+        return geometry;
+      });
+      const mesh = new THREE.Mesh(
+        mergeGeometries(geometries),
+        new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.85 }),
+      );
+      geometries.forEach((g) => g.dispose());
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      mesh.userData.building = true;
+      this.scene.add(mesh);
+      mesh.updateMatrixWorld(true);
+      this.buildings.push({
+        mesh,
+        bounds: b,
+        opacity: 1,
+        occluded: false,
+        intersects(camera, target) {
+          rayOrigin.set(camera.x, camera.y, camera.z);
+          rayTarget.set(target.x, target.y, target.z);
+          rayDirection.subVectors(rayTarget, rayOrigin);
+          const distance = rayDirection.length();
+          occlusionRay.set(rayOrigin, rayDirection.normalize());
+          occlusionRay.far = Math.max(0, distance - 0.05);
+          return occlusionRay.intersectObject(mesh, false).length > 0;
+        },
+      });
     }
     for (let x = -90; x <= 90; x += 30)
       for (let z = -80; z <= 80; z += 30) {
@@ -80,21 +132,11 @@ export class CityRenderer {
       }
     this.batchStatic();
     this.player = this.car(0xffcc08, false);
-    const silhouette = new THREE.Mesh(
-      new THREE.BoxGeometry(1.9, 0.8, 3.5),
-      new THREE.MeshBasicMaterial({
-        color: 0xffda16,
-        transparent: true,
-        opacity: 0.55,
-        depthFunc: THREE.GreaterDepth,
-        depthWrite: false,
-      }),
+    this.police = Array.from({ length: CONFIG.policeCount }, () =>
+      this.car(0xf2f0e5, true),
     );
-    silhouette.position.y = 0.7;
-    silhouette.renderOrder = 5;
-    this.player.add(silhouette);
-    this.police = Array.from({ length: 4 }, () => this.car(0xf2f0e5, true));
-    this.skids = [];
+    this.occlusion = new BuildingOcclusion(this.buildings);
+    this.effects = new ExplosionEffects(this.scene);
     this.follow = new THREE.Vector3(0, 0, 0);
     this.resize();
     window.addEventListener("resize", () => this.resize());
@@ -102,7 +144,7 @@ export class CityRenderer {
   batchStatic() {
     const groups = new Map();
     for (const mesh of [...this.scene.children]) {
-      if (!mesh.isMesh) continue;
+      if (!mesh.isMesh || mesh.userData.building) continue;
       mesh.updateMatrix();
       const key = mesh.material;
       const bucket = groups.get(key) || [];
@@ -150,9 +192,12 @@ export class CityRenderer {
     this.box(0, 0.65, 0, 1.8, 0.65, 3.4, color, g);
     this.box(0, 1.15, 0.15, 1.5, 0.6, 1.6, cop ? 0x173749 : 0x1a4955, g);
     this.box(0, 1.5, 0.2, 1.55, 0.12, 1.45, color, g);
+    g.userData.wheels = [];
     for (const x of [-0.95, 0.95])
       for (const z of [-1.05, 1.05])
-        this.box(x, 0.4, z, 0.3, 0.65, 0.65, 0x17252b, g);
+        g.userData.wheels.push(
+          this.box(x, 0.4, z, 0.3, 0.65, 0.65, 0x17252b, g),
+        );
     for (const x of [-0.55, 0.55]) {
       this.box(x, 0.7, -1.73, 0.45, 0.22, 0.06, 0xfff3c4, g);
       this.box(x, 0.7, 1.73, 0.45, 0.2, 0.06, 0xff3028, g);
@@ -171,36 +216,43 @@ export class CityRenderer {
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
   }
-  render(sim, dt, drift) {
+  render(sim, dt) {
     const p = sim.player;
     this.player.position.set(p.x, 0, p.z);
     this.player.rotation.y = p.angle;
-    this.player.rotation.z = drift ? Math.sin(sim.elapsed * 15) * 0.035 : 0;
+    this.player.rotation.z +=
+      (-p.turn * 0.045 - this.player.rotation.z) * (1 - Math.exp(-dt * 9));
+    for (const wheel of this.player.userData.wheels) {
+      wheel.rotation.x = -sim.elapsed * p.speed;
+      wheel.rotation.y = wheel.position.z < 0 ? p.turn * 0.15 : 0;
+    }
     this.player.visible = !(
       sim.hitCooldown > 0.4 && Math.floor(sim.elapsed * 15) % 2
     );
     sim.police.forEach((c, i) => {
       const mesh = this.police[i];
-      mesh.position.set(c.x, 0, c.z);
-      mesh.rotation.y = c.angle;
-      mesh.userData.red.visible = Math.floor(sim.elapsed * 8 + i) % 2 === 0;
-      mesh.userData.blue.visible = !mesh.userData.red.visible;
-    });
-    if (
-      drift &&
-      Math.hypot(p.vx, p.vz) > 8 &&
-      sim.elapsed - (this.lastSkid || 0) > 0.07
-    ) {
-      this.lastSkid = sim.elapsed;
-      const mark = this.box(p.x, 0.18, p.z, 1.5, 0.015, 0.55, 0x1b2e2b);
-      mark.rotation.y = p.angle;
-      this.skids.push(mark);
-      if (this.skids.length > 100) {
-        const old = this.skids.shift();
-        this.scene.remove(old);
-        old.geometry.dispose();
+      mesh.visible = c.state === "active" || c.wreckAge < CONFIG.wreckSeconds;
+      const t = c.wreckAge;
+      mesh.position.set(
+        c.x,
+        c.state === "wreck" ? Math.max(0, 9 * t - 10 * t * t) : 0,
+        c.z,
+      );
+      mesh.rotation.set(
+        c.state === "wreck" ? Math.min(t * 3, Math.PI) : 0,
+        c.angle,
+        c.state === "wreck" ? Math.min(t * 2, 1.5) : -c.turn * 0.04,
+      );
+      mesh.userData.red.visible =
+        c.state === "active" && Math.floor(sim.elapsed * 8 + i) % 2 === 0;
+      mesh.userData.blue.visible =
+        c.state === "active" && !mesh.userData.red.visible;
+      for (const wheel of mesh.userData.wheels) {
+        wheel.rotation.x = -sim.elapsed * c.speed;
+        wheel.rotation.y = wheel.position.z < 0 ? c.turn * 0.15 : 0;
       }
-    }
+    });
+    this.effects.update(sim.events, sim.elapsed);
     this.follow.lerp(new THREE.Vector3(p.x, 0, p.z), 1 - Math.exp(-dt * 5));
     const mobile = innerWidth < 700;
     this.camera.position.set(
@@ -209,15 +261,13 @@ export class CityRenderer {
       this.follow.z + 40,
     );
     this.camera.lookAt(this.follow.x, 0, this.follow.z - 6);
+    this.occlusion.update(this.camera.position, p, dt);
     this.renderer.render(this.scene, this.camera);
   }
   reset() {
     this.follow.set(0, 0, 8);
-    for (const m of this.skids) {
-      this.scene.remove(m);
-      m.geometry.dispose();
-    }
-    this.skids = [];
-    this.lastSkid = 0;
+    this.occlusion.reset();
+    this.effects.reset();
+    this.player.rotation.set(0, 0, 0);
   }
 }
