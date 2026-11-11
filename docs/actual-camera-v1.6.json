@@ -1,0 +1,53 @@
+{
+  "method": "41 simulated seconds, legal stageDriver seed 2, actual renderer camera and merged-building ray tests. Rendering sampled every 0.4 seconds. This integration sample is not a device FPS benchmark.",
+  "projects": {
+    "desktop-chromium": {
+      "elapsed": 40.999999999998956,
+      "result": null,
+      "screen": {
+        "sampledSeconds": 41.19999999999992,
+        "policeVisibleSeconds": 40.79999999999992,
+        "visibleExplosions": 0,
+        "explosions": 0,
+        "nearestDistanceTime": 451.7757789232168,
+        "chaseSeconds": 41.19999999999992
+      },
+      "searches": 641,
+      "replans": 639,
+      "fleet": 8,
+      "meshes": 8,
+      "visibleDust": 1,
+      "visibleSkids": 10,
+      "dustPool": 48,
+      "skidPool": 64,
+      "health": 100,
+      "wallContacts": 182,
+      "wallDamage": 0,
+      "policeVisible": 8
+    },
+    "iphone-webkit": {
+      "elapsed": 40.999999999998956,
+      "result": null,
+      "screen": {
+        "sampledSeconds": 41.19999999999992,
+        "policeVisibleSeconds": 39.59999999999992,
+        "visibleExplosions": 4,
+        "explosions": 4,
+        "nearestDistanceTime": 453.9831179442698,
+        "chaseSeconds": 41.19999999999992
+      },
+      "searches": 766,
+      "replans": 765,
+      "fleet": 8,
+      "meshes": 8,
+      "visibleDust": 1,
+      "visibleSkids": 12,
+      "dustPool": 48,
+      "skidPool": 64,
+      "health": 95,
+      "wallContacts": 183,
+      "wallDamage": 6.551122557166325,
+      "policeVisible": 4
+    }
+  }
+}

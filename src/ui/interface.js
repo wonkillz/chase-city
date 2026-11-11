@@ -77,7 +77,7 @@ export class Interface {
   showMission(sim) {
     const mission = sim.mission.definition;
     this.show(
-      "MISSION BRIEFING / V1.5",
+      "MISSION BRIEFING / V1.6",
       mission.title,
       mission.objective,
       "START →",

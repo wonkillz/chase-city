@@ -148,7 +148,7 @@ test("yellow full roadblock and persistent burned body/fire/smoke/debris render 
     yellow: 0xffd500,
     width: 11.2,
     striped: true,
-    pool: 24,
+    pool: 16,
   });
   expect(measured.fragments).toBeGreaterThanOrEqual(4);
   expect(measured.detour).toBeGreaterThanOrEqual(4);

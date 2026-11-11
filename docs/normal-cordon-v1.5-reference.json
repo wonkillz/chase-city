@@ -1,0 +1,151 @@
+{
+  "version": "1.5",
+  "commit": "f32b4f9eaeb5f688e4f6583f7e3c63c2ea6f480c",
+  "method": "Captured before edits on V1.5. Normal START; forward means no steering, right5 means neutral for five seconds then hold right. Fixed 60 Hz, no police placement, health edits or forced outcomes. Extra enclosure diagnostics do not change simulation state.",
+  "cases": [
+    {
+      "name": "forward",
+      "result": null,
+      "time": 59.999999999997875,
+      "health": 90,
+      "maxArrest": 0.21666666666666665,
+      "maxNearby": 4,
+      "movingEnclosureSamples": 137,
+      "sample": [
+        {
+          "t": 32.41666666666611,
+          "speed": 4.50432626689647,
+          "enclosure": {
+            "trapped": false,
+            "exits": 1,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -53.77602917247826,
+          "z": -106
+        },
+        {
+          "t": 32.6166666666661,
+          "speed": 4.504326266881122,
+          "enclosure": {
+            "trapped": false,
+            "exits": 1,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -52.87516391910086,
+          "z": -106
+        },
+        {
+          "t": 32.81666666666609,
+          "speed": 4.504326266873022,
+          "enclosure": {
+            "trapped": false,
+            "exits": 1,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -51.974298665725655,
+          "z": -106
+        },
+        {
+          "t": 33.016666666666076,
+          "speed": 4.504326266868759,
+          "enclosure": {
+            "trapped": true,
+            "exits": 0,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -51.07343341235159,
+          "z": -106
+        },
+        {
+          "t": 33.216666666666065,
+          "speed": 4.504326266866627,
+          "enclosure": {
+            "trapped": true,
+            "exits": 0,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -50.17256815897811,
+          "z": -106
+        }
+      ],
+      "explosions": 3
+    },
+    {
+      "name": "right5",
+      "result": null,
+      "time": 59.999999999997875,
+      "health": 95,
+      "maxArrest": 0,
+      "maxNearby": 4,
+      "movingEnclosureSamples": 83,
+      "sample": [
+        {
+          "t": 22.216666666666686,
+          "speed": 4.198265202906839,
+          "enclosure": {
+            "trapped": false,
+            "exits": 5,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -90.22055877125514,
+          "z": -106
+        },
+        {
+          "t": 22.416666666666675,
+          "speed": 6.056879209790225,
+          "enclosure": {
+            "trapped": false,
+            "exits": 5,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -91.26157939530064,
+          "z": -106
+        },
+        {
+          "t": 22.616666666666664,
+          "speed": 5.9954956040812135,
+          "enclosure": {
+            "trapped": false,
+            "exits": 5,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -92.28458265252647,
+          "z": -106
+        },
+        {
+          "t": 22.816666666666652,
+          "speed": 5.122770316853007,
+          "enclosure": {
+            "trapped": false,
+            "exits": 5,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -93.3149532172694,
+          "z": -106
+        },
+        {
+          "t": 23.01666666666664,
+          "speed": 5.00939923475471,
+          "enclosure": {
+            "trapped": false,
+            "exits": 6,
+            "nearby": 3
+          },
+          "arrest": 0,
+          "x": -94.3305320133059,
+          "z": -106
+        }
+      ],
+      "explosions": 7
+    }
+  ]
+}

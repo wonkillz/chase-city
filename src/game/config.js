@@ -21,8 +21,7 @@ export const CONFIG = Object.freeze({
   explosionRadius: 10,
   explosionDamage: 90,
   wreckSeconds: 0.9,
-  maxWrecks: 16,
-  wreckLifetime: 30,
+  initialWreckSlots: 16,
   respawnSeconds: 5,
 });
 export const clamp = (n, a, b) => Math.max(a, Math.min(b, n));

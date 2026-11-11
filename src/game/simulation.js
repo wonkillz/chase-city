@@ -47,10 +47,10 @@ export class Simulation {
   reset(missionId = "survival60") {
     this.runNumber++;
     this.wrecks = [];
-    this.retiringWrecks = [];
     this.wreckId = 0;
-    this.hasWreckVisibility = false;
-    this.enclosure = { trapped: false, exits: 24, nearby: 0 };
+    this.enclosure = { trapped: false, exits: 1, nearby: 0 };
+    this.enclosureTimer = 0;
+    this.cordonSamples = [];
     this.barricades = [];
     this.barricadeEvents = [];
     this.barricadeWarnings = new Set();
@@ -243,12 +243,21 @@ export class Simulation {
         if (d >= CONFIG.explosionRadius) continue;
         const strength = 1 - d / CONFIG.explosionRadius;
         const beforeHealth = other.health;
+        const protectedCordon =
+          other.health > 0 &&
+          other.role === "contain" &&
+          Math.hypot(other.vx, other.vz) <= 8 &&
+          Math.hypot(other.x - this.player.x, other.z - this.player.z) < 12;
+        const blastDamage = protectedCordon
+          ? Math.min(6, CONFIG.explosionDamage * strength * 0.1)
+          : CONFIG.explosionDamage * strength;
         other.health = Math.max(
-          0,
-          other.health - CONFIG.explosionDamage * strength,
+          protectedCordon ? 1 : 0,
+          other.health - blastDamage,
         );
-        other.vx += (d ? dx / d : 1) * strength * 12;
-        other.vz += (d ? dz / d : 0) * strength * 12;
+        const impulse = protectedCordon ? 1.5 : 12;
+        other.vx += (d ? dx / d : 1) * strength * impulse;
+        other.vz += (d ? dz / d : 0) * strength * impulse;
         if (other.health <= 0) {
           if (beforeHealth > 0) {
             chained.add(other);
@@ -401,12 +410,8 @@ export class Simulation {
       }
     for (const c of this.police)
       if (c.state === "active" && c.health <= 0) this.explodePolice(c);
-    let nearby = 0;
     for (const c of this.police) {
       if (c.state !== "active") continue;
-      const dx = p.x - c.x,
-        dz = p.z - c.z,
-        d = Math.hypot(dx, dz);
       const contact = policeContact(p, c);
       if (contact) {
         const { x: nx, z: nz, depth } = contact;
@@ -426,9 +431,8 @@ export class Simulation {
         }
         p.speed = Math.max(0, p.speed - closing * 0.25);
       }
-      if (d < 7) nearby++;
     }
-    for (const c of [p, ...this.police]) {
+    for (const c of [p, ...this.police.filter((c) => c.state === "active")]) {
       const before = { x: c.x, z: c.z };
       const hit = this.constrain(
         c,
@@ -451,15 +455,55 @@ export class Simulation {
     const groundSpeed =
       Math.hypot(p.x - this.previousPlayer.x, p.z - this.previousPlayer.z) / dt;
     p.groundSpeed = groundSpeed;
-    this.enclosure =
-      groundSpeed < 3
-        ? inspectEnclosure(p, this.police, this.solids, (pose) =>
-            this.navigation.allowed(pose),
-          )
-        : { trapped: false, exits: 24, nearby: 0 };
+    const near = this.police.filter(
+      (c) => c.state === "active" && Math.hypot(c.x - p.x, c.z - p.z) < 8,
+    );
+    const center = near.reduce(
+      (a, c) => ({ x: a.x + c.x / near.length, z: a.z + c.z / near.length }),
+      { x: 0, z: 0 },
+    );
+    const relative = {
+      x: p.x - center.x,
+      z: p.z - center.z,
+      time: this.elapsed,
+    };
+    this.cordonSamples.push(relative);
+    while (
+      this.cordonSamples.length > 1 &&
+      this.elapsed - this.cordonSamples[0].time > 0.5
+    )
+      this.cordonSamples.shift();
+    const oldest = this.cordonSamples[0],
+      span = this.elapsed - oldest.time;
+    p.effectiveEscapeSpeed =
+      span > 0
+        ? Math.hypot(relative.x - oldest.x, relative.z - oldest.z) / span
+        : 0;
+    this.enclosureTimer -= dt;
+    if (near.length < 3) {
+      this.enclosure = {
+        trapped: false,
+        exits: 1,
+        nearby: near.length,
+        reason: "outside-cordon",
+      };
+      this.enclosureTimer = 0;
+    } else if (
+      this.enclosureTimer <= 0 ||
+      this.arrest >= CONFIG.arrestSeconds - 0.12
+    ) {
+      this.enclosure = inspectEnclosure(p, this.police, this.solids, (pose) =>
+        this.navigation.allowed(pose),
+      );
+      this.enclosureTimer = 0.15;
+    }
+    // World-space shoving is not a successful escape. A sealed, moving cordon
+    // still arrests; a genuine drivable exit or leaving the officers releases it.
+    p.contained = this.enclosure.trapped;
+    if (p.contained && p.cordonHeading === undefined) p.cordonHeading = p.angle;
+    if (!p.contained && this.arrest === 0) p.cordonHeading = undefined;
     this.arrest = clamp(
-      this.arrest +
-        (this.enclosure.trapped && groundSpeed < 3 ? dt : -dt * 2.5),
+      this.arrest + (p.contained ? dt : -dt * 2.5),
       0,
       CONFIG.arrestSeconds,
     );

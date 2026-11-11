@@ -68,14 +68,15 @@ test("stationary and low-speed three/four-car contact never accumulates durabili
 test("open space and a removed cordon officer clear the gauge quickly instead of false arrest", () => {
   assert.equal(inspectEnclosure({ x: 0, z: 0 }, ring(5), []).trapped, false);
   assert.equal(
-    inspectEnclosure({ x: 0, z: 0 }, ring().slice(0, 3), []).trapped,
+    inspectEnclosure({ x: 0, z: 0 }, [ring()[0], ring()[1], ring()[3]], [])
+      .trapped,
     false,
   );
   const s = make();
   s.police = ring();
   tick(s, 1.6);
   assert.ok(s.arrest > 1.5);
-  Object.assign(s.police[0], { x: 30, z: 30 });
+  Object.assign(s.police[2], { x: 30, z: 30 });
   tick(s, 0.75);
   assert.equal(s.arrest, 0);
   assert.equal(s.result, null);
@@ -172,33 +173,31 @@ test("wreck bypass nodes preserve a clear A-star route on the single outside esc
   for (let i = 1; i < path.length; i++)
     assert.ok(s.navigation.clear(path[i - 1], path[i]));
 });
-test("wreck cap prioritizes old offscreen objects; visible expiry retires gradually and restart clears everything", () => {
+test("wreck data survives age, offscreen travel and growth beyond the former cap until restart", () => {
   const s = make();
-  s.hasWreckVisibility = true;
-  for (let i = 0; i < CONFIG.maxWrecks; i++) {
-    addWreck(s, { x: i * 5, z: 30, angle: 0 });
-    s.wrecks.at(-1).visible = true;
+  for (let i = 0; i < 64; i++)
+    addWreck(s, {
+      x: (i % 8) * 6 - 21,
+      z: Math.floor(i / 8) * 6 - 21,
+      angle: 0,
+    });
+  const records = [...s.wrecks],
+    poses = records.map((w) => [w.x, w.z, w.angle, w.id]);
+  for (const time of [1, 30, 60, 120]) {
+    s.elapsed = time;
+    updateWrecks(s);
+    assert.equal(s.wrecks.length, 64);
+    assert.ok(records.every((w, i) => s.wrecks[i] === w));
+    assert.deepEqual(
+      s.wrecks.map((w) => [w.x, w.z, w.angle, w.id]),
+      poses,
+    );
   }
-  const protectedId = s.wrecks[0].id,
-    offscreen = s.wrecks[3];
-  offscreen.visible = false;
-  addWreck(s, { x: 80, z: 30, angle: 0 });
-  assert.equal(s.wrecks.length, CONFIG.maxWrecks);
-  assert.ok(s.wrecks.some((w) => w.id === protectedId));
-  assert.ok(!s.wrecks.includes(offscreen));
-  s.elapsed = 31;
-  updateWrecks(s);
-  assert.equal(s.wrecks.length, 0);
-  assert.ok(s.retiringWrecks.length <= 8);
-  assert.ok(s.retiringWrecks.every((w) => w.retiredAt === 31));
-  s.elapsed += 1.51;
-  updateWrecks(s);
-  assert.equal(s.retiringWrecks.length, 0);
+  assert.ok(s.wrecks.every((w) => w.solid));
   s.reset();
   assert.deepEqual(s.wrecks, []);
-  assert.deepEqual(s.retiringWrecks, []);
 });
-test("persistent fire, black smoke, grounded fragments and body use a bounded shared-material pool", () => {
+test("persistent fire, smoke and fragments reuse shared materials without per-frame growth", () => {
   const scene = new THREE.Scene(),
     r = new WreckRenderer(scene),
     s = make();
@@ -210,13 +209,14 @@ test("persistent fire, black smoke, grounded fragments and body use a bounded sh
   camera.position.set(20, 30, 30);
   camera.lookAt(0, 0, 0);
   camera.updateMatrixWorld(true);
+  r.update(s, camera);
   const count = scene.children.length;
   for (let i = 0; i < 200; i++) {
     s.elapsed += 0.01;
     r.update(s, camera);
   }
   assert.equal(scene.children.length, count);
-  assert.equal(r.pool.length, CONFIG.maxWrecks + CONFIG.maxPolice);
+  assert.equal(r.pool.length, CONFIG.initialWreckSlots);
   const slot = r.pool.find((p) => p.group.visible);
   assert.ok(slot);
   assert.equal(slot.flames.length, 3);
@@ -228,7 +228,7 @@ test("persistent fire, black smoke, grounded fragments and body use a bounded sh
   assert.ok(r.pool.every((p) => !p.group.visible && p.id === null));
 });
 
-test("offset cordon with a curved vehicle-width opening cannot trigger arrest", () => {
+test("a circle-only offset gap is not an exit when the full car cannot steer through", () => {
   const poses = [
     [-1.2927676331812241, 4.506179473992953, 0.4185317602020452],
     [3.257897159577368, -0.22795014265363095, 1.7660351310004763],
@@ -239,8 +239,8 @@ test("offset cordon with a curved vehicle-width opening cannot trigger arrest", 
     Object.assign(makePolice(i), { x, z, angle }),
   );
   const result = inspectEnclosure({ x: 0, z: 0 }, cops, []);
-  assert.equal(result.trapped, false);
-  assert.ok(result.exits > 0);
+  assert.equal(result.trapped, true);
+  assert.equal(result.reason, "blocked-footprint");
 });
 test("reinforcements stay on actual roads rather than spawning on wreck bypass corners", () => {
   const nav = new RoadNavigation([]);

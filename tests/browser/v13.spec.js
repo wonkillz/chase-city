@@ -13,7 +13,7 @@ test("real camera tracks routed pursuit, eight-car fleet and bounded rear effect
   const metrics = await page.evaluate(async () => {
     const { sim: s, renderer: r } = window.__CHASE__;
     const { stageDriver } = await import("/scripts/pursuit.js");
-    const control = stageDriver(1);
+    const control = stageDriver(2);
     s.reset();
     s.start();
     r.reset();

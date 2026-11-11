@@ -69,8 +69,10 @@ export function steerPolice(
     c.role === "pursuit"
       ? 0
       : 1.1 + Math.min(1, elapsed / 60) * 0.6 + (index % 3) * 0.55;
-  const surrounding = Math.hypot(player.vx, player.vz) < 8 && close < 18;
-  const slotAngle = player.angle + ((c.id % 4) * Math.PI) / 2;
+  const surrounding =
+    (player.contained || Math.hypot(player.vx, player.vz) < 8) && close < 18;
+  const slotAngle =
+    (player.cordonHeading ?? player.angle) + ((c.id % 4) * Math.PI) / 2;
   const slot = {
     x: player.x - Math.sin(slotAngle) * (c.id < 4 ? 3.4 : 5.4),
     z: player.z - Math.cos(slotAngle) * (c.id < 4 ? 3.4 : 5.4),
@@ -160,7 +162,24 @@ export function steerPolice(
   }
   c.effectiveSpeed = c.boostTimer > 0 ? 26 + difficulty * 2 : c.speed;
   let speed = c.effectiveSpeed * corner;
-  if (surrounding) speed = Math.min(speed, Math.max(0, d - 0.12) * 2.2, 7);
+  if (surrounding) {
+    speed = Math.min(speed, Math.max(0, d - 0.12) * 2.2, 6);
+    c.boostTimer = 0;
+    // Brake on entering a low-speed cordon, before contacts are resolved.
+    const current = Math.hypot(c.vx, c.vz);
+    if (current > 6) {
+      c.vx *= 6 / current;
+      c.vz *= 6 / current;
+    }
+    const px = player.x - c.x,
+      pz = player.z - c.z,
+      range = Math.hypot(px, pz) || 1;
+    const approach = (c.vx * px + c.vz * pz) / range;
+    if (approach > 4) {
+      c.vx -= ((approach - 4) * px) / range;
+      c.vz -= ((approach - 4) * pz) / range;
+    }
+  }
   // Gently match a nearby slower car instead of accelerating into a stationary cordon.
   for (const other of fleet)
     if (surrounding && other !== c && other.state === "active") {
@@ -240,7 +259,13 @@ export function collidePolice(a, b) {
   b.vx += nx * impulse;
   b.vz += nz * impulse;
   // Impulse/depenetration still applies, but a slow stationary cordon has no crash damage.
-  if (closing < 10 || relative < 10 || peakSpeed < 8) return 0;
+  if (
+    closing < 10 ||
+    relative < 10 ||
+    peakSpeed < 8 ||
+    (a.role === "contain" && b.role === "contain" && peakSpeed < 10)
+  )
+    return 0;
   const damage = impactDamage(closing, CONFIG.pairDamageScale);
   let applied = 0;
   for (const car of [a, b])

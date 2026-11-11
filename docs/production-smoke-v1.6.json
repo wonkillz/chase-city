@@ -1,0 +1,10 @@
+{
+  "version": "1.6",
+  "title": "CHASE CITY V1.6 — 도시 탈출",
+  "startAndTimer": true,
+  "keyboardAndMovement": true,
+  "mute": true,
+  "pauseFreezesTimer": true,
+  "developmentHookExcluded": true,
+  "pageErrors": []
+}

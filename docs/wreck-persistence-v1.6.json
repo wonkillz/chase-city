@@ -1,0 +1,245 @@
+{
+  "version": "1.6",
+  "projects": {
+    "desktop-chromium": {
+      "method": "Collision/health fixture for initial explosion; fixed 60Hz simulation updates for age 1/30/60/61/62 seconds, no elapsed-time assignments. Two officers naturally respawn first; empty police fixture then isolates long-duration persistence. Forty further explosion fixtures exercise old-cap overflow. Observer camera only moves; wreck positions are unchanged.",
+      "records": [
+        {
+          "time": 1.2833333333333337,
+          "age": 1.0000000000000004,
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8,
+          "sameData": true,
+          "solid": true,
+          "visible": true,
+          "flames": 3,
+          "smoke": 4,
+          "smokeY": [
+            4.500000000000001,
+            5.750000000000001,
+            2.0000000000000004,
+            3.2500000000000004
+          ],
+          "count": 2
+        },
+        {
+          "time": 30.29999999999956,
+          "age": 30.016666666666225,
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8,
+          "sameData": true,
+          "solid": true,
+          "visible": true,
+          "flames": 3,
+          "smoke": 4,
+          "smokeY": [
+            1.5499999999986755,
+            2.7999999999986755,
+            4.0499999999986755,
+            5.2999999999986755
+          ],
+          "count": 2
+        },
+        {
+          "time": 60.29999999999786,
+          "age": 60.01666666666453,
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8,
+          "sameData": true,
+          "solid": true,
+          "visible": true,
+          "flames": 3,
+          "smoke": 4,
+          "smokeY": [
+            1.5499999999935596,
+            2.7999999999935596,
+            4.04999999999356,
+            5.29999999999356
+          ],
+          "count": 2
+        },
+        {
+          "time": 61.2999999999978,
+          "age": 61.01666666666447,
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8,
+          "sameData": true,
+          "solid": true,
+          "visible": true,
+          "flames": 3,
+          "smoke": 4,
+          "smokeY": [
+            4.549999999993389,
+            5.799999999993389,
+            2.049999999993389,
+            3.299999999993389
+          ],
+          "count": 2
+        }
+      ],
+      "away": {
+        "visible": false,
+        "same": true,
+        "count": 2
+      },
+      "respawn": {
+        "time": 6.399999999999983,
+        "age": 6.116666666666649,
+        "generations": [
+          1,
+          1
+        ],
+        "sameData": true,
+        "count": 2
+      },
+      "growth": {
+        "count": 42,
+        "slots": 42,
+        "pool": 42,
+        "sameData": true,
+        "sameSlot": true,
+        "pose": {
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8
+        },
+        "visible": true,
+        "age": 62.2166666666644
+      },
+      "frozen": {
+        "time": 62.5166666666644,
+        "count": 42,
+        "smoke": [
+          3.149999999993206,
+          4.399999999993206,
+          5.649999999993206,
+          1.8999999999932058
+        ]
+      }
+    },
+    "iphone-webkit": {
+      "method": "Collision/health fixture for initial explosion; fixed 60Hz simulation updates for age 1/30/60/61/62 seconds, no elapsed-time assignments. Two officers naturally respawn first; empty police fixture then isolates long-duration persistence. Forty further explosion fixtures exercise old-cap overflow. Observer camera only moves; wreck positions are unchanged.",
+      "records": [
+        {
+          "time": 1.7166666666666655,
+          "age": 1.0166666666666648,
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8,
+          "sameData": true,
+          "solid": true,
+          "visible": true,
+          "flames": 3,
+          "smoke": 4,
+          "smokeY": [
+            4.5499999999999945,
+            5.7999999999999945,
+            2.049999999999995,
+            3.299999999999995
+          ],
+          "count": 2
+        },
+        {
+          "time": 30.716666666666203,
+          "age": 30.016666666666204,
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8,
+          "sameData": true,
+          "solid": true,
+          "visible": true,
+          "flames": 3,
+          "smoke": 4,
+          "smokeY": [
+            1.5499999999986045,
+            2.7999999999986045,
+            4.0499999999986045,
+            5.2999999999986045
+          ],
+          "count": 2
+        },
+        {
+          "time": 60.7166666666645,
+          "age": 60.0166666666645,
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8,
+          "sameData": true,
+          "solid": true,
+          "visible": true,
+          "flames": 3,
+          "smoke": 4,
+          "smokeY": [
+            1.5499999999934886,
+            2.7999999999934886,
+            4.049999999993489,
+            5.299999999993489
+          ],
+          "count": 2
+        },
+        {
+          "time": 61.716666666664445,
+          "age": 61.01666666666444,
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8,
+          "sameData": true,
+          "solid": true,
+          "visible": true,
+          "flames": 3,
+          "smoke": 4,
+          "smokeY": [
+            4.549999999993318,
+            5.799999999993318,
+            2.049999999993318,
+            3.299999999993318
+          ],
+          "count": 2
+        }
+      ],
+      "away": {
+        "visible": false,
+        "same": true,
+        "count": 2
+      },
+      "respawn": {
+        "time": 6.816666666666648,
+        "age": 6.116666666666648,
+        "generations": [
+          1,
+          1
+        ],
+        "sameData": true,
+        "count": 2
+      },
+      "growth": {
+        "count": 42,
+        "slots": 42,
+        "pool": 42,
+        "sameData": true,
+        "sameSlot": true,
+        "pose": {
+          "id": 1,
+          "x": -0.051000000000000045,
+          "z": -8
+        },
+        "visible": true,
+        "age": 62.21666666666437
+      },
+      "frozen": {
+        "time": 62.93333333333104,
+        "count": 42,
+        "smoke": [
+          3.149999999993099,
+          4.399999999993099,
+          5.649999999993099,
+          1.8999999999930992
+        ]
+      }
+    }
+  }
+}
