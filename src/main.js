@@ -86,8 +86,15 @@ function frame(ms) {
       }
     }
   } else accumulator = 0;
-  if (state === "running") audio.update(sim);
-  ui.update(sim);
+  if (state === "running") {
+    audio.update(sim);
+    if (sim.escape.phase === "open" && audio.escapeRun !== sim.runNumber) {
+      audio.escapeRun = sim.runNumber;
+      audio.voice("tone", 1, 784);
+      audio.voice("tone", 1, 1046, 0.15);
+    }
+  }
+  ui.update(sim, renderer?.roadEvents.view);
   renderer?.render(
     sim,
     state === "running" || state === "ready" ? dt : 0,

@@ -1,0 +1,140 @@
+{
+  "version": "1.4",
+  "method": "Legal roadblock-aware left/right controller through the full mission, no position/health edits or forced completion; 180-second limit.",
+  "runs": [
+    {
+      "seed": 1,
+      "exit": "south-60",
+      "result": "success",
+      "elapsed": 70.09999999999731,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 70,
+      "arrest": 0,
+      "remaining": 1.227770213367367
+    },
+    {
+      "seed": 2,
+      "exit": "west--60",
+      "result": "success",
+      "elapsed": 71.61666666666389,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 95,
+      "arrest": 0,
+      "remaining": 2.6052500468597364
+    },
+    {
+      "seed": 3,
+      "exit": "south-60",
+      "result": "success",
+      "elapsed": 65.96666666666421,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 55,
+      "arrest": 0,
+      "remaining": 2.370806047255857
+    },
+    {
+      "seed": 4,
+      "exit": "north-0",
+      "result": "success",
+      "elapsed": 70.53333333333062,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 85,
+      "arrest": 0,
+      "remaining": 1.4994842926128147
+    },
+    {
+      "seed": 5,
+      "exit": "south-60",
+      "result": "success",
+      "elapsed": 64.86666666666427,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 75,
+      "arrest": 0,
+      "remaining": 2.1076971882999054
+    },
+    {
+      "seed": 6,
+      "exit": "north-0",
+      "result": "success",
+      "elapsed": 70.51666666666395,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 55,
+      "arrest": 0,
+      "remaining": 1.9972784236120604
+    },
+    {
+      "seed": 7,
+      "exit": "east-60",
+      "result": "success",
+      "elapsed": 70.16666666666397,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 75,
+      "arrest": 0,
+      "remaining": 1.5797173725974545
+    },
+    {
+      "seed": 8,
+      "exit": "south--60",
+      "result": "success",
+      "elapsed": 76.39999999999695,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 85,
+      "arrest": 0,
+      "remaining": 1.24171313361371
+    },
+    {
+      "seed": 9,
+      "exit": "west-0",
+      "result": "success",
+      "elapsed": 68.29999999999741,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 80,
+      "arrest": 0,
+      "remaining": 1.1140037151229119
+    },
+    {
+      "seed": 10,
+      "exit": "east--60",
+      "result": "success",
+      "elapsed": 67.14999999999748,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 85,
+      "arrest": 0,
+      "remaining": 2.242039645384679
+    },
+    {
+      "seed": 11,
+      "exit": "west-0",
+      "result": "success",
+      "elapsed": 73.56666666666378,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 70,
+      "arrest": 0,
+      "remaining": 1.7597604098500836
+    },
+    {
+      "seed": 12,
+      "exit": "east--60",
+      "result": "success",
+      "elapsed": 67.08333333333081,
+      "escapeOpenedAt": 59.999999999997875,
+      "credits": 500,
+      "health": 80,
+      "arrest": 0,
+      "remaining": 1.9361184794184196
+    }
+  ],
+  "successes": 12,
+  "successRate": 1
+}

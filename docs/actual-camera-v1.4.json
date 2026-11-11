@@ -1,0 +1,53 @@
+{
+  "method": "41 simulated seconds at fixed 60Hz, seed 1 roadblock-aware left/right inputs, no health/position edits. Actual renderer, exact merged-building rays, camera sampled with render calls every 0.4 seconds; frozen shadow updates. Renderer integration, not device FPS.",
+  "projects": {
+    "desktop-chromium": {
+      "elapsed": 40.999999999998956,
+      "result": null,
+      "screen": {
+        "sampledSeconds": 41.19999999999992,
+        "policeVisibleSeconds": 39.59999999999992,
+        "visibleExplosions": 4,
+        "explosions": 4,
+        "nearestDistanceTime": 454.37114355537585,
+        "chaseSeconds": 41.19999999999992
+      },
+      "searches": 698,
+      "replans": 314,
+      "fleet": 8,
+      "meshes": 8,
+      "visibleDust": 2,
+      "visibleSkids": 6,
+      "dustPool": 48,
+      "skidPool": 64,
+      "health": 85,
+      "wallContacts": 153,
+      "wallDamage": 0,
+      "policeVisible": 8
+    },
+    "iphone-webkit": {
+      "elapsed": 40.999999999998956,
+      "result": null,
+      "screen": {
+        "sampledSeconds": 41.19999999999992,
+        "policeVisibleSeconds": 37.59999999999993,
+        "visibleExplosions": 11,
+        "explosions": 11,
+        "nearestDistanceTime": 556.697516052647,
+        "chaseSeconds": 40.79999999999992
+      },
+      "searches": 862,
+      "replans": 407,
+      "fleet": 8,
+      "meshes": 8,
+      "visibleDust": 1,
+      "visibleSkids": 14,
+      "dustPool": 48,
+      "skidPool": 64,
+      "health": 75,
+      "wallContacts": 698,
+      "wallDamage": 0,
+      "policeVisible": 4
+    }
+  }
+}

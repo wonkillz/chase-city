@@ -1,0 +1,11 @@
+{
+  "version": "1.4",
+  "productionURL": "http://127.0.0.1:4173",
+  "title": "CHASE CITY V1.4 — 도시 탈출",
+  "startAndTimer": true,
+  "keyboardInputAndMoving": true,
+  "mute": true,
+  "pauseFreezesTimer": true,
+  "developmentHookExcluded": true,
+  "pageErrors": []
+}

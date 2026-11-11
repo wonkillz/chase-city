@@ -24,7 +24,10 @@ test("A* goes around buildings with every waypoint segment clear", () => {
   assert.ok(path.some((n) => n.z === 0 || n.z === 30));
 });
 test("police routes around opposite side, replans on player reversal and never charges facade", () => {
-  const s = new Simulation({ buildings: [{ x: 15, z: 15, w: 18, d: 18 }] });
+  const s = new Simulation(
+    { buildings: [{ x: 15, z: 15, w: 18, d: 18 }] },
+    { reinforcements: false, barricades: false },
+  );
   s.start();
   s.police = [
     Object.assign(makePolice(0), { x: 0, z: 15, angle: -Math.PI / 2 }),
@@ -47,7 +50,10 @@ test("police routes around opposite side, replans on player reversal and never c
   assert.equal(c.health, 100);
 });
 test("smoothed steering has no instant reversal and wall contact slides without damage or trapping", () => {
-  const s = new Simulation({ buildings: [{ x: 0, z: 0, w: 8, d: 8 }] });
+  const s = new Simulation(
+    { buildings: [{ x: 0, z: 0, w: 8, d: 8 }] },
+    { reinforcements: false, barricades: false },
+  );
   s.start();
   s.police = [];
   s.update(1 / 60, { left: true });
@@ -76,12 +82,11 @@ test("initial fleet four, reinforcements use clear roads away from all vehicles,
   // Force only encounter time/position in a deterministic recruitment fixture.
   for (let i = 0; i < 8; i++) {
     s.elapsed = 25 + i * 7;
-    s.nextReinforcement = s.elapsed;
     Object.assign(s.player, { x: 0, z: 0 });
     s.update(1 / 60, {});
   }
   assert.equal(s.police.length, 8);
-  assert.ok(s.police.every((c) => c.speed === 20));
+  assert.ok(s.police.every((c) => c.speed === 22));
   for (const c of s.police)
     for (const b of s.layout.buildings)
       assert.equal(resolveBuilding({ ...c }, b, 1.39), false);

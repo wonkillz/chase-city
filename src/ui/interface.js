@@ -1,3 +1,4 @@
+import { CONFIG } from "../game/config.js";
 export const formatTime = (t) =>
   `${Math.floor(t / 60)
     .toString()
@@ -27,12 +28,13 @@ export class Interface {
       this.best = Number(localStorage.getItem("chase-city-best")) || 0;
     } catch {}
   }
-  update(sim) {
+  update(sim, escapeView = null) {
     const e = this.elements;
     e.time.textContent = formatTime(sim.elapsed);
     e.health.textContent = `${Math.ceil(sim.health)}%`;
     e["health-bar"].style.width = `${sim.health}%`;
-    e["arrest-bar"].style.width = `${(sim.arrest / 4) * 100}%`;
+    e["arrest-bar"].style.width =
+      `${(sim.arrest / CONFIG.arrestSeconds) * 100}%`;
     e.arrest.textContent =
       sim.arrest > 0.1 ? "체포 위험! 속도를 높이세요" : "경찰을 따돌리세요";
     document.querySelector("#speed strong").textContent = Math.round(
@@ -41,7 +43,24 @@ export class Interface {
         : 0,
     );
     e["mission-progress"].textContent =
-      `${sim.mission.definition.progressLabel} ${Math.floor(sim.mission.progress)} / ${sim.mission.definition.target}${sim.mission.definition.unit}`;
+      sim.escape.phase === "locked"
+        ? `${sim.mission.definition.progressLabel} ${Math.floor(sim.mission.progress)} / 60초`
+        : "탈출 · 최종 게이트로 이동";
+    const notice = document.querySelector("#notice");
+    if (sim.escape.phase === "open" && sim.elapsed - sim.escape.openedAt < 4)
+      notice.textContent = "ESCAPE ROUTE OPEN!";
+    else if (sim.barricadeWarning)
+      notice.textContent = `${Math.max(1, Math.ceil(sim.barricadeWarning.time - sim.elapsed))}초 후 전방 도로 통제 · 열린 틈으로 통과하세요`;
+    else notice.textContent = "";
+    const guidance = document.querySelector("#escape-guidance");
+    guidance.hidden = sim.escape.phase !== "open";
+    if (escapeView) {
+      document.querySelector("#escape-arrow").style.transform =
+        `rotate(${escapeView.angle}deg)`;
+      document.querySelector("#escape-distance").textContent =
+        `${Math.ceil(escapeView.distance)} m`;
+      document.querySelector("#escape-name").textContent = escapeView.name;
+    }
   }
   show(eyebrow, title, message, button) {
     this.overlay.hidden = false;
@@ -56,7 +75,7 @@ export class Interface {
   showMission(sim) {
     const mission = sim.mission.definition;
     this.show(
-      "MISSION BRIEFING / V1.3",
+      "MISSION BRIEFING / V1.4",
       mission.title,
       mission.objective,
       "START →",
@@ -85,8 +104,8 @@ export class Interface {
     } catch {}
     if (sim.result === "success") {
       this.show(
-        "MISSION COMPLETE",
-        "미션 성공!",
+        "ESCAPED!",
+        "도시 탈출 성공!",
         `${sim.mission.definition.title} 완료 · 보상 ${sim.credits} 크레딧 획득`,
         "다음 도전 →",
       );

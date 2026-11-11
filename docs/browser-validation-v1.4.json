@@ -1,0 +1,140 @@
+{
+  "version": "1.4",
+  "uniqueScenarios": 22,
+  "passed": 22,
+  "note": "Full suite: 21 passed; one Chromium screenshot exceeded 60 seconds on the software GPU after functional assertions passed. Both real-camera scenarios were rerun with a 120-second capture timeout and explicit 41-second live-simulation assertions: 2 passed. No game code changed between these final runs.",
+  "results": [
+    {
+      "project": "desktop-chromium",
+      "title": "mission briefing freezes cars; keyboard/touch steering, pause, destruction and retry",
+      "status": "passed",
+      "durationMs": 63976
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "mission briefing freezes cars; keyboard/touch steering, pause, destruction and retry",
+      "status": "passed",
+      "durationMs": 15394
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "survival opens escape without payout; final gate succeeds once and retry resets",
+      "status": "passed",
+      "durationMs": 38927
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "survival opens escape without payout; final gate succeeds once and retry resets",
+      "status": "passed",
+      "durationMs": 9477
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real building materials fade and restore; chain explosions render debris/fire/smoke, launch wrecks and respawn",
+      "status": "passed",
+      "durationMs": 75116
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real building materials fade and restore; chain explosions render debris/fire/smoke, launch wrecks and respawn",
+      "status": "passed",
+      "durationMs": 8901
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "rendered pixels reveal the whole car through complete building geometry and restore",
+      "status": "passed",
+      "durationMs": 41079
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "rendered pixels reveal the whole car through complete building geometry and restore",
+      "status": "passed",
+      "durationMs": 4734
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real Web Audio unlock, engine/siren/skid, mute, pause and UI sounds",
+      "status": "passed",
+      "durationMs": 43340
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real Web Audio unlock, engine/siren/skid, mute, pause and UI sounds",
+      "status": "passed",
+      "durationMs": 12262
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "unavailable Web Audio leaves START, pause and gameplay working",
+      "status": "passed",
+      "durationMs": 39312
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "unavailable Web Audio leaves START, pause and gameplay working",
+      "status": "passed",
+      "durationMs": 12196
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "HUD sound and pause buttons fit phone viewports with fallback fonts",
+      "status": "passed",
+      "durationMs": 31186
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "HUD sound and pause buttons fit phone viewports with fallback fonts",
+      "status": "passed",
+      "durationMs": 2522
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+      "status": "passed",
+      "durationMs": 93855
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+      "status": "passed",
+      "durationMs": 20333
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "player wall sliding costs zero health and remains controllable on keyboard/touch",
+      "status": "passed",
+      "durationMs": 8231
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "player wall sliding costs zero health and remains controllable on keyboard/touch",
+      "status": "passed",
+      "durationMs": 7410
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "two-second road-control warning, actual barrier meshes and escape-clear navigation",
+      "status": "passed",
+      "durationMs": 38100
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "two-second road-control warning, actual barrier meshes and escape-clear navigation",
+      "status": "passed",
+      "durationMs": 7546
+    },
+    {
+      "project": "desktop-chromium",
+      "title": "green outside gate, direction/distance UI, post-60 chase and final ESCAPED reward",
+      "status": "passed",
+      "durationMs": 65669
+    },
+    {
+      "project": "iphone-webkit",
+      "title": "green outside gate, direction/distance UI, post-60 chase and final ESCAPED reward",
+      "status": "passed",
+      "durationMs": 11682
+    }
+  ]
+}

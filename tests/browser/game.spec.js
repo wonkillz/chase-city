@@ -16,7 +16,7 @@ test("mission briefing freezes cars; keyboard/touch steering, pause, destruction
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await open(page);
-  await expect(page.locator("#mission-reward")).toContainText("300");
+  await expect(page.locator("#mission-reward")).toContainText("500");
   const initial = await page.evaluate(() =>
     JSON.stringify([window.__CHASE__.sim.player, window.__CHASE__.sim.police]),
   );
@@ -117,7 +117,7 @@ test("mission briefing freezes cars; keyboard/touch steering, pause, destruction
   ).toEqual({ health: 100, started: false, time: 0 });
   expect(errors).toEqual([]);
 });
-test("survival mission succeeds once and retry returns to briefing", async ({
+test("survival opens escape without payout; final gate succeeds once and retry resets", async ({
   page,
 }) => {
   await open(page);
@@ -125,12 +125,28 @@ test("survival mission succeeds once and retry returns to briefing", async ({
   await page.evaluate(() => {
     const s = window.__CHASE__.sim;
     s.police = [];
+    s.reinforcementsEnabled = false;
     s.elapsed = 59.99;
   });
-  await expect(page.locator("#eyebrow")).toHaveText("MISSION COMPLETE");
-  await expect(page.locator("#title")).toHaveText("미션 성공!");
-  await expect(page.locator("#message")).toContainText("300 크레딧");
-  const state = await page.evaluate(() => ({
+  await expect(page.locator("#notice")).toHaveText("ESCAPE ROUTE OPEN!");
+  expect(await page.evaluate(() => window.__CHASE__.sim.result)).toBeNull();
+  expect(await page.evaluate(() => window.__CHASE__.sim.credits)).toBe(0);
+  await page.evaluate(() => {
+    const s = window.__CHASE__.sim,
+      e = s.escape.exit;
+    Object.assign(s.player, {
+      x: e.x - e.dx * 0.1,
+      z: e.z - e.dz * 0.1,
+      vx: e.dx * 24,
+      vz: e.dz * 24,
+      angle: Math.atan2(-e.dx, -e.dz),
+      steering: 0,
+      speed: 24,
+    });
+  });
+  await expect(page.locator("#eyebrow")).toHaveText("ESCAPED!");
+  await expect(page.locator("#message")).toContainText("500 크레딧");
+  const result = await page.evaluate(() => ({
     t: window.__CHASE__.sim.elapsed,
     c: window.__CHASE__.sim.credits,
   }));
@@ -140,7 +156,7 @@ test("survival mission succeeds once and retry returns to briefing", async ({
       t: window.__CHASE__.sim.elapsed,
       c: window.__CHASE__.sim.credits,
     })),
-  ).toEqual(state);
+  ).toEqual(result);
   await page.locator("#start").click();
   await expect(page.locator("#start")).toHaveText("START →");
   expect(await page.evaluate(() => window.__CHASE__.sim.credits)).toBe(0);
@@ -190,7 +206,7 @@ test("real building materials fade and restore; chain explosions render debris/f
       Object.assign(s.police[i], {
         x: 0,
         z: s.player.z - 12 + i * 4,
-        health: i === 0 ? 100 : 70,
+        health: i === 0 ? 100 : 50,
         vx: 0,
         vz: 0,
       });

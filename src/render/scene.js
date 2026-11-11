@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { RoadEventsRenderer } from "./road-events.js";
 import { ChaseCamera } from "./camera.js";
 import { VehicleTrails } from "./trails.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
@@ -151,6 +152,7 @@ export class CityRenderer {
     this.occlusion = new BuildingOcclusion(this.buildings);
     this.effects = new ExplosionEffects(this.scene);
     this.trails = new VehicleTrails(this.scene);
+    this.roadEvents = new RoadEventsRenderer(this.scene);
     this.resetMetrics();
     this.follow = new THREE.Vector3(0, 0, 0);
     this.resize();
@@ -275,6 +277,7 @@ export class CityRenderer {
     this.trails.update(p, dt, running);
     this.camera.updateMatrixWorld(true);
     this.player.updateMatrixWorld(true);
+    this.roadEvents.update(sim, this.camera);
     this.occlusion.update(this.camera.position, p, dt);
     if (running) this.sampleMetrics(sim, dt);
     this.renderer.render(this.scene, this.camera);
@@ -329,6 +332,7 @@ export class CityRenderer {
       this.screenMetrics.policeVisibleSeconds += duration;
   }
   reset() {
+    this.roadEvents.reset();
     this.cameraRig.reset();
     this.trails.reset();
     this.resetMetrics();

@@ -8,7 +8,7 @@
     />
     <meta name="theme-color" content="#102a32" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>CHASE CITY V1.3 — 60초의 도주</title>
+    <title>CHASE CITY V1.4 — 도시 탈출</title>
   </head>
   <body>
     <canvas id="game" aria-label="3D 자동차 추격 게임"></canvas>
@@ -50,9 +50,9 @@
       aria-describedby="message"
     >
       <section>
-        <div class="eyebrow" id="eyebrow">MISSION BRIEFING / V1.3</div>
-        <h1 id="title">60초의 도주</h1>
-        <p id="message">경찰을 피해 60초간 생존하세요.</p>
+        <div class="eyebrow" id="eyebrow">MISSION BRIEFING / V1.4</div>
+        <h1 id="title">도시 탈출</h1>
+        <p id="message">60초간 생존한 뒤 최종 탈출 게이트를 통과하세요.</p>
         <dl id="mission-details">
           <div>
             <dt>목표</dt>
@@ -60,7 +60,7 @@
           </div>
           <div>
             <dt>성공 보상</dt>
-            <dd id="mission-reward">300 크레딧</dd>
+            <dd id="mission-reward">500 크레딧</dd>
           </div>
         </dl>
         <button id="start" class="primary">START →</button>
@@ -80,6 +80,13 @@
       </div>
     </div>
     <div id="speed"><strong>0</strong><span>KM/H</span></div>
+    <div id="escape-guidance" hidden>
+      <span id="escape-arrow" aria-label="탈출 방향">↑</span>
+      <div>
+        <small id="escape-name">EXIT</small
+        ><strong id="escape-distance">0 m</strong>
+      </div>
+    </div>
     <div id="notice" role="status" aria-live="polite"></div>
     <script type="module" src="/src/main.js"></script>
   </body>

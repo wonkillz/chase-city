@@ -1,6 +1,8 @@
 import { CONFIG, clamp, angleDelta } from "./config.js";
 import { RoadNavigation } from "./navigation.js";
 import { resolveBuilding } from "../world/layout.js";
+import { chooseExit, constrainToWorld } from "./escape.js";
+import { updateBarricades } from "./barricades.js";
 import { createMission, updateMission } from "./missions.js";
 import {
   makePolice,
@@ -9,13 +11,44 @@ import {
   wallImpact,
 } from "./police.js";
 export class Simulation {
-  constructor(layout) {
+  constructor(layout, options = {}) {
     this.layout = layout;
-    this.solids = [...layout.buildings, ...(layout.obstacles || [])];
-    this.navigation = new RoadNavigation(this.solids);
+    this.staticSolids = [...layout.buildings, ...(layout.obstacles || [])];
+    this.random = options.random || Math.random;
+    this.reinforcementsEnabled = options.reinforcements !== false;
+    this.barricadesEnabled = options.barricades !== false;
+    this.lastExitId = null;
+    this.runNumber = 0;
     this.reset();
   }
+  refreshNavigation() {
+    this.solids = [...this.staticSolids, ...this.barricades];
+    this.navigation.setSolids(this.solids);
+    for (const car of this.police) {
+      car.route = [];
+      car.routeTimer = 0;
+    }
+  }
+  openEscape() {
+    this.escape.phase = "open";
+    this.escape.openedAt = this.elapsed;
+    this.barricades = [];
+    this.barricadeWarning = null;
+    this.refreshNavigation();
+    this.navigation.addExit(this.escape.exit);
+  }
   reset(missionId = "survival60") {
+    this.runNumber++;
+    this.barricades = [];
+    this.barricadeEvents = [];
+    this.barricadeWarnings = new Set();
+    this.barricadeWarning = null;
+    this.solids = [...this.staticSolids];
+    this.navigation = new RoadNavigation(this.solids);
+    const exit = chooseExit(this.staticSolids, this.random, this.lastExitId);
+    this.lastExitId = exit.id;
+    this.escape = { phase: "locked", exit, openedAt: null };
+    this.previousPlayer = { x: 0, z: 8 };
     this.player = {
       x: 0,
       z: 8,
@@ -48,8 +81,11 @@ export class Simulation {
       pairCollisions: 0,
       wallDamage: 0,
       pairDamage: 0,
+      barricadeCollisions: 0,
+      barricadeDamage: 0,
+      boostSeconds: 0,
     };
-    this.nextReinforcement = 10;
+
     this.police = Array.from({ length: CONFIG.policeCount }, (_, i) =>
       makePolice(i),
     );
@@ -59,6 +95,21 @@ export class Simulation {
       this.started = true;
       this.mission.status = "active";
     }
+  }
+  applyPoliceObstacleDamage(car, strength) {
+    const kind = car.lastObstacleKind === "barricade" ? "barricade" : "wall";
+    const damage = wallImpact(car, strength, kind);
+    if (damage > 0) {
+      if (kind === "barricade") {
+        this.stats.barricadeCollisions++;
+        this.stats.barricadeDamage += damage;
+      } else {
+        this.stats.wallCollisions++;
+        this.stats.wallDamage += damage;
+      }
+      this.recordImpact(car, strength, `police-${kind}`);
+    }
+    return damage;
   }
   recordImpact(body, strength, kind) {
     if (strength < CONFIG.minimumImpact) return;
@@ -89,6 +140,7 @@ export class Simulation {
       for (const b of this.solids)
         if (resolveBuilding(body, b, radius)) {
           contact = true;
+          body.lastObstacleKind = b.kind || "wall";
           hit = true;
         }
       if (!contact) break;
@@ -102,13 +154,13 @@ export class Simulation {
     }
     const x = body.x,
       z = body.z;
-    body.x = clamp(x, -106, 106);
-    body.z = clamp(z, -106, 106);
+    constrainToWorld(body, this.escape, fallback);
     return hit || x !== body.x || z !== body.z;
   }
   move(body, dt, radius = CONFIG.radius) {
     let hit = false;
     body.lastImpact = 0;
+    body.lastObstacleKind = null;
     const steps = Math.ceil((Math.hypot(body.vx, body.vz) * dt) / 0.5) || 1;
     for (let i = 0; i < steps; i++) {
       const previous = { x: body.x, z: body.z };
@@ -200,6 +252,9 @@ export class Simulation {
     this.elapsed += dt;
     this.hitCooldown -= dt;
     const p = this.player;
+    this.previousPlayer = { x: p.x, z: p.z };
+    if (this.escape.phase === "locked" && this.barricadesEnabled)
+      updateBarricades(this);
     const previous = new Map(
       [p, ...this.police].map((c) => [c, { x: c.x, z: c.z }]),
     );
@@ -215,6 +270,11 @@ export class Simulation {
     p.vz += (-Math.cos(p.angle) * p.speed - p.vz) * grip;
     if (this.move(p, dt)) {
       p.wallContacts++;
+      if (p.lastObstacleKind === "barricade") {
+        p.speed = Math.min(p.speed, 12);
+        p.vx *= 0.55;
+        p.vz *= 0.55;
+      }
       if (this.elapsed - (p.lastWallSound || -1) > 0.5) {
         this.recordImpact(p, p.lastImpact, "player-wall");
         p.lastWallSound = this.elapsed;
@@ -224,31 +284,56 @@ export class Simulation {
       if (Math.hypot(p.vx, p.vz) < 5) {
         const desired =
           p.escapeAngle ?? p.angle + ((p.steering < 0 ? -1 : 1) * Math.PI) / 2;
-        p.angle += clamp(angleDelta(desired, p.angle), -3 * dt, 3 * dt);
+        // At concave contacts, a single wall tangent can point into the next
+        // facade. Find a genuinely clear short slide instead of oscillating.
+        const directions = [
+          desired,
+          ...Array.from(
+            { length: 16 },
+            (_, i) => p.angle + (i / 16) * Math.PI * 2,
+          ),
+        ];
+        const free = directions.filter((a) => {
+          for (let step = 1; step <= 8; step++) {
+            const pose = {
+              x: p.x - Math.sin(a) * step * 0.5,
+              z: p.z - Math.cos(a) * step * 0.5,
+            };
+            if (
+              !this.navigation.allowed(pose) ||
+              this.solids.some((b) =>
+                resolveBuilding({ ...pose }, b, CONFIG.radius - 0.01),
+              )
+            )
+              return false;
+          }
+          return true;
+        });
+        if (free.length) {
+          const heading = free.sort(
+            (a, b) =>
+              Math.abs(angleDelta(a, desired)) -
+              Math.abs(angleDelta(b, desired)),
+          )[0];
+          p.angle += clamp(angleDelta(heading, p.angle), -5 * dt, 5 * dt);
+          p.vx = -Math.sin(heading) * 7;
+          p.vz = -Math.cos(heading) * 7;
+        } else p.angle += clamp(angleDelta(desired, p.angle), -3 * dt, 3 * dt);
       }
     }
     p.slip = Math.abs(p.vx * Math.cos(p.angle) - p.vz * Math.sin(p.angle));
-    if (
-      this.elapsed >= this.nextReinforcement &&
-      this.police.length < CONFIG.maxPolice
-    ) {
-      const active = this.police.filter((c) => c.state === "active");
-      const nearest = Math.min(
-        Infinity,
-        ...active.map((c) => Math.hypot(c.x - p.x, c.z - p.z)),
-      );
-      if (nearest > 16 || this.elapsed >= 22) {
-        const id = this.police.length,
-          spawn = this.navigation.spawn(p, this.police, id);
-        if (spawn) {
-          const c = makePolice(id);
-          Object.assign(c, spawn, { angle: Math.atan2(c.x - p.x, c.z - p.z) });
-          c.angle = Math.atan2(c.x - p.x, c.z - p.z);
-          this.police.push(c);
-          previous.set(c, { x: c.x, z: c.z });
-        }
-      }
-      this.nextReinforcement = this.elapsed + 6;
+    const desiredFleet = Math.min(
+      CONFIG.maxPolice,
+      4 + Math.floor((this.elapsed + 1e-7) / 10),
+    );
+    while (this.reinforcementsEnabled && this.police.length < desiredFleet) {
+      const id = this.police.length,
+        spawn = this.navigation.spawn(p, this.police, id);
+      if (!spawn) break;
+      const c = Object.assign(makePolice(id), spawn);
+      c.angle = Math.atan2(c.x - p.x, c.z - p.z);
+      this.police.push(c);
+      previous.set(c, { x: c.x, z: c.z });
     }
     for (let i = 0; i < this.police.length; i++) {
       const c = this.police[i];
@@ -275,14 +360,10 @@ export class Simulation {
       }
       c.wallCooldown = Math.max(0, (c.wallCooldown || 0) - dt);
       c.pairCooldown = Math.max(0, (c.pairCooldown || 0) - dt);
-      steerPolice(c, i, p, dt, this.navigation, this.police);
+      steerPolice(c, i, p, dt, this.navigation, this.police, this.elapsed);
+      if (c.boostTimer > 0) this.stats.boostSeconds += dt;
       if (this.move(c, dt, CONFIG.policeRadius)) {
-        const damage = wallImpact(c, c.lastImpact);
-        if (damage > 0) {
-          this.stats.wallCollisions++;
-          this.stats.wallDamage += damage;
-          this.recordImpact(c, c.lastImpact, "police-wall");
-        }
+        this.applyPoliceObstacleDamage(c, c.lastImpact);
         c.stuck += dt;
         c.routeTimer = 0;
         c.vx *= 0.75;
@@ -300,7 +381,7 @@ export class Simulation {
         if (damage > 0) {
           this.stats.pairCollisions++;
           this.stats.pairDamage += damage * 2;
-          this.recordImpact(a, speed, "police-pair");
+          this.recordImpact(a, a.lastCollisionStrength || speed, "police-pair");
         }
       }
     for (const c of this.police)
@@ -331,15 +412,27 @@ export class Simulation {
       if (d < 7) nearby++;
     }
     for (const c of [p, ...this.police]) {
-      this.constrain(
+      const before = { x: c.x, z: c.z };
+      const hit = this.constrain(
         c,
         c === p ? CONFIG.radius : CONFIG.policeRadius,
         previous.get(c),
       );
+      if (hit && c !== p && c.state === "active") {
+        const nx = c.x - before.x,
+          nz = c.z - before.z,
+          length = Math.hypot(nx, nz);
+        if (length > 1e-8)
+          this.applyPoliceObstacleDamage(
+            c,
+            Math.max(0, -(c.vx * nx + c.vz * nz) / length),
+          );
+      }
     }
+    for (const c of this.police)
+      if (c.state === "active" && c.health <= 0) this.explodePolice(c);
     this.arrest = clamp(
-      this.arrest +
-        (nearby >= 2 && Math.hypot(p.vx, p.vz) < 10 ? dt : -dt * 0.7),
+      this.arrest + (nearby >= 2 && Math.hypot(p.vx, p.vz) < 6 ? dt : -dt),
       0,
       CONFIG.arrestSeconds,
     );

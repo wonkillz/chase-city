@@ -50,6 +50,7 @@ export class RoadNavigation {
     this.nodes = [];
     this.map = new Map();
     this.searches = 0;
+    this.revision = 0;
     for (let x = -90; x <= 90; x += 10)
       for (let z = -90; z <= 90; z += 10) {
         const node = { x, z, id: this.nodes.length, neighbors: [] };
@@ -72,24 +73,55 @@ export class RoadNavigation {
         if (other && this.clear(n, other)) n.neighbors.push(other.id);
       }
   }
+  setSolids(solids) {
+    this.solids = solids;
+    this.revision++;
+  }
+  addExit(exit) {
+    this.exit = exit;
+    for (let forward = 100; forward <= 150; forward += 10) {
+      const x = exit.dx ? exit.dx * forward : exit.x,
+        z = exit.dz ? exit.dz * forward : exit.z,
+        key = `${x},${z}`;
+      if (this.map.has(key)) continue;
+      const n = { x, z, id: this.nodes.length, neighbors: [] };
+      this.nodes.push(n);
+      this.map.set(key, n);
+      const prev = this.map.get(`${x - exit.dx * 10},${z - exit.dz * 10}`);
+      if (prev) {
+        n.neighbors.push(prev.id);
+        prev.neighbors.push(n.id);
+      }
+    }
+    this.revision++;
+  }
+  allowed(point) {
+    if (Math.abs(point.x) <= 106 && Math.abs(point.z) <= 106) return true;
+    if (!this.exit) return false;
+    const e = this.exit,
+      forward = point.x * e.dx + point.z * e.dz,
+      lateral = (point.x - e.x) * e.dz - (point.z - e.z) * e.dx;
+    return forward >= 94 && forward <= 154 && Math.abs(lateral) <= 8;
+  }
   clear(a, b, radius) {
+    if (!this.allowed(a) || !this.allowed(b)) return false;
     return clearSegment(a, b, this.solids, radius);
   }
-  nearest(point, visibleFrom = null) {
+  nearest(point, visibleFrom = null, radius = CONFIG.policeRadius - 0.02) {
     const candidates = this.nodes
       .map((n) => ({ n, d: distance(n, point) }))
       .sort((a, b) => a.d - b.d);
     for (const { n } of candidates)
       if (
-        !visibleFrom ||
-        this.clear(visibleFrom, n, CONFIG.policeRadius - 0.02)
+        this.clear(n, n) &&
+        (!visibleFrom || this.clear(visibleFrom, n, radius))
       )
         return n;
     return null;
   }
-  findPath(start, goal) {
+  findPath(start, goal, radius) {
     this.searches++;
-    const from = this.nearest(start, start),
+    const from = this.nearest(start, start, radius),
       to = this.nearest(goal);
     if (!from || !to) return [];
     const open = new Set([from.id]),
@@ -116,6 +148,7 @@ export class RoadNavigation {
       }
       open.delete(id);
       for (const next of this.nodes[id].neighbors) {
+        if (!this.clear(this.nodes[id], this.nodes[next])) continue;
         const cost = g.get(id) + 10;
         if (cost < (g.get(next) ?? Infinity)) {
           came.set(next, id);
@@ -134,6 +167,7 @@ export class RoadNavigation {
     const candidates = this.nodes.filter((n) => {
       const d = distance(n, player);
       return (
+        this.clear(n, n) &&
         d >= 27 &&
         d <= 48 &&
         fleet.every((c) => c.state !== "active" || distance(n, c) > 7)

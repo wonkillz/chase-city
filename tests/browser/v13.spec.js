@@ -12,19 +12,21 @@ test("real camera tracks routed pursuit, eight-car fleet and bounded rear effect
   await page.locator("#start").click();
   const metrics = await page.evaluate(async () => {
     const { sim: s, renderer: r } = window.__CHASE__;
-    const { driver } = await import("/scripts/autoplay.js");
-    const control = driver(7);
+    const { stageDriver } = await import("/scripts/pursuit.js");
+    const control = stageDriver(1);
     s.reset();
     s.start();
     r.reset();
     r.renderer.shadowMap.autoUpdate = false;
-    for (let frame = 0; frame < 32 * 60; frame++) {
+    for (let frame = 0; frame < 41 * 60; frame++) {
       s.update(1 / 60, control(s));
       r.cameraRig.update(s.player, 1 / 60);
       if (frame % 24 === 0) r.render(s, 0.4, true);
     }
     r.render(s, 1 / 60, true);
     return {
+      elapsed: s.elapsed,
+      result: s.result,
       screen: r.screenMetrics,
       searches: s.navigation.searches,
       replans: s.police.reduce((n, c) => n + c.replans, 0),
@@ -40,6 +42,8 @@ test("real camera tracks routed pursuit, eight-car fleet and bounded rear effect
       policeVisible: r.police.filter((p) => p.visible).length,
     };
   });
+  expect(metrics.elapsed).toBeGreaterThanOrEqual(40.99);
+  expect(metrics.result).toBeNull();
   expect(metrics.searches).toBeGreaterThan(20);
   expect(metrics.replans).toBeGreaterThan(10);
   expect(metrics.fleet).toBeGreaterThanOrEqual(5);
@@ -61,9 +65,9 @@ test("real camera tracks routed pursuit, eight-car fleet and bounded rear effect
   });
   await page.locator("#pause").click();
   await page.screenshot({
-    path: `test-results/v1.3-${info.project.name}-pursuit.png`,
+    path: `test-results/v1.4-${info.project.name}-pursuit.png`,
     style: "#overlay{visibility:hidden}",
-    timeout: 60000,
+    timeout: 120000,
   });
   expect(errors).toEqual([]);
 });
@@ -75,6 +79,8 @@ test("player wall sliding costs zero health and remains controllable on keyboard
   const result = await page.evaluate(() => {
     const { sim: s } = window.__CHASE__;
     s.police = [];
+    s.reinforcementsEnabled = false;
+    s.barricadesEnabled = false;
     s.reset();
     s.start();
     s.police = [];

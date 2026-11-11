@@ -26,6 +26,10 @@ export function makePolice(i, generation = 0, player = null) {
     vx: 0,
     vz: 0,
     speed: CONFIG.policeSpeed,
+    type: i % 3 === 0 ? "pursuit" : "patrol",
+    boostTimer: 0,
+    boostCooldown: 0,
+    effectiveSpeed: CONFIG.policeSpeed,
     health: CONFIG.policeHealth,
     state: "active",
     wreckAge: 0,
@@ -40,7 +44,15 @@ export function makePolice(i, generation = 0, player = null) {
     blocked: 0,
   };
 }
-export function steerPolice(c, index, player, dt, navigation, fleet = []) {
+export function steerPolice(
+  c,
+  index,
+  player,
+  dt,
+  navigation,
+  fleet = [],
+  elapsed = 0,
+) {
   if (!navigation) return;
   c.routeTimer = (c.routeTimer || 0) - dt;
   const ranked = fleet
@@ -53,11 +65,19 @@ export function steerPolice(c, index, player, dt, navigation, fleet = []) {
   const rank = ranked.indexOf(c),
     close = Math.hypot(c.x - player.x, c.z - player.z);
   c.role = rank <= 1 ? "pursuit" : "intercept";
-  const lead = c.role === "pursuit" ? 0 : 1.1 + (index % 3) * 0.55;
-  const prediction = {
-    x: clamp(player.x + player.vx * lead, -95, 95),
-    z: clamp(player.z + player.vz * lead, -95, 95),
+  const lead =
+    c.role === "pursuit"
+      ? 0
+      : 1.1 + Math.min(1, elapsed / 60) * 0.6 + (index % 3) * 0.55;
+  const ahead = {
+    x: player.x + player.vx * lead,
+    z: player.z + player.vz * lead,
   };
+  const prediction = navigation.allowed(ahead)
+    ? ahead
+    : navigation.allowed(player)
+      ? { x: player.x, z: player.z }
+      : { x: clamp(player.x, -95, 95), z: clamp(player.z, -95, 95) };
   const direct = close < 22 && navigation.clear(c, player);
   let waypoint;
   if (direct) {
@@ -66,7 +86,13 @@ export function steerPolice(c, index, player, dt, navigation, fleet = []) {
     c.routeTimer = 0;
   } else {
     const goal = navigation.nearest(prediction);
-    if (c.routeTimer <= 0 || !c.route?.length || c.goalId !== goal?.id) {
+    if (
+      c.routeTimer <= 0 ||
+      !c.route?.length ||
+      c.goalId !== goal?.id ||
+      c.navigationRevision !== navigation.revision
+    ) {
+      c.navigationRevision = navigation.revision;
       c.route = navigation.findPath(c, prediction);
       c.goalId = goal?.id;
       c.routeTimer = 0.5 + (index % 3) * 0.08;
@@ -101,35 +127,85 @@ export function steerPolice(c, index, player, dt, navigation, fleet = []) {
   c.angle += delta;
   c.turn = delta / dt;
   const corner = clamp(1 - Math.abs(error) * 0.45, 0.35, 1);
-  const speed = c.speed * corner;
+  const difficulty = Math.min(1, elapsed / 60);
+  c.boostCooldown = Math.max(0, (c.boostCooldown || 0) - dt);
+  const behind =
+    (c.x - player.x) * -Math.sin(player.angle) +
+      (c.z - player.z) * -Math.cos(player.angle) <
+    -6;
+  const canBoost =
+    c.type === "pursuit" &&
+    rank <= 2 &&
+    behind &&
+    close > 11 &&
+    close < 65 &&
+    Math.abs(error) < 0.32 &&
+    navigation.clear(c, player);
+  if (c.boostTimer > 0) {
+    c.boostTimer -= dt;
+    if (!canBoost || c.boostTimer <= 0) {
+      c.boostTimer = 0;
+      c.boostCooldown = 2.7 - difficulty;
+    }
+  } else if (canBoost && c.boostCooldown <= 0) {
+    c.boostTimer = 2.8 + difficulty * 0.6;
+  }
+  c.effectiveSpeed = c.boostTimer > 0 ? 26 + difficulty * 2 : c.speed;
+  const speed = c.effectiveSpeed * corner;
   const grip = 1 - Math.exp(-dt * 7);
   c.vx += ((dx / (d || 1)) * speed - c.vx) * grip;
   c.vz += ((dz / (d || 1)) * speed - c.vz) * grip;
   const next = { x: c.x + c.vx * dt * 3, z: c.z + c.vz * dt * 3 };
-  if (!navigation.clear(c, next, CONFIG.policeRadius - 0.02)) {
+  const safetyRadius = navigation.clear(c, c, CONFIG.policeRadius + 0.05)
+    ? CONFIG.policeRadius + 0.05
+    : CONFIG.policeRadius - 0.02;
+  if (!navigation.clear(c, next, safetyRadius)) {
     c.vx = 0;
     c.vz = 0;
     c.routeTimer = 0;
     c.blocked = (c.blocked || 0) + dt;
   } else c.blocked = 0;
 }
-// Equal-mass contact impulse: only closing velocity damages cars. Resting and
-// separating contacts are depenetrated without repeated contact damage.
+// SAT uses the visible oriented body (width 2.1, length 3.6), rather than a
+// short centre circle that let noses overlap without generating an impact.
+export function policeContact(a, b) {
+  const basis = (c) => [
+    { x: Math.cos(c.angle), z: -Math.sin(c.angle) },
+    { x: -Math.sin(c.angle), z: -Math.cos(c.angle) },
+  ];
+  const aa = basis(a),
+    bb = basis(b),
+    dx = b.x - a.x,
+    dz = b.z - a.z;
+  let depth = Infinity,
+    normal = null;
+  for (const axis of [...aa, ...bb]) {
+    const project = (axes) =>
+      Math.abs(axis.x * axes[0].x + axis.z * axes[0].z) * 1.05 +
+      Math.abs(axis.x * axes[1].x + axis.z * axes[1].z) * 1.8;
+    const offset = dx * axis.x + dz * axis.z,
+      overlap = project(aa) + project(bb) - Math.abs(offset);
+    if (overlap <= 0) return null;
+    if (overlap < depth) {
+      depth = overlap;
+      const sign = offset >= 0 ? 1 : -1;
+      normal = { x: axis.x * sign, z: axis.z * sign };
+    }
+  }
+  return { depth, ...normal };
+}
 export function collidePolice(a, b) {
   if (a.state !== "active" || b.state !== "active") return 0;
-  const dx = b.x - a.x,
-    dz = b.z - a.z,
-    d = Math.hypot(dx, dz),
-    diameter = CONFIG.policeRadius * 2;
-  if (d >= diameter) return 0;
-  const nx = d > 1e-6 ? dx / d : 1,
-    nz = d > 1e-6 ? dz / d : 0;
-  const correction = (diameter - d) / 2 + 0.001;
+  const contact = policeContact(a, b);
+  if (!contact) return 0;
+  const { x: nx, z: nz, depth } = contact;
+  // Body yaw is visual steering, not extra translational crash energy.
+  const closing = (a.vx - b.vx) * nx + (a.vz - b.vz) * nz;
+  const correction = depth / 2 + 0.001;
   a.x -= nx * correction;
   a.z -= nz * correction;
   b.x += nx * correction;
   b.z += nz * correction;
-  const closing = (a.vx - b.vx) * nx + (a.vz - b.vz) * nz;
   if (closing <= 0) return 0;
   const impulse = closing * 0.65;
   a.vx -= nx * impulse;
@@ -142,6 +218,7 @@ export function collidePolice(a, b) {
     if ((car.pairCooldown || 0) <= 0 && damage > 0) {
       car.health = Math.max(0, car.health - damage);
       car.lastDamageCause = "vehicle";
+      car.lastCollisionStrength = closing;
       car.pairCooldown = CONFIG.impactCooldown;
       applied = damage;
     }
@@ -149,13 +226,19 @@ export function collidePolice(a, b) {
 }
 
 export function impactDamage(impact, scale) {
-  return Math.pow(Math.max(0, impact - CONFIG.minimumImpact), 1.4) * scale;
+  return Math.min(
+    CONFIG.maxImpactDamage,
+    Math.pow(Math.max(0, impact - CONFIG.minimumImpact), 1.15) * scale,
+  );
 }
-export function wallImpact(car, impact) {
-  const damage = impactDamage(impact, CONFIG.wallDamageScale);
+export function wallImpact(car, impact, kind = "wall") {
+  const damage = impactDamage(
+    impact,
+    kind === "barricade" ? CONFIG.barricadeDamageScale : CONFIG.wallDamageScale,
+  );
   if ((car.wallCooldown || 0) > 0 || damage <= 0) return 0;
   car.health = Math.max(0, car.health - damage);
-  car.lastDamageCause = "wall";
+  car.lastDamageCause = kind;
   car.wallCooldown = CONFIG.impactCooldown;
   return damage;
 }

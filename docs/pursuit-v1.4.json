@@ -1,0 +1,1853 @@
+{
+  "roads": {
+    "version": "1.4",
+    "mode": "roads",
+    "method": "Roadblock-aware normal left/right seeded driving, fixed 60Hz; camera projection plus building line-of-sight, 5Hz visibility sampling; faded player-occluding buildings count as transparent. No health edits, teleports or forced explosions.",
+    "seconds": 60,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "meanNearestDistance": 19.291975723189143,
+    "meanAllPoliceDistance": 26.4732410515835,
+    "meanChaseSeconds": 57.41666666666694,
+    "meanLongestChase": 39.500000000000036,
+    "policeVisibleRatioDesktop": 0.9258333333333373,
+    "policeVisibleRatioMobile": 0.906111111111115,
+    "meanExplosions": 9.166666666666666,
+    "meanVisibleExplosionsDesktop": 7.666666666666667,
+    "meanVisibleExplosionsMobile": 7.166666666666667,
+    "meanWallCollisions": 0.08333333333333333,
+    "meanPairCollisions": 35.083333333333336,
+    "runs": [
+      {
+        "seed": 1,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 3,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 6,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 39.949999999999015,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": 80
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -80,
+              "z": 27.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 80,
+              "z": -32.4
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -80,
+              "z": 27.6
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 87.6,
+              "z": -40
+            }
+          }
+        ],
+        "meanNearestDistance": 10.606957828080946,
+        "meanAllPoliceDistance": 21.652537402841837,
+        "chaseSeconds": 60.00000000000031,
+        "longestChase": 60.00000000000031,
+        "policeVisibleRatioDesktop": 0.9533333333333379,
+        "policeVisibleRatioMobile": 0.936666666666671,
+        "explosions": 9,
+        "visibleExplosionDesktop": 9,
+        "visibleExplosionMobile": 4,
+        "wallCollisions": 0,
+        "pairCollisions": 34,
+        "wallDamage": 0
+      },
+      {
+        "seed": 2,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 5,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 9,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 31.333333333332835,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -50,
+              "z": 87.6
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": 50,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": 80
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -70,
+              "z": -2.4
+            }
+          }
+        ],
+        "meanNearestDistance": 19.25094218807051,
+        "meanAllPoliceDistance": 23.9068869124677,
+        "chaseSeconds": 57.80000000000028,
+        "longestChase": 37.8,
+        "policeVisibleRatioDesktop": 0.9300000000000043,
+        "policeVisibleRatioMobile": 0.9266666666666709,
+        "explosions": 14,
+        "visibleExplosionDesktop": 9,
+        "visibleExplosionMobile": 9,
+        "wallCollisions": 1,
+        "pairCollisions": 23,
+        "wallDamage": 3.260629697340868
+      },
+      {
+        "seed": 3,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 5,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 14,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 12.183333333333518,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": 80
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": 10
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 40,
+              "z": -62.4
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": -62.4
+            }
+          }
+        ],
+        "meanNearestDistance": 19.10604171831283,
+        "meanAllPoliceDistance": 23.46398375441142,
+        "chaseSeconds": 57.80000000000028,
+        "longestChase": 40.00000000000003,
+        "policeVisibleRatioDesktop": 0.9133333333333373,
+        "policeVisibleRatioMobile": 0.8566666666666698,
+        "explosions": 19,
+        "visibleExplosionDesktop": 14,
+        "visibleExplosionMobile": 15,
+        "wallCollisions": 0,
+        "pairCollisions": 56,
+        "wallDamage": 0
+      },
+      {
+        "seed": 4,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 1,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 6,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 16.40000000000035,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -50,
+              "z": 87.6
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": 50,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": 80
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -70,
+              "z": -2.4
+            }
+          }
+        ],
+        "meanNearestDistance": 21.307323284282266,
+        "meanAllPoliceDistance": 23.761484393491404,
+        "chaseSeconds": 57.400000000000276,
+        "longestChase": 37.599999999999994,
+        "policeVisibleRatioDesktop": 0.9300000000000043,
+        "policeVisibleRatioMobile": 0.9233333333333374,
+        "explosions": 7,
+        "visibleExplosionDesktop": 7,
+        "visibleExplosionMobile": 7,
+        "wallCollisions": 0,
+        "pairCollisions": 27,
+        "wallDamage": 0
+      },
+      {
+        "seed": 5,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 1,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 4,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 21.316666666666737,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 50,
+              "z": 87.6
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -80
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": 10
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 40,
+              "z": -62.4
+            }
+          }
+        ],
+        "meanNearestDistance": 12.012012959762794,
+        "meanAllPoliceDistance": 28.522809397666013,
+        "chaseSeconds": 59.2000000000003,
+        "longestChase": 45.80000000000011,
+        "policeVisibleRatioDesktop": 0.9466666666666711,
+        "policeVisibleRatioMobile": 0.9266666666666709,
+        "explosions": 5,
+        "visibleExplosionDesktop": 4,
+        "visibleExplosionMobile": 5,
+        "wallCollisions": 0,
+        "pairCollisions": 36,
+        "wallDamage": 0
+      },
+      {
+        "seed": 6,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 2,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 3,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 24.483333333333224,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -50,
+              "z": 87.6
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -80
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -10
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": 10
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -80,
+              "z": -32.4
+            }
+          }
+        ],
+        "meanNearestDistance": 10.685869189416952,
+        "meanAllPoliceDistance": 27.31549012854009,
+        "chaseSeconds": 60.00000000000031,
+        "longestChase": 60.00000000000031,
+        "policeVisibleRatioDesktop": 0.9600000000000046,
+        "policeVisibleRatioMobile": 0.963333333333338,
+        "explosions": 5,
+        "visibleExplosionDesktop": 5,
+        "visibleExplosionMobile": 5,
+        "wallCollisions": 0,
+        "pairCollisions": 30,
+        "wallDamage": 0
+      },
+      {
+        "seed": 7,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 2,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 4,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 18.983333333333537,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 50,
+              "z": 87.6
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -50,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": 80
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -80,
+              "z": 27.6
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 80,
+              "z": -32.4
+            }
+          }
+        ],
+        "meanNearestDistance": 14.324640123387441,
+        "meanAllPoliceDistance": 25.64484425638309,
+        "chaseSeconds": 58.000000000000284,
+        "longestChase": 32.59999999999992,
+        "policeVisibleRatioDesktop": 0.9833333333333383,
+        "policeVisibleRatioMobile": 0.9133333333333373,
+        "explosions": 6,
+        "visibleExplosionDesktop": 6,
+        "visibleExplosionMobile": 6,
+        "wallCollisions": 0,
+        "pairCollisions": 28,
+        "wallDamage": 0
+      },
+      {
+        "seed": 8,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 1,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 6,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 28.98333333333297,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -92.4,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": 50,
+              "z": 87.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 70,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -92.4,
+              "z": -50
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": 87.6
+            }
+          }
+        ],
+        "meanNearestDistance": 30.35386952179743,
+        "meanAllPoliceDistance": 32.85211325264493,
+        "chaseSeconds": 55.00000000000024,
+        "longestChase": 34.59999999999995,
+        "policeVisibleRatioDesktop": 0.8966666666666704,
+        "policeVisibleRatioMobile": 0.893333333333337,
+        "explosions": 7,
+        "visibleExplosionDesktop": 7,
+        "visibleExplosionMobile": 7,
+        "wallCollisions": 0,
+        "pairCollisions": 30,
+        "wallDamage": 0
+      },
+      {
+        "seed": 9,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 1,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 6,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 14.466666666666965,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 87.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -50,
+              "z": 87.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -70,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 80,
+              "z": -62.4
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 20,
+              "z": 87.6
+            }
+          }
+        ],
+        "meanNearestDistance": 34.313029895609596,
+        "meanAllPoliceDistance": 32.232538130876044,
+        "chaseSeconds": 50.400000000000176,
+        "longestChase": 34.199999999999946,
+        "policeVisibleRatioDesktop": 0.8333333333333361,
+        "policeVisibleRatioMobile": 0.8000000000000024,
+        "explosions": 7,
+        "visibleExplosionDesktop": 7,
+        "visibleExplosionMobile": 7,
+        "wallCollisions": 0,
+        "pairCollisions": 50,
+        "wallDamage": 0
+      },
+      {
+        "seed": 10,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 3,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 4,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 15.76666666666703,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": 80
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -70,
+              "z": -2.4
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 70,
+              "z": -2.4
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -70,
+              "z": -2.4
+            }
+          }
+        ],
+        "meanNearestDistance": 14.633434493559692,
+        "meanAllPoliceDistance": 30.7862001869973,
+        "chaseSeconds": 59.60000000000031,
+        "longestChase": 30.199999999999925,
+        "policeVisibleRatioDesktop": 0.936666666666671,
+        "policeVisibleRatioMobile": 0.9433333333333377,
+        "explosions": 7,
+        "visibleExplosionDesktop": 0,
+        "visibleExplosionMobile": 0,
+        "wallCollisions": 0,
+        "pairCollisions": 28,
+        "wallDamage": 0
+      },
+      {
+        "seed": 11,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 6,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 13,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 16.100000000000367,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": 80
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -40,
+              "z": 27.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -70
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -50,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -40,
+              "z": 27.6
+            }
+          }
+        ],
+        "meanNearestDistance": 28.273590576457654,
+        "meanAllPoliceDistance": 23.54010812058474,
+        "chaseSeconds": 54.600000000000236,
+        "longestChase": 21.199999999999957,
+        "policeVisibleRatioDesktop": 0.8833333333333369,
+        "policeVisibleRatioMobile": 0.8500000000000031,
+        "explosions": 19,
+        "visibleExplosionDesktop": 19,
+        "visibleExplosionMobile": 16,
+        "wallCollisions": 0,
+        "pairCollisions": 47,
+        "wallDamage": 0
+      },
+      {
+        "seed": 12,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 1,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 4,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 16.000000000000373,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": 80
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -70,
+              "z": -2.4
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 70,
+              "z": -2.4
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -70,
+              "z": -2.4
+            }
+          }
+        ],
+        "meanNearestDistance": 16.635996899531644,
+        "meanAllPoliceDistance": 23.999896682097404,
+        "chaseSeconds": 59.2000000000003,
+        "longestChase": 40.00000000000003,
+        "policeVisibleRatioDesktop": 0.9433333333333377,
+        "policeVisibleRatioMobile": 0.9400000000000044,
+        "explosions": 5,
+        "visibleExplosionDesktop": 5,
+        "visibleExplosionMobile": 5,
+        "wallCollisions": 0,
+        "pairCollisions": 32,
+        "wallDamage": 0
+      }
+    ]
+  },
+  "evasive": {
+    "version": "1.4",
+    "mode": "evasive",
+    "method": "Roadblock-aware normal left/right seeded driving, fixed 60Hz; camera projection plus building line-of-sight, 5Hz visibility sampling; faded player-occluding buildings count as transparent. No health edits, teleports or forced explosions.",
+    "seconds": 60,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "meanNearestDistance": 18.87646390162422,
+    "meanAllPoliceDistance": 26.688414899753557,
+    "meanChaseSeconds": 56.6333333333336,
+    "meanLongestChase": 44.23333333333343,
+    "policeVisibleRatioDesktop": 0.9052777777777816,
+    "policeVisibleRatioMobile": 0.8913888888888927,
+    "meanExplosions": 16.583333333333332,
+    "meanVisibleExplosionsDesktop": 13.916666666666666,
+    "meanVisibleExplosionsMobile": 14.166666666666666,
+    "meanWallCollisions": 0.6666666666666666,
+    "meanPairCollisions": 52.833333333333336,
+    "runs": [
+      {
+        "seed": 1,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 4,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 8,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 11.466666666666816,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -80
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 20,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 40,
+              "z": -92.4
+            }
+          }
+        ],
+        "meanNearestDistance": 10.29988659752261,
+        "meanAllPoliceDistance": 28.4061827995198,
+        "chaseSeconds": 60.00000000000031,
+        "longestChase": 60.00000000000031,
+        "policeVisibleRatioDesktop": 0.963333333333338,
+        "policeVisibleRatioMobile": 0.9666666666666714,
+        "explosions": 12,
+        "visibleExplosionDesktop": 10,
+        "visibleExplosionMobile": 12,
+        "wallCollisions": 1,
+        "pairCollisions": 54,
+        "wallDamage": 0.032373950045778734
+      },
+      {
+        "seed": 2,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 3,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 13,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 11.633333333333491,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -80
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -32.4,
+              "z": -80
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -2.4,
+              "z": -80
+            }
+          }
+        ],
+        "meanNearestDistance": 12.71409149342848,
+        "meanAllPoliceDistance": 23.97493810160326,
+        "chaseSeconds": 58.40000000000029,
+        "longestChase": 30.599999999999923,
+        "policeVisibleRatioDesktop": 0.9266666666666709,
+        "policeVisibleRatioMobile": 0.8366666666666696,
+        "explosions": 16,
+        "visibleExplosionDesktop": 16,
+        "visibleExplosionMobile": 15,
+        "wallCollisions": 0,
+        "pairCollisions": 51,
+        "wallDamage": 0
+      },
+      {
+        "seed": 3,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 7,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 9,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 10.483333333333434,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -80
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -40,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 40,
+              "z": -92.4
+            }
+          }
+        ],
+        "meanNearestDistance": 12.498809790274098,
+        "meanAllPoliceDistance": 25.210468756939193,
+        "chaseSeconds": 59.80000000000031,
+        "longestChase": 36.999999999999986,
+        "policeVisibleRatioDesktop": 0.9666666666666714,
+        "policeVisibleRatioMobile": 0.9033333333333372,
+        "explosions": 16,
+        "visibleExplosionDesktop": 11,
+        "visibleExplosionMobile": 10,
+        "wallCollisions": 2,
+        "pairCollisions": 53,
+        "wallDamage": 8.772034210175907
+      },
+      {
+        "seed": 4,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 3,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 10,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 11.933333333333506,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -70
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -80
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -92.4,
+              "z": 50
+            }
+          }
+        ],
+        "meanNearestDistance": 11.55821869351801,
+        "meanAllPoliceDistance": 26.24852853258114,
+        "chaseSeconds": 59.0000000000003,
+        "longestChase": 33.59999999999994,
+        "policeVisibleRatioDesktop": 0.920000000000004,
+        "policeVisibleRatioMobile": 0.8966666666666704,
+        "explosions": 13,
+        "visibleExplosionDesktop": 9,
+        "visibleExplosionMobile": 9,
+        "wallCollisions": 0,
+        "pairCollisions": 51,
+        "wallDamage": 0
+      },
+      {
+        "seed": 5,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 2,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 7,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 12.400000000000196,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -50
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 27.6,
+              "z": -80
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 10,
+              "z": -92.4
+            }
+          }
+        ],
+        "meanNearestDistance": 13.781262665425107,
+        "meanAllPoliceDistance": 45.49256283137202,
+        "chaseSeconds": 56.000000000000256,
+        "longestChase": 56.000000000000256,
+        "policeVisibleRatioDesktop": 0.8900000000000037,
+        "policeVisibleRatioMobile": 0.893333333333337,
+        "explosions": 9,
+        "visibleExplosionDesktop": 3,
+        "visibleExplosionMobile": 3,
+        "wallCollisions": 2,
+        "pairCollisions": 37,
+        "wallDamage": 7.404624346973859
+      },
+      {
+        "seed": 6,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 4,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 11,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 11.90000000000017,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -80
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 50,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -40,
+              "z": -92.4
+            }
+          }
+        ],
+        "meanNearestDistance": 14.222777565560289,
+        "meanAllPoliceDistance": 37.54063187462628,
+        "chaseSeconds": 55.200000000000244,
+        "longestChase": 55.200000000000244,
+        "policeVisibleRatioDesktop": 0.8800000000000036,
+        "policeVisibleRatioMobile": 0.8700000000000033,
+        "explosions": 15,
+        "visibleExplosionDesktop": 10,
+        "visibleExplosionMobile": 10,
+        "wallCollisions": 0,
+        "pairCollisions": 60,
+        "wallDamage": 0
+      },
+      {
+        "seed": 7,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 3,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 9,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 13.000000000000226,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -50
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -2.4,
+              "z": -40
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 87.6,
+              "z": -40
+            }
+          }
+        ],
+        "meanNearestDistance": 20.160381199888146,
+        "meanAllPoliceDistance": 40.31140945886405,
+        "chaseSeconds": 55.00000000000024,
+        "longestChase": 53.200000000000216,
+        "policeVisibleRatioDesktop": 0.8866666666666703,
+        "policeVisibleRatioMobile": 0.9033333333333372,
+        "explosions": 12,
+        "visibleExplosionDesktop": 10,
+        "visibleExplosionMobile": 10,
+        "wallCollisions": 1,
+        "pairCollisions": 33,
+        "wallDamage": 2.5434660288644824
+      },
+      {
+        "seed": 8,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 5,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 14,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 10.283333333333424,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -70,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -70,
+              "z": -2.4
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -50,
+              "z": -32.4
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 70,
+              "z": 87.6
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 80,
+              "z": -92.4
+            }
+          }
+        ],
+        "meanNearestDistance": 26.837157637166424,
+        "meanAllPoliceDistance": 18.368584395006383,
+        "chaseSeconds": 54.80000000000024,
+        "longestChase": 31.39999999999992,
+        "policeVisibleRatioDesktop": 0.8900000000000037,
+        "policeVisibleRatioMobile": 0.8800000000000036,
+        "explosions": 19,
+        "visibleExplosionDesktop": 15,
+        "visibleExplosionMobile": 15,
+        "wallCollisions": 0,
+        "pairCollisions": 60,
+        "wallDamage": 0
+      },
+      {
+        "seed": 9,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 4,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 18,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 13.800000000000265,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 70,
+              "z": -92.4
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -2.4,
+              "z": 50
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -32.4,
+              "z": 40
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -92.4,
+              "z": 40
+            }
+          }
+        ],
+        "meanNearestDistance": 38.48792162468884,
+        "meanAllPoliceDistance": 17.74795125474933,
+        "chaseSeconds": 51.20000000000019,
+        "longestChase": 37.19999999999999,
+        "policeVisibleRatioDesktop": 0.8266666666666694,
+        "policeVisibleRatioMobile": 0.8166666666666693,
+        "explosions": 22,
+        "visibleExplosionDesktop": 19,
+        "visibleExplosionMobile": 21,
+        "wallCollisions": 1,
+        "pairCollisions": 72,
+        "wallDamage": 20.910153809552437
+      },
+      {
+        "seed": 10,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 4,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 15,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 13.000000000000226,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": 10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -70
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -20,
+              "z": -62.4
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -92.4,
+              "z": -80
+            }
+          }
+        ],
+        "meanNearestDistance": 12.981117283590377,
+        "meanAllPoliceDistance": 20.786568263116955,
+        "chaseSeconds": 59.400000000000304,
+        "longestChase": 42.600000000000065,
+        "policeVisibleRatioDesktop": 0.9566666666666712,
+        "policeVisibleRatioMobile": 0.9533333333333379,
+        "explosions": 19,
+        "visibleExplosionDesktop": 19,
+        "visibleExplosionMobile": 19,
+        "wallCollisions": 0,
+        "pairCollisions": 47,
+        "wallDamage": 0
+      },
+      {
+        "seed": 11,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 5,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 19,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 12.36666666666686,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": -10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -40
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": -2.4,
+              "z": -40
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": 50,
+              "z": -92.4
+            }
+          }
+        ],
+        "meanNearestDistance": 42.50750491463528,
+        "meanAllPoliceDistance": 17.004806574708038,
+        "chaseSeconds": 50.80000000000018,
+        "longestChase": 33.99999999999994,
+        "policeVisibleRatioDesktop": 0.8133333333333359,
+        "policeVisibleRatioMobile": 0.823333333333336,
+        "explosions": 24,
+        "visibleExplosionDesktop": 23,
+        "visibleExplosionMobile": 24,
+        "wallCollisions": 0,
+        "pairCollisions": 56,
+        "wallDamage": 0
+      },
+      {
+        "seed": 12,
+        "seconds": 60,
+        "explosionCauses": {
+          "vehicle": 7,
+          "wall": 0,
+          "barricade": 0,
+          "blast": 15,
+          "unknown": 0
+        },
+        "restarts": 0,
+        "maxFleet": 8,
+        "boostSeconds": 11.583333333333488,
+        "barricadeCollisions": 0,
+        "barricadeEvents": [
+          {
+            "time": 10,
+            "actualTime": 10.000000000000076,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -10
+            }
+          },
+          {
+            "time": 20,
+            "actualTime": 20.000000000000146,
+            "placed": true,
+            "position": {
+              "x": 10,
+              "z": 57.6
+            }
+          },
+          {
+            "time": 30,
+            "actualTime": 29.999999999999577,
+            "placed": true,
+            "position": {
+              "x": 57.6,
+              "z": -40
+            }
+          },
+          {
+            "time": 40,
+            "actualTime": 39.99999999999901,
+            "placed": true,
+            "position": {
+              "x": 27.6,
+              "z": -20
+            }
+          },
+          {
+            "time": 50,
+            "actualTime": 49.999999999998444,
+            "placed": true,
+            "position": {
+              "x": -62.4,
+              "z": -10
+            }
+          }
+        ],
+        "meanNearestDistance": 10.46843735379297,
+        "meanAllPoliceDistance": 19.16834595395621,
+        "chaseSeconds": 60.00000000000031,
+        "longestChase": 60.00000000000031,
+        "policeVisibleRatioDesktop": 0.9433333333333377,
+        "policeVisibleRatioMobile": 0.9533333333333379,
+        "explosions": 22,
+        "visibleExplosionDesktop": 22,
+        "visibleExplosionMobile": 22,
+        "wallCollisions": 1,
+        "pairCollisions": 60,
+        "wallDamage": 8.405816973888452
+      }
+    ]
+  },
+  "checks": {
+    "nearDistance": true,
+    "chaseDuration": true,
+    "desktopVisibility": true,
+    "mobileVisibility": true,
+    "wallAvoidance": true,
+    "visibleNaturalAccidents": true
+  },
+  "passed": true
+}

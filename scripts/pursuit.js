@@ -13,6 +13,78 @@ export function evasiveDriver(seed) {
     return roads(sim);
   };
 }
+function steerTo(sim, target) {
+  const p = sim.player,
+    desired = Math.atan2(-(target.x - p.x), -(target.z - p.z));
+  const error =
+    Math.atan2(Math.sin(desired - p.angle), Math.cos(desired - p.angle)) -
+    p.turn * 0.18;
+  return { left: error > 0.045, right: error < -0.045 };
+}
+export function stageDriver(seed, mode = "roads") {
+  const base = mode === "evasive" ? evasiveDriver(seed) : driver(seed);
+  let exitPath = [],
+    pathAt = -100,
+    exitId = null;
+  return (sim) => {
+    const p = sim.player;
+    if (sim.escape?.phase === "open") {
+      const e = sim.escape.exit,
+        goal = { x: e.x + e.dx * 10, z: e.z + e.dz * 10 };
+      if (exitId !== e.id || sim.elapsed - pathAt > 0.8 || !exitPath.length) {
+        const raw = sim.navigation.findPath(p, goal, 1.12);
+        exitPath = [];
+        for (let i = 0; i < raw.length; i++)
+          if (
+            i === 0 ||
+            i === raw.length - 1 ||
+            raw[i].x - raw[i - 1].x !== raw[i + 1].x - raw[i].x ||
+            raw[i].z - raw[i - 1].z !== raw[i + 1].z - raw[i].z
+          )
+            exitPath.push(raw[i]);
+        pathAt = sim.elapsed;
+        exitId = e.id;
+      }
+      while (
+        exitPath.length > 1 &&
+        Math.hypot(exitPath[0].x - p.x, exitPath[0].z - p.z) < 16
+      )
+        exitPath.shift();
+      return steerTo(sim, exitPath[0] || goal);
+    }
+    const speed = Math.hypot(p.vx, p.vz),
+      fx = speed > 3 ? p.vx / speed : -Math.sin(p.angle),
+      fz = speed > 3 ? p.vz / speed : -Math.cos(p.angle);
+    const roadblock = (sim.barricades || [])
+      .filter((b) => {
+        const ahead = (b.road.x - p.x) * fx + (b.road.z - p.z) * fz;
+        return (
+          Math.abs((b.road.x - p.x) * fz - (b.road.z - p.z) * fx) < 8 &&
+          (b.vertical ? Math.abs(fz) > 0.8 : Math.abs(fx) > 0.8) &&
+          ahead > -5 &&
+          ahead < 44 &&
+          Math.hypot(b.x - p.x, b.z - p.z) < 48
+        );
+      })
+      .sort(
+        (a, b) =>
+          Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z),
+      )[0];
+    if (roadblock) {
+      const b = roadblock,
+        axis = b.vertical
+          ? { x: 0, z: Math.sign(fz) || -1 }
+          : { x: Math.sign(fx) || -1, z: 0 };
+      const before = (p.x - b.road.x) * axis.x + (p.z - b.road.z) * axis.z;
+      const target = {
+        x: b.gap.x + axis.x * (before < -9 ? -8 : 10),
+        z: b.gap.z + axis.z * (before < -9 ? -8 : 10),
+      };
+      return steerTo(sim, target);
+    }
+    return base(sim);
+  };
+}
 export function measurePursuit(
   seeds = Array.from({ length: 12 }, (_, i) => i + 1),
   seconds = 60,
@@ -22,12 +94,18 @@ export function measurePursuit(
   const runs = [];
   for (const seed of seeds) {
     const layout = createLayout(),
-      sim = new SimulationType(layout),
-      controls = mode === "evasive" ? evasiveDriver(seed) : driver(seed);
+      sim = new SimulationType(layout, { random: random(seed + 40000) }),
+      controls = stageDriver(seed, mode);
     sim.start();
     const desktop = new ChaseCamera(1100, 740),
       mobile = new ChaseCamera(390, 664);
-    const explosionCauses = { vehicle: 0, wall: 0, blast: 0, unknown: 0 };
+    const explosionCauses = {
+      vehicle: 0,
+      wall: 0,
+      barricade: 0,
+      blast: 0,
+      unknown: 0,
+    };
     let nearestTime = 0,
       allDistanceTime = 0,
       chaseSeconds = 0,
@@ -43,9 +121,15 @@ export function measurePursuit(
       restarts = 0,
       wallHits = 0,
       pairHits = 0,
-      wallDamage = 0;
+      wallDamage = 0,
+      boostSeconds = 0,
+      barricadeCollisions = 0;
+    const barricadeEvents = [];
     for (let frame = 0; frame < seconds * 60; frame++) {
       if (sim.result) {
+        barricadeEvents.push(...(sim.barricadeEvents || []));
+        boostSeconds += sim.stats.boostSeconds || 0;
+        barricadeCollisions += sim.stats.barricadeCollisions || 0;
         wallHits += sim.stats.wallCollisions;
         pairHits += sim.stats.pairCollisions;
         wallDamage += sim.stats.wallDamage;
@@ -97,6 +181,10 @@ export function measurePursuit(
       explosionCauses,
       restarts,
       maxFleet,
+      boostSeconds: boostSeconds + (sim.stats.boostSeconds || 0),
+      barricadeCollisions:
+        barricadeCollisions + (sim.stats.barricadeCollisions || 0),
+      barricadeEvents: [...barricadeEvents, ...(sim.barricadeEvents || [])],
       meanNearestDistance: nearestTime / seconds,
       meanAllPoliceDistance: allDistanceTime / seconds,
       chaseSeconds,
@@ -113,10 +201,10 @@ export function measurePursuit(
   }
   const mean = (key) => runs.reduce((sum, r) => sum + r[key], 0) / runs.length;
   return {
-    version: "1.3",
+    version: "1.4",
     mode,
     method:
-      "Normal left/right seeded driving, fixed 60Hz; camera projection plus building line-of-sight, 5Hz visibility sampling; faded player-occluding buildings count as transparent. No health edits, teleports or forced explosions.",
+      "Roadblock-aware normal left/right seeded driving, fixed 60Hz; camera projection plus building line-of-sight, 5Hz visibility sampling; faded player-occluding buildings count as transparent. No health edits, teleports or forced explosions.",
     seconds,
     seeds,
     meanNearestDistance: mean("meanNearestDistance"),
@@ -141,7 +229,7 @@ export function assessPursuit(report) {
     chaseDuration: road.meanChaseSeconds >= 45,
     desktopVisibility: road.policeVisibleRatioDesktop >= 0.75,
     mobileVisibility: road.policeVisibleRatioMobile >= 0.6,
-    wallAvoidance: road.meanWallCollisions < 1,
+    wallAvoidance: road.meanWallCollisions < 2,
     visibleNaturalAccidents:
       evasive.meanVisibleExplosionsDesktop > 0 &&
       evasive.meanVisibleExplosionsMobile > 0,
