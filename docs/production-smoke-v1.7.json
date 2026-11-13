@@ -1,0 +1,26 @@
+{
+  "version": "1.7",
+  "baseURL": "http://127.0.0.1:4173",
+  "results": [
+    {
+      "name": "desktop-chromium",
+      "title": "CHASE CITY V1.7 — 도시 탈출",
+      "startAndTimer": true,
+      "mute": true,
+      "pauseFreezesTimer": true,
+      "resume": true,
+      "developmentHookExcluded": true,
+      "pageErrors": []
+    },
+    {
+      "name": "iphone-webkit",
+      "title": "CHASE CITY V1.7 — 도시 탈출",
+      "startAndTimer": true,
+      "mute": true,
+      "pauseFreezesTimer": true,
+      "resume": true,
+      "developmentHookExcluded": true,
+      "pageErrors": []
+    }
+  ]
+}

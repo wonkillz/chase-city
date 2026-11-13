@@ -236,7 +236,7 @@ export function measurePursuit(
   }
   const mean = (key) => runs.reduce((sum, r) => sum + r[key], 0) / runs.length;
   return {
-    version: "1.6",
+    version: "1.7",
     mode,
     method:
       "Roadblock-aware normal left/right seeded driving, fixed 60Hz; camera projection plus building line-of-sight, 5Hz visibility sampling; faded player-occluding buildings count as transparent. No health edits, teleports or forced explosions.",

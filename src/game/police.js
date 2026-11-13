@@ -1,28 +1,13 @@
 import { CONFIG, clamp, angleDelta } from "./config.js";
-export function makePolice(i, generation = 0, player = null) {
+export function makePolice(i, generation = 0) {
   let x = (i % 2 ? 1 : -1) * 3,
     z = 30 + i * 9;
-  if (player) {
-    // Reinforcements arrive on roads 35+ units away, never on the player's car.
-    const candidates = [];
-    for (let a = -90; a <= 90; a += 30)
-      for (let b = -90; b <= 90; b += 30) {
-        const distance = Math.hypot(a - player.x, b - player.z);
-        if (distance >= 35 && distance <= 70) candidates.push({ x: a, z: b });
-      }
-    const spawn = candidates[(i * 7 + generation * 11) % candidates.length] || {
-      x: 0,
-      z: 90,
-    };
-    x = spawn.x;
-    z = spawn.z;
-  }
   return {
     id: i,
     generation,
     x,
     z,
-    angle: player ? Math.atan2(x - player.x, z - player.z) : 0,
+    angle: 0,
     vx: 0,
     vz: 0,
     speed: CONFIG.policeSpeed,
@@ -40,6 +25,7 @@ export function makePolice(i, generation = 0, player = null) {
     route: [],
     routeTimer: 0,
     role: "pursuit",
+    mode: "pursuit",
     replans: 0,
     blocked: 0,
   };
@@ -68,15 +54,19 @@ export function steerPolice(
   const lead =
     c.role === "pursuit"
       ? 0
-      : 1.1 + Math.min(1, elapsed / 60) * 0.6 + (index % 3) * 0.55;
+      : 0.8 + Math.min(1, elapsed / 60) * 0.7 + (index % 3) * 0.6;
   const surrounding =
-    (player.contained || Math.hypot(player.vx, player.vz) < 8) && close < 18;
+    (player.contained ||
+      player.cordonCandidate ||
+      (c.mode === "contain" && player.captureProgress > 0)) &&
+    close < 12;
   const slotAngle =
     (player.cordonHeading ?? player.angle) + ((c.id % 4) * Math.PI) / 2;
   const slot = {
     x: player.x - Math.sin(slotAngle) * (c.id < 4 ? 3.4 : 5.4),
     z: player.z - Math.cos(slotAngle) * (c.id < 4 ? 3.4 : 5.4),
   };
+  c.mode = surrounding ? "contain" : "pursuit";
   c.role = surrounding ? "contain" : c.role;
   const ahead = {
     x: player.x + player.vx * lead,
@@ -87,7 +77,15 @@ export function steerPolice(
     : navigation.allowed(player)
       ? { x: player.x, z: player.z }
       : { x: clamp(player.x, -95, 95), z: clamp(player.z, -95, 95) };
-  const target = surrounding ? slot : player;
+  const flank = ((index % 3) - 1) * 2.1;
+  const chaseTarget =
+    c.role === "intercept"
+      ? {
+          x: prediction.x + Math.cos(player.angle) * flank,
+          z: prediction.z - Math.sin(player.angle) * flank,
+        }
+      : player;
+  const target = surrounding ? slot : chaseTarget;
   const direct = close < 22 && navigation.clear(c, target);
   let waypoint;
   if (direct) {
@@ -145,12 +143,12 @@ export function steerPolice(
     -6;
   const canBoost =
     c.type === "pursuit" &&
-    rank <= 2 &&
+    rank <= 3 &&
     behind &&
     close > 11 &&
-    close < 65 &&
+    close < 110 &&
     Math.abs(error) < 0.32 &&
-    navigation.clear(c, player);
+    navigation.clear(c, target);
   if (c.boostTimer > 0) {
     c.boostTimer -= dt;
     if (!canBoost || c.boostTimer <= 0) {
@@ -260,13 +258,15 @@ export function collidePolice(a, b) {
   b.vz += nz * impulse;
   // Impulse/depenetration still applies, but a slow stationary cordon has no crash damage.
   if (
-    closing < 10 ||
+    closing < 5 ||
     relative < 10 ||
     peakSpeed < 8 ||
     (a.role === "contain" && b.role === "contain" && peakSpeed < 10)
   )
     return 0;
-  const damage = impactDamage(closing, CONFIG.pairDamageScale);
+  const tangentSquared = Math.max(0, relative * relative - closing * closing);
+  const impact = Math.sqrt(closing * closing + tangentSquared * 0.15);
+  const damage = impactDamage(impact, CONFIG.pairDamageScale);
   let applied = 0;
   for (const car of [a, b])
     if ((car.pairCooldown || 0) <= 0 && damage > 0) {

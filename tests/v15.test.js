@@ -1,3 +1,4 @@
+import { ChaseCamera } from "../src/render/camera.js";
 import test from "node:test";
 import assert from "node:assert/strict";
 import * as THREE from "three";
@@ -66,7 +67,7 @@ test("stationary and low-speed three/four-car contact never accumulates durabili
   }
 });
 test("open space and a removed cordon officer clear the gauge quickly instead of false arrest", () => {
-  assert.equal(inspectEnclosure({ x: 0, z: 0 }, ring(5), []).trapped, false);
+  assert.equal(inspectEnclosure({ x: 0, z: 0 }, ring(7), []).trapped, false);
   assert.equal(
     inspectEnclosure({ x: 0, z: 0 }, [ring()[0], ring()[1], ring()[3]], [])
       .trapped,
@@ -95,6 +96,8 @@ test("high-speed impacts still destroy a police car after two strong real contac
 test("containment uses four distinct sides and arrives gently rather than ramming its slots", () => {
   const s = make();
   s.police = ring(6);
+  s.player.contained = true;
+  s.player.cordonHeading = 0;
   for (let i = 0; i < s.police.length; i++)
     steerPolice(s.police[i], i, s.player, 0.05, s.navigation, s.police, 40);
   assert.ok(
@@ -240,14 +243,18 @@ test("a circle-only offset gap is not an exit when the full car cannot steer thr
   );
   const result = inspectEnclosure({ x: 0, z: 0 }, cops, []);
   assert.equal(result.trapped, true);
-  assert.equal(result.reason, "blocked-footprint");
+  assert.equal(result.reason, "no-drivable-exit");
 });
 test("reinforcements stay on actual roads rather than spawning on wreck bypass corners", () => {
   const nav = new RoadNavigation([]);
   nav.setSolids([{ x: 0, z: 0, w: 2.1, d: 3.6, kind: "wreck" }]);
   assert.ok(nav.nodes.some((n) => n.x % 30 !== 0 && n.z % 30 !== 0));
   for (let i = 0; i < 20; i++) {
-    const spawn = nav.spawn({ x: 0, z: -30, vx: 0, vz: 24 }, [], i, i);
+    const p = { x: 0, z: -30, vx: 0, vz: 24, angle: Math.PI };
+    const rig = new ChaseCamera();
+    rig.follow.set(p.x, 0, p.z);
+    rig.update(p, 0);
+    const spawn = nav.spawn(p, [], i, i, rig.camera);
     assert.ok(spawn);
     assert.ok(spawn.x % 30 === 0 || spawn.z % 30 === 0);
   }

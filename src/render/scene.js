@@ -1,3 +1,4 @@
+import { spawnView, inspectSpawn } from "../game/spawning.js";
 import { WreckRenderer } from "./wrecks.js";
 import * as THREE from "three";
 import { RoadEventsRenderer } from "./road-events.js";
@@ -275,11 +276,44 @@ export class CityRenderer {
       }
     });
     this.effects.update(sim.events, sim.elapsed);
-    this.cameraRig.update(p, dt);
+    if (sim.cameraRig !== this.cameraRig || !running)
+      this.cameraRig.update(p, dt);
     this.trails.update(p, dt, running);
     this.camera.updateMatrixWorld(true);
     this.player.updateMatrixWorld(true);
     this.roadEvents.update(sim, this.camera);
+    const spawnCameraView = spawnView(this.camera);
+    for (const c of sim.police)
+      if (c.spawnProof && c.state === "active") {
+        const key = `${c.id}:${c.generation}`;
+        if (!this.spawnFirstFrames.has(key)) {
+          this.spawnFirstFrames.add(key);
+          this.spawnDisplayLog.push({
+            key,
+            time: sim.elapsed,
+            born: c.spawnedAt,
+            age: sim.elapsed - c.spawnedAt,
+            x: c.x,
+            z: c.z,
+            bodyOutside: inspectSpawn(spawnCameraView, c, c.angle, 0).outside,
+            safeOutside: inspectSpawn(spawnCameraView, c, c.angle, 2).outside,
+          });
+        }
+        if (
+          !this.spawnEntryKeys.has(key) &&
+          !inspectSpawn(spawnCameraView, c, c.angle, 0).outside &&
+          this.cameraRig.visible(c, this.buildings)
+        ) {
+          this.spawnEntryKeys.add(key);
+          this.spawnEntries.push({
+            key,
+            time: sim.elapsed,
+            age: sim.elapsed - c.spawnedAt,
+            x: c.x,
+            z: c.z,
+          });
+        }
+      }
     this.wreckRenderer.update(sim, this.camera);
     this.occlusion.update(this.camera.position, p, dt);
     if (running) this.sampleMetrics(sim, dt);
@@ -300,6 +334,10 @@ export class CityRenderer {
     }
   }
   resetMetrics() {
+    this.spawnFirstFrames = new Set();
+    this.spawnEntryKeys = new Set();
+    this.spawnDisplayLog = [];
+    this.spawnEntries = [];
     this.screenMetrics = {
       sampledSeconds: 0,
       policeVisibleSeconds: 0,

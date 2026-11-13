@@ -17,7 +17,9 @@ function penetration(a, b) {
 export function inspectEnclosure(player, fleet, solids, allowed = () => true) {
   const cops = fleet.filter(
     (c) =>
-      c.state === "active" && Math.hypot(c.x - player.x, c.z - player.z) < 8,
+      c.state === "active" &&
+      Math.hypot(c.x - player.x, c.z - player.z) <
+        (player.contained ? 10.5 : 9.5),
   );
   if (cops.length < 3)
     return {
@@ -51,56 +53,80 @@ export function inspectEnclosure(player, fleet, solids, allowed = () => true) {
     c: Math.cos(player.angle || 0),
     s: Math.sin(player.angle || 0),
   };
-  const headings = Array.from({ length: 48 }, (_, i) => ({
-    c: Math.cos(base.angle + (i * Math.PI) / 24),
-    s: Math.sin(base.angle + (i * Math.PI) / 24),
-  }));
   const initial = obstacles.map((b) => penetration(base, b));
-  const valid = (pose) => {
-    // World limits constrain the centre in the actual simulation; overhang
-    // beyond that line is allowed on the surrounding ground.
-    if (!allowed(pose)) return false;
-    return !obstacles.some((b, i) => penetration(pose, b) > initial[i] + 0.012);
-  };
-  const clear = (pose) =>
-    obstacles.slice(0, cops.length).every((b) => penetration(pose, b) < 0.001);
-  const queue = [{ ...base, k: 0 }],
-    seen = new Set(["0,0,0"]);
-  // Forward motion and swept, in-place steering are possible at low speed.
-  // No sideways translation, reverse teleport or instantaneous yaw is allowed.
+  let vx = player.vx || 0,
+    vz = player.vz || 0;
+  // Match the real contact solver: velocity into an already-touching officer
+  // is removed before evaluating the opening, rather than rejecting every
+  // route because of one frame of residual sideways collision velocity.
+  for (let pass = 0; pass < 2; pass++)
+    for (let i = 0; i < cops.length; i++)
+      if (initial[i] > 0.001) {
+        const dx = cops[i].x - base.x,
+          dz = cops[i].z - base.z,
+          d = Math.hypot(dx, dz) || 1;
+        const inward = Math.max(0, (vx * dx + vz * dz) / d);
+        vx -= (inward * dx) / d;
+        vz -= (inward * dz) / d;
+      }
+  const queue = [
+      {
+        ...base,
+        vx,
+        vz,
+        speed: player.speed ?? Math.hypot(player.vx || 0, player.vz || 0),
+        steering: player.steering || 0,
+        depth: 0,
+      },
+    ],
+    seen = new Set();
   for (let head = 0; head < queue.length; head++) {
-    const n = queue[head];
-    if (Math.hypot(n.x - player.x, n.z - player.z) >= 7 && clear(n))
+    const node = queue[head];
+    if (
+      Math.hypot(node.x - base.x, node.z - base.z) >= 5.5 &&
+      obstacles.slice(0, cops.length).every((b) => penetration(node, b) < 0.01)
+    )
       return {
         trapped: false,
         exits: 1,
         nearby: cops.length,
-        reason: "vehicle-path",
+        reason: "drivable-exit",
         searched: head + 1,
       };
-    for (const action of [-1, 0, 1]) {
-      const k = (n.k + action + 24) % 24;
-      const angle = base.angle + (k * Math.PI) / 12;
-      const next = {
-        ...base,
-        x: n.x - (action === 0 ? Math.sin(angle) * 0.6 : 0),
-        z: n.z - (action === 0 ? Math.cos(angle) * 0.6 : 0),
-        angle,
-        ...headings[k * 2],
-        k,
-      };
-      if (Math.abs(next.x - player.x) > 8 || Math.abs(next.z - player.z) > 8)
-        continue;
-      const key = `${Math.round((next.x - player.x) / 0.4)},${Math.round((next.z - player.z) / 0.4)},${k}`;
+    if (node.depth >= 12) continue;
+    for (const steering of [0, 1, -1]) {
+      const next = { ...node, depth: node.depth + 1 };
+      let valid = true;
+      for (let step = 0; step < 3; step++) {
+        next.steering += (steering - next.steering) * (1 - Math.exp(-0.05 * 7));
+        next.angle += next.steering * 1.75 * 0.05;
+        next.speed += (24 - next.speed) * (1 - Math.exp(-0.05 * 2));
+        next.vx +=
+          (-Math.sin(next.angle) * next.speed - next.vx) *
+          (1 - Math.exp(-0.05 * 10));
+        next.vz +=
+          (-Math.cos(next.angle) * next.speed - next.vz) *
+          (1 - Math.exp(-0.05 * 10));
+        next.x += next.vx * 0.05;
+        next.z += next.vz * 0.05;
+        next.c = Math.cos(next.angle);
+        next.s = Math.sin(next.angle);
+        if (
+          !allowed(next) ||
+          obstacles.some(
+            (b, i) =>
+              penetration(next, b) >
+              initial[i] +
+                (i < cops.length && initial[i] > 0.001 ? 0.12 : 0.02),
+          )
+        ) {
+          valid = false;
+          break;
+        }
+      }
+      if (!valid) continue;
+      const key = `${Math.round((next.x - base.x) / 0.5)},${Math.round((next.z - base.z) / 0.5)},${Math.round(next.angle / (Math.PI / 12))},${Math.round(next.steering * 2)}`;
       if (seen.has(key)) continue;
-      const middle = {
-        ...base,
-        x: (n.x + next.x) / 2,
-        z: (n.z + next.z) / 2,
-        angle: action === 0 ? angle : n.angle + (action * Math.PI) / 24,
-        ...headings[action === 0 ? k * 2 : (n.k * 2 + action + 48) % 48],
-      };
-      if (!valid(next) || !valid(middle)) continue;
       seen.add(key);
       queue.push(next);
     }
@@ -109,7 +135,7 @@ export function inspectEnclosure(player, fleet, solids, allowed = () => true) {
     trapped: true,
     exits: 0,
     nearby: cops.length,
-    reason: "blocked-footprint",
+    reason: "no-drivable-exit",
     searched: queue.length,
   };
 }

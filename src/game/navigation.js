@@ -1,3 +1,4 @@
+import { spawnView, inspectSpawn } from "./spawning.js";
 import { CONFIG } from "./config.js";
 export const distance = (a, b) => Math.hypot(a.x - b.x, a.z - b.z);
 // Swept circle uses conservative expanded AABBs; no route can cut a building.
@@ -190,26 +191,63 @@ export class RoadNavigation {
     }
     return [];
   }
-  spawn(player, fleet, id, generation = 0) {
-    const ahead = {
-      x: player.x + player.vx * 0.9,
-      z: player.z + player.vz * 0.9,
-    };
+  spawn(player, fleet, id, generation = 0, camera = null) {
+    const view = spawnView(camera);
+    if (!view) return null;
+    const heading = Number.isFinite(player.angle)
+      ? player.angle
+      : Math.atan2(-player.vx, -player.vz);
+    const fx = -Math.sin(heading),
+      fz = -Math.cos(heading);
     const candidates = this.nodes.filter((n) => {
-      const d = distance(n, player);
+      const d = distance(n, player),
+        forward = (n.x - player.x) * fx + (n.z - player.z) * fz;
       return (
         (this.baseNodeCount === undefined || n.id < this.baseNodeCount) &&
         this.clear(n, n) &&
-        d >= 27 &&
-        d <= 48 &&
-        fleet.every((c) => c.state !== "active" || distance(n, c) > 7)
+        d >= 45 &&
+        d <= 115 &&
+        forward <= -12 &&
+        fleet.every((c) => c.state !== "active" || distance(n, c) > 9) &&
+        inspectSpawn(view, n, 0).outside &&
+        inspectSpawn(view, n, Math.PI / 2).outside
       );
     });
-    candidates.sort(
-      (a, b) => distance(a, ahead) - distance(b, ahead) || a.id - b.id,
-    );
+    candidates.sort((a, b) => {
+      const score = (n) =>
+        distance(n, player) +
+        Math.abs((n.x - player.x) * fz - (n.z - player.z) * fx) * 0.22;
+      return score(a) - score(b) || a.id - b.id;
+    });
     if (!candidates.length) return null;
-    const n = candidates[(id + generation) % Math.min(5, candidates.length)];
-    return n ? { x: n.x, z: n.z } : null;
+    const shift = (id + generation) % Math.min(4, candidates.length);
+    for (let i = 0; i < candidates.length; i++) {
+      const n = candidates[(i + shift) % candidates.length],
+        route = this.findPath(n, player);
+      if (route.length < 2) continue;
+      const next = route[1],
+        length = distance(n, next),
+        vx = ((next.x - n.x) / length) * 18,
+        vz = ((next.z - n.z) / length) * 18;
+      const angle = Math.atan2(-vx, -vz),
+        visibility = inspectSpawn(view, n, angle);
+      if (!visibility.outside) continue;
+      return {
+        x: n.x,
+        z: n.z,
+        angle,
+        vx,
+        vz,
+        route,
+        spawnProof: {
+          ...visibility,
+          distance: distance(n, player),
+          forward: (n.x - player.x) * fx + (n.z - player.z) * fz,
+          road: true,
+          routeLength: route.length,
+        },
+      };
+    }
+    return null;
   }
 }

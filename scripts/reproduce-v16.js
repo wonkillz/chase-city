@@ -2,8 +2,11 @@ import { Simulation } from "../src/game/simulation.js";
 import { createLayout } from "../src/world/layout.js";
 // Normal launch, neutral steering for five seconds, then hold right. No car,
 // police, health, mission, clock or reinforcement overrides.
-export function normalCordonControls(elapsed) {
-  return { left: false, right: Math.round(elapsed * 60) > 300 };
+export function normalCordonControls(elapsed, profile = "desktop") {
+  return {
+    left: false,
+    right: Math.round(elapsed * 60) > (profile === "mobile" ? 0 : 300),
+  };
 }
 export function cordonSample(sim) {
   const near = sim.police.filter(
@@ -42,7 +45,7 @@ export function reproduceCordon(limit = 60) {
     if (frame % 12 === 11 || sim.result) timeline.push(cordonSample(sim));
   }
   return {
-    version: "1.6",
+    version: "1.7",
     method:
       "Normal START and legal right steering after five seconds; fixed 60 Hz. No police placement, health edits, invulnerability or forced results.",
     initial,

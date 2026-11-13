@@ -26,6 +26,8 @@ function pause() {
 const input = new Input(pause);
 try {
   renderer = new CityRenderer(document.querySelector("#game"), sim.layout);
+  sim.cameraRig = renderer.cameraRig;
+  sim.cameraRig.update(sim.player, 0);
 } catch (error) {
   document.querySelector("#message").textContent =
     "3D 그래픽을 시작할 수 없습니다. WebGL을 지원하는 브라우저에서 다시 시도하세요.";

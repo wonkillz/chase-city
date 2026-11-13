@@ -1,3 +1,4 @@
+import { ChaseCamera } from "../render/camera.js";
 import { CONFIG, clamp, angleDelta } from "./config.js";
 import { RoadNavigation } from "./navigation.js";
 import { resolveBuilding } from "../world/layout.js";
@@ -16,6 +17,9 @@ import {
 export class Simulation {
   constructor(layout, options = {}) {
     this.layout = layout;
+    this.cameraRig =
+      options.cameraRig ||
+      new ChaseCamera(options.width || 1100, options.height || 740);
     this.staticSolids = [...layout.buildings, ...(layout.obstacles || [])];
     this.random = options.random || Math.random;
     this.reinforcementsEnabled = options.reinforcements !== false;
@@ -46,6 +50,12 @@ export class Simulation {
   }
   reset(missionId = "survival60") {
     this.runNumber++;
+    this.cameraRig.reset();
+    this.cameraRig.update({ x: 0, z: 8 }, 0);
+    this.spawnEvents = [];
+    this.spawnRetryAt = 0;
+    this.captureOpenTime = 0;
+    this.motionSamples = [];
     this.wrecks = [];
     this.wreckId = 0;
     this.enclosure = { trapped: false, exits: 1, nearby: 0 };
@@ -85,6 +95,7 @@ export class Simulation {
     this.events = [];
     this.eventId = 0;
     this.impactId = 0;
+    this.contactEvents = [];
     this.impacts = [];
     this.stats = {
       explosions: 0,
@@ -96,6 +107,7 @@ export class Simulation {
       barricadeCollisions: 0,
       barricadeDamage: 0,
       boostSeconds: 0,
+      spawnDeferrals: 0,
     };
 
     this.police = Array.from({ length: CONFIG.policeCount }, (_, i) =>
@@ -218,6 +230,7 @@ export class Simulation {
       if (c.state !== "active") continue;
       this.stats.explosions++;
       if (chained.has(c)) this.stats.chainExplosions++;
+      const crashSpeed = Math.hypot(c.vx, c.vz);
       addWreck(this, c);
       c.state = "wreck";
       c.health = 0;
@@ -228,6 +241,8 @@ export class Simulation {
         id: ++this.eventId,
         type: "explosion",
         cause: c.lastDamageCause || "unknown",
+        mode: c.mode || "pursuit",
+        crashSpeed,
         x: c.x,
         z: c.z,
         time: this.elapsed,
@@ -346,16 +361,53 @@ export class Simulation {
       }
     }
     p.slip = Math.abs(p.vx * Math.cos(p.angle) - p.vz * Math.sin(p.angle));
+    this.motionSamples.push({ x: p.x, z: p.z, time: this.elapsed });
+    while (
+      this.motionSamples.length > 1 &&
+      this.elapsed - this.motionSamples[0].time > 0.5
+    )
+      this.motionSamples.shift();
+    const motion = this.motionSamples[0],
+      motionSpan = this.elapsed - motion.time;
+    p.netSpeed =
+      motionSpan > 0
+        ? Math.hypot(p.x - motion.x, p.z - motion.z) / motionSpan
+        : 24;
+    this.cameraRig.update(p, dt);
     const desiredFleet = Math.min(
       CONFIG.maxPolice,
       4 + Math.floor((this.elapsed + 1e-7) / 10),
     );
-    while (this.reinforcementsEnabled && this.police.length < desiredFleet) {
+    while (
+      this.reinforcementsEnabled &&
+      this.police.length < desiredFleet &&
+      this.elapsed >= this.spawnRetryAt
+    ) {
       const id = this.police.length,
-        spawn = this.navigation.spawn(p, this.police, id);
-      if (!spawn) break;
+        spawn = this.navigation.spawn(
+          p,
+          this.police,
+          id,
+          0,
+          this.cameraRig.camera,
+        );
+      if (!spawn) {
+        this.stats.spawnDeferrals++;
+        this.spawnRetryAt = this.elapsed + 0.3;
+        break;
+      }
       const c = Object.assign(makePolice(id), spawn);
-      c.angle = Math.atan2(c.x - p.x, c.z - p.z);
+      c.spawnedAt = this.elapsed;
+      this.spawnEvents.push({
+        time: this.elapsed,
+        kind: "reinforcement",
+        id,
+        generation: 0,
+        x: c.x,
+        z: c.z,
+        angle: c.angle,
+        ...spawn.spawnProof,
+      });
       this.police.push(c);
       previous.set(c, { x: c.x, z: c.z });
     }
@@ -363,18 +415,38 @@ export class Simulation {
       const c = this.police[i];
       if (c.state !== "active") {
         c.wreckAge += dt;
-        if (c.wreckAge >= CONFIG.respawnSeconds) {
+        if (
+          c.wreckAge >= CONFIG.respawnSeconds &&
+          this.elapsed >= (c.respawnRetryAt || 0)
+        ) {
           const spawn = this.navigation.spawn(
             p,
             this.police,
             c.id,
             c.generation + 1,
+            this.cameraRig.camera,
           );
-          if (!spawn) continue;
+          if (!spawn) {
+            this.stats.spawnDeferrals++;
+            c.respawnRetryAt = this.elapsed + 0.3;
+            continue;
+          }
           this.police[i] = Object.assign(
-            makePolice(c.id, c.generation + 1, p),
+            makePolice(c.id, c.generation + 1),
             spawn,
           );
+          this.police[i].spawnedAt = this.elapsed;
+          this.spawnEvents.push({
+            time: this.elapsed,
+            kind: "respawn",
+            respawnDelay: c.wreckAge,
+            id: c.id,
+            generation: c.generation + 1,
+            x: spawn.x,
+            z: spawn.z,
+            angle: spawn.angle,
+            ...spawn.spawnProof,
+          });
           previous.set(this.police[i], {
             x: this.police[i].x,
             z: this.police[i].z,
@@ -401,8 +473,21 @@ export class Simulation {
         const a = this.police[i],
           b = this.police[j];
         const speed = Math.hypot(a.vx - b.vx, a.vz - b.vz);
+        const modes = [a.mode || "pursuit", b.mode || "pursuit"];
         const damage = collidePolice(a, b);
         if (damage > 0) {
+          this.contactEvents.push({
+            time: this.elapsed,
+            a: a.id,
+            b: b.id,
+            x: (a.x + b.x) / 2,
+            z: (a.z + b.z) / 2,
+            relativeSpeed: speed,
+            closingSpeed:
+              a.lastCollisionStrength || b.lastCollisionStrength || 0,
+            damage,
+            modes,
+          });
           this.stats.pairCollisions++;
           this.stats.pairDamage += damage * 2;
           this.recordImpact(a, a.lastCollisionStrength || speed, "police-pair");
@@ -456,7 +541,9 @@ export class Simulation {
       Math.hypot(p.x - this.previousPlayer.x, p.z - this.previousPlayer.z) / dt;
     p.groundSpeed = groundSpeed;
     const near = this.police.filter(
-      (c) => c.state === "active" && Math.hypot(c.x - p.x, c.z - p.z) < 8,
+      (c) =>
+        c.state === "active" &&
+        Math.hypot(c.x - p.x, c.z - p.z) < (this.arrest > 0 ? 10.5 : 9.5),
     );
     const center = near.reduce(
       (a, c) => ({ x: a.x + c.x / near.length, z: a.z + c.z / near.length }),
@@ -490,6 +577,7 @@ export class Simulation {
       this.enclosureTimer = 0;
     } else if (
       this.enclosureTimer <= 0 ||
+      this.enclosure.nearby !== near.length ||
       this.arrest >= CONFIG.arrestSeconds - 0.12
     ) {
       this.enclosure = inspectEnclosure(p, this.police, this.solids, (pose) =>
@@ -497,13 +585,18 @@ export class Simulation {
       );
       this.enclosureTimer = 0.15;
     }
-    // World-space shoving is not a successful escape. A sealed, moving cordon
-    // still arrests; a genuine drivable exit or leaving the officers releases it.
-    p.contained = this.enclosure.trapped;
-    if (p.contained && p.cordonHeading === undefined) p.cordonHeading = p.angle;
-    if (!p.contained && this.arrest === 0) p.cordonHeading = undefined;
+    const sealed = this.enclosure.trapped && near.length >= 3;
+    this.captureOpenTime = sealed ? 0 : this.captureOpenTime + dt;
+    const holding =
+      sealed ||
+      (this.arrest > 0 && near.length >= 3 && this.captureOpenTime < 0.35);
+    p.contained = holding;
+    p.captureProgress = this.arrest;
+    p.cordonCandidate = near.length >= 3 && (p.netSpeed < 5 || holding);
+    if (holding && p.cordonHeading === undefined) p.cordonHeading = p.angle;
+    if (!holding && this.arrest === 0) p.cordonHeading = undefined;
     this.arrest = clamp(
-      this.arrest + (p.contained ? dt : -dt * 2.5),
+      this.arrest + (sealed ? dt : holding ? 0 : -dt * 5),
       0,
       CONFIG.arrestSeconds,
     );

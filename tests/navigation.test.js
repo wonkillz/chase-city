@@ -1,3 +1,4 @@
+import { ChaseCamera } from "../src/render/camera.js";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { RoadNavigation, clearSegment } from "../src/game/navigation.js";
@@ -95,9 +96,11 @@ test("initial fleet four, reinforcements use clear roads away from all vehicles,
 test("reinforcement never falls back to teleporting across the map when safe nearby roads are full", () => {
   const nav = new RoadNavigation([]),
     p = { x: 0, z: 0, vx: 0, vz: -24 };
+  const rig = new ChaseCamera();
+  rig.update(p, 0);
   const occupied = nav.nodes.map((n) => ({ ...n, state: "active" }));
-  assert.equal(nav.spawn(p, occupied, 7), null);
-  const spawn = nav.spawn(p, [], 7);
-  assert.ok(Math.hypot(spawn.x - p.x, spawn.z - p.z) >= 27);
-  assert.ok(Math.hypot(spawn.x - p.x, spawn.z - p.z) <= 48);
+  assert.equal(nav.spawn(p, occupied, 7, 0, rig.camera), null);
+  const spawn = nav.spawn(p, [], 7, 0, rig.camera);
+  assert.ok(Math.hypot(spawn.x - p.x, spawn.z - p.z) >= 45);
+  assert.ok(Math.hypot(spawn.x - p.x, spawn.z - p.z) <= 115);
 });

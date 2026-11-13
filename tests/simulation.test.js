@@ -182,10 +182,10 @@ test("wrecks stop chasing and respawn on roads away from player after delay", ()
   s.police = [makePolice(0)];
   s.explodePolice(s.police[0]);
   const wreck = s.police[0];
-  tick(s, 4);
+  tick(s, 2.4);
   assert.equal(s.police[0], wreck);
   assert.equal(wreck.state, "wreck");
-  tick(s, 1.1);
+  tick(s, 0.4);
   const c = s.police[0];
   assert.equal(c.state, "active");
   assert.equal(c.generation, 1);

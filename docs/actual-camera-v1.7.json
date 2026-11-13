@@ -1,0 +1,51 @@
+{
+  "version": "1.7",
+  "iphone-webkit": {
+    "elapsed": 40.999999999998956,
+    "result": null,
+    "screen": {
+      "sampledSeconds": 41.19999999999992,
+      "policeVisibleSeconds": 38.799999999999926,
+      "visibleExplosions": 4,
+      "explosions": 4,
+      "nearestDistanceTime": 448.15272373442656,
+      "chaseSeconds": 41.19999999999992
+    },
+    "searches": 999,
+    "replans": 753,
+    "fleet": 8,
+    "meshes": 8,
+    "visibleDust": 2,
+    "visibleSkids": 18,
+    "dustPool": 48,
+    "skidPool": 64,
+    "health": 85,
+    "wallContacts": 444,
+    "wallDamage": 0,
+    "policeVisible": 8
+  },
+  "desktop-chromium": {
+    "elapsed": 40.999999999998956,
+    "result": null,
+    "screen": {
+      "sampledSeconds": 41.19999999999992,
+      "policeVisibleSeconds": 39.59999999999992,
+      "visibleExplosions": 3,
+      "explosions": 3,
+      "nearestDistanceTime": 508.46251887271995,
+      "chaseSeconds": 41.19999999999992
+    },
+    "searches": 1748,
+    "replans": 1587,
+    "fleet": 8,
+    "meshes": 8,
+    "visibleDust": 2,
+    "visibleSkids": 8,
+    "dustPool": 48,
+    "skidPool": 64,
+    "health": 95,
+    "wallContacts": 429,
+    "wallDamage": 0,
+    "policeVisible": 8
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "version": "1.7",
+  "date": "2026-11-13",
+  "baseCommit": "5e15b108cb09aa3e8412f2d401f5a14175e94d7e",
+  "unitTests": {
+    "passed": 75,
+    "failed": 0
+  },
+  "productionBuild": "passed",
+  "cohorts": [
+    {
+      "name": "mobile-core",
+      "stats": {
+        "startTime": "2026-11-13T00:52:03.223Z",
+        "duration": 191623.59399999998,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "file": "v16.spec.js",
+          "title": "normal START, native frames and legal steering: AI cordon progresses from zero to BUSTED without containment explosions",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 62651
+        },
+        {
+          "file": "v16.spec.js",
+          "title": "permanent collision wreck/fire at 30 and 60 seconds, offscreen return, growth beyond cap, result freeze and restart",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 17250
+        },
+        {
+          "file": "v17.spec.js",
+          "title": "V1.7 native chase: natural crashes and offscreen road reinforcements",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 77177
+        }
+      ]
+    },
+    {
+      "name": "mobile-regression",
+      "stats": {
+        "startTime": "2026-11-13T00:55:59.191Z",
+        "duration": 183648.202,
+        "expected": 13,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "file": "game.spec.js",
+          "title": "mission briefing freezes cars; keyboard/touch steering, pause, destruction and retry",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 18777
+        },
+        {
+          "file": "game.spec.js",
+          "title": "survival opens escape without payout; final gate succeeds once and retry resets",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 11195
+        },
+        {
+          "file": "game.spec.js",
+          "title": "real building materials fade and restore; chain explosions render debris/fire/smoke, launch wrecks and respawn",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 12374
+        },
+        {
+          "file": "v12.spec.js",
+          "title": "rendered pixels reveal the whole car through complete building geometry and restore",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 7355
+        },
+        {
+          "file": "v12.spec.js",
+          "title": "real Web Audio unlock, engine/siren/skid, mute, pause and UI sounds",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 22808
+        },
+        {
+          "file": "v12.spec.js",
+          "title": "unavailable Web Audio leaves START, pause and gameplay working",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 13880
+        },
+        {
+          "file": "v12.spec.js",
+          "title": "HUD sound and pause buttons fit phone viewports with fallback fonts",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 3277
+        },
+        {
+          "file": "v13.spec.js",
+          "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 28321
+        },
+        {
+          "file": "v13.spec.js",
+          "title": "player wall sliding costs zero health and remains controllable on keyboard/touch",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 10405
+        },
+        {
+          "file": "v14.spec.js",
+          "title": "two-second road-control warning, actual barrier meshes and escape-clear navigation",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 9908
+        },
+        {
+          "file": "v14.spec.js",
+          "title": "green outside gate, direction/distance UI, post-60 chase and final ESCAPED reward",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 14515
+        },
+        {
+          "file": "v15.spec.js",
+          "title": "real cordon produces BUSTED, releases no explosions, stops sound and restarts; destruction is WRECKED",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 12335
+        },
+        {
+          "file": "v15.spec.js",
+          "title": "yellow full roadblock and persistent burned body/fire/smoke/debris render after eight seconds and reset",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 12376
+        }
+      ]
+    },
+    {
+      "name": "desktop-all",
+      "stats": {
+        "startTime": "2026-11-13T00:59:04.491Z",
+        "duration": 1018276.301,
+        "expected": 15,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "file": "game.spec.js",
+          "title": "mission briefing freezes cars; keyboard/touch steering, pause, destruction and retry",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 36615
+        },
+        {
+          "file": "game.spec.js",
+          "title": "survival opens escape without payout; final gate succeeds once and retry resets",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 29305
+        },
+        {
+          "file": "game.spec.js",
+          "title": "real building materials fade and restore; chain explosions render debris/fire/smoke, launch wrecks and respawn",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 64623
+        },
+        {
+          "file": "v12.spec.js",
+          "title": "rendered pixels reveal the whole car through complete building geometry and restore",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 50649
+        },
+        {
+          "file": "v12.spec.js",
+          "title": "real Web Audio unlock, engine/siren/skid, mute, pause and UI sounds",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 34518
+        },
+        {
+          "file": "v12.spec.js",
+          "title": "unavailable Web Audio leaves START, pause and gameplay working",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 35924
+        },
+        {
+          "file": "v12.spec.js",
+          "title": "HUD sound and pause buttons fit phone viewports with fallback fonts",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 31603
+        },
+        {
+          "file": "v13.spec.js",
+          "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+          "project": "desktop-chromium",
+          "status": "failed",
+          "durationMs": 35972,
+          "errors": [
+            {
+              "location": {
+                "file": "/workspace/work/chase-city/tests/browser/v13.spec.js",
+                "column": 27,
+                "line": 44
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m40.99\u001b[39m\nReceived:    \u001b[31m35.64999999999926\u001b[39m\n\n  42 |     };\n  43 |   });\n> 44 |   expect(metrics.elapsed).toBeGreaterThanOrEqual(40.99);\n     |                           ^\n  45 |   expect(metrics.result).toBeNull();\n  46 |   expect(metrics.searches).toBeGreaterThan(20);\n  47 |   expect(metrics.replans).toBeGreaterThan(10);\n    at /workspace/work/chase-city/tests/browser/v13.spec.js:44:27"
+            }
+          ]
+        },
+        {
+          "file": "v13.spec.js",
+          "title": "player wall sliding costs zero health and remains controllable on keyboard/touch",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 6281
+        },
+        {
+          "file": "v14.spec.js",
+          "title": "two-second road-control warning, actual barrier meshes and escape-clear navigation",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 37484
+        },
+        {
+          "file": "v14.spec.js",
+          "title": "green outside gate, direction/distance UI, post-60 chase and final ESCAPED reward",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 66571
+        },
+        {
+          "file": "v15.spec.js",
+          "title": "real cordon produces BUSTED, releases no explosions, stops sound and restarts; destruction is WRECKED",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 19637
+        },
+        {
+          "file": "v15.spec.js",
+          "title": "yellow full roadblock and persistent burned body/fire/smoke/debris render after eight seconds and reset",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 66081
+        },
+        {
+          "file": "v16.spec.js",
+          "title": "normal START, native frames and legal steering: AI cordon progresses from zero to BUSTED without containment explosions",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 93941
+        },
+        {
+          "file": "v16.spec.js",
+          "title": "permanent collision wreck/fire at 30 and 60 seconds, offscreen return, growth beyond cap, result freeze and restart",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 98227
+        },
+        {
+          "file": "v17.spec.js",
+          "title": "V1.7 native chase: natural crashes and offscreen road reinforcements",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 265288
+        }
+      ]
+    },
+    {
+      "name": "routed-camera-recheck",
+      "stats": {
+        "startTime": "2026-11-13T01:16:32.239Z",
+        "duration": 149184.057,
+        "expected": 2,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "file": "v13.spec.js",
+          "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+          "project": "desktop-chromium",
+          "status": "passed",
+          "durationMs": 108390
+        },
+        {
+          "file": "v13.spec.js",
+          "title": "real camera tracks routed pursuit, eight-car fleet and bounded rear effects",
+          "project": "iphone-webkit",
+          "status": "passed",
+          "durationMs": 25971
+        }
+      ]
+    }
+  ],
+  "uniqueTests": 32,
+  "passed": 32,
+  "failed": 0
+}

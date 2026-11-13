@@ -10,7 +10,7 @@ async function screenshot(page, info, name, hideOverlay = true) {
     r.render(s, 0, false);
   });
   await page.screenshot({
-    path: `test-results/v1.6-${info.project.name}-${name}.png`,
+    path: `test-results/v1.7-${info.project.name}-${name}.png`,
     style: hideOverlay ? "#overlay{visibility:hidden}" : "",
     timeout: 120000,
   });
@@ -20,7 +20,7 @@ async function screenshot(page, info, name, hideOverlay = true) {
     r.renderer.setSize(innerWidth, innerHeight);
   });
 }
-test("normal START, native frames and legal steering: AI cordon progresses from zero to BUSTED without explosions", async ({
+test("normal START, native frames and legal steering: AI cordon progresses from zero to BUSTED without containment explosions", async ({
   page,
 }, info) => {
   test.setTimeout(600000);
@@ -39,7 +39,10 @@ test("normal START, native frames and legal steering: AI cordon progresses from 
       get() {
         return (
           window.__CHASE__.state === "running" &&
-          normalCordonControls(s.elapsed - 1 / 60).right
+          normalCordonControls(
+            s.elapsed - 1 / 60,
+            innerWidth < 700 ? "mobile" : "desktop",
+          ).right
         );
       },
       set() {},
@@ -124,7 +127,12 @@ test("normal START, native frames and legal steering: AI cordon progresses from 
   }));
   expect(proof.arrest).toBe(3);
   expect(proof.result).toBe("arrested");
-  expect(proof.explosions).toBe(0);
+  const lastZero = proof.timeline.findLastIndex((r) => r.arrest < 0.05);
+  const captureWindow = proof.timeline.slice(lastZero + 1);
+  expect(captureWindow.length).toBeGreaterThan(5);
+  expect(captureWindow.every((r) => r.explosions === proof.explosions)).toBe(
+    true,
+  );
   expect(proof.soundRunning).toBe(false);
   expect(
     proof.timeline.some(
@@ -143,7 +151,7 @@ test("normal START, native frames and legal steering: AI cordon progresses from 
     body: JSON.stringify(
       {
         method:
-          "Native requestAnimationFrame/normal START; legal right steering after five seconds. No simulation stepping, police placement, health, speed, mission or reinforcement edits. Internal rendering resolution reduced while running; screenshots at device-independent 1x resolution.",
+          "Native requestAnimationFrame/normal START; legal project-specific right steering (desktop after five seconds, mobile from START). No simulation stepping, police placement, health, speed, mission or reinforcement edits. Internal rendering resolution reduced while running; screenshots at device-independent 1x resolution.",
         initial,
         stages,
         ...proof,

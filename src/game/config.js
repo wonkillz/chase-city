@@ -13,7 +13,7 @@ export const CONFIG = Object.freeze({
   policeHealth: 100,
   impactCooldown: 0.8,
   wallDamageScale: 1.7,
-  pairDamageScale: 2.1,
+  pairDamageScale: 2.7,
   minimumImpact: 6,
   barricadeDamageScale: 1.9,
   maxImpactDamage: 60,
@@ -22,7 +22,7 @@ export const CONFIG = Object.freeze({
   explosionDamage: 90,
   wreckSeconds: 0.9,
   initialWreckSlots: 16,
-  respawnSeconds: 5,
+  respawnSeconds: 2.5,
 });
 export const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 export const angleDelta = (a, b) =>
