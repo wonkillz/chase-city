@@ -223,21 +223,28 @@ export class Simulation {
   }
   explodePolice(car) {
     if (car.state !== "active") return;
-    const queue = [car];
+    // Chain reactions are resolved immediately (physics, damage, wrecks), but
+    // each step of the chain is staged CONFIG.chainStepSeconds later on screen
+    // and in audio so a 2-3 car chain reads as a sequence, not one flash.
+    // Blast energy also falls off per chain step, so a chain needs genuinely
+    // damaged neighbours to continue instead of wiping out a whole pack.
+    const queue = [{ car, depth: 0 }];
     const chained = new Set();
+    let root = null;
     while (queue.length) {
-      const c = queue.shift();
+      const { car: c, depth } = queue.shift();
       if (c.state !== "active") continue;
       this.stats.explosions++;
       if (chained.has(c)) this.stats.chainExplosions++;
       const crashSpeed = Math.hypot(c.vx, c.vz);
-      addWreck(this, c);
+      const delay = depth * CONFIG.chainStepSeconds;
+      addWreck(this, c, delay);
       c.state = "wreck";
       c.health = 0;
-      c.wreckAge = 0;
+      c.wreckAge = 0 - delay;
       c.vx = 0;
       c.vz = 0;
-      this.events.push({
+      const event = {
         id: ++this.eventId,
         type: "explosion",
         cause: c.lastDamageCause || "unknown",
@@ -245,11 +252,18 @@ export class Simulation {
         crashSpeed,
         x: c.x,
         z: c.z,
+        angle: c.angle,
         time: this.elapsed,
+        delay,
+        chainDepth: depth,
         playerX: this.player.x,
         playerZ: this.player.z,
-      });
+      };
+      root ??= event.id;
+      event.chainRoot = root;
+      this.events.push(event);
       if (this.events.length > 64) this.events.shift();
+      const energy = Math.pow(CONFIG.chainFalloff, depth);
       for (const other of this.police) {
         if (other === c || other.state !== "active") continue;
         const dx = other.x - c.x,
@@ -265,7 +279,7 @@ export class Simulation {
           Math.hypot(other.x - this.player.x, other.z - this.player.z) < 12;
         const blastDamage = protectedCordon
           ? Math.min(6, CONFIG.explosionDamage * strength * 0.1)
-          : CONFIG.explosionDamage * strength;
+          : CONFIG.explosionDamage * strength * energy;
         other.health = Math.max(
           protectedCordon ? 1 : 0,
           other.health - blastDamage,
@@ -278,7 +292,7 @@ export class Simulation {
             chained.add(other);
             other.lastDamageCause = "blast";
           }
-          queue.push(other);
+          queue.push({ car: other, depth: depth + 1 });
         }
       }
     }
@@ -373,6 +387,12 @@ export class Simulation {
       motionSpan > 0
         ? Math.hypot(p.x - motion.x, p.z - motion.z) / motionSpan
         : 24;
+    // Smoothed escape speed for V1.8 police role selection (a circling or
+    // pinned player reads slow even if one 0.5 s sample looks fast).
+    p.fleeSpeed =
+      (p.fleeSpeed ?? CONFIG.playerSpeed) +
+      (p.netSpeed - (p.fleeSpeed ?? CONFIG.playerSpeed)) *
+        (1 - Math.exp(-dt / 1.2));
     this.cameraRig.update(p, dt);
     const desiredFleet = Math.min(
       CONFIG.maxPolice,

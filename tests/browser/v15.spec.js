@@ -141,8 +141,9 @@ test("yellow full roadblock and persistent burned body/fire/smoke/debris render 
   expect(measured).toMatchObject({
     body: true,
     age: 9,
-    flames: 3,
-    smoke: 4,
+    // V1.8: stronger persistent fire (5 flames) and smoke column (6 puffs).
+    flames: 5,
+    smoke: 6,
     animated: true,
     solid: true,
     yellow: 0xffd500,

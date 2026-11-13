@@ -1,6 +1,6 @@
 // Wreck identity and collision data belong to the run, not an officer or a
 // renderer slot. Only Simulation.reset() discards them.
-export function addWreck(sim, car) {
+export function addWreck(sim, car, delay = 0) {
   const c = Math.abs(Math.cos(car.angle)),
     s = Math.abs(Math.sin(car.angle));
   const wreck = {
@@ -11,7 +11,8 @@ export function addWreck(sim, car) {
     w: 2.1 * c + 3.6 * s,
     d: 3.6 * c + 2.1 * s,
     kind: "wreck",
-    born: sim.elapsed,
+    // A staged chain-reaction wreck lands when its own explosion is shown.
+    born: sim.elapsed + delay,
     solid: false,
   };
   sim.wrecks.push(wreck);

@@ -9,8 +9,16 @@ test("V1.7 native chase: natural crashes and offscreen road reinforcements", asy
   await page.goto("/?debug");
   await page.evaluate(async () => {
     const { stageDriver } = await import("/scripts/pursuit.js");
+    const { random } = await import("/scripts/autoplay.js");
     const { sim: s, input, renderer: r } = window.__CHASE__;
-    const drive = stageDriver(2, "evasive");
+    // V1.8: the same seeded road-control RNG as scripts/measure-v18.js, so
+    // this native-frame run is repeatable (Math.random made it a coin flip
+    // under V1.8's stronger pressure). Route 5 survives 60 s on PC/phone.
+    s.random = random(40003);
+    s.lastExitId = null;
+    s.reset();
+    r.reset();
+    const drive = stageDriver(5, "evasive");
     let tick = -1,
       controls = {};
     for (const key of ["left", "right"])
@@ -124,7 +132,7 @@ test("V1.7 native chase: natural crashes and offscreen road reinforcements", asy
     const { sim: s, renderer: r } = window.__CHASE__;
     return {
       method:
-        "Normal START; native RAF; legal stageDriver(2,evasive) steering only. No simulation stepping, police/health placement or forced explosions.",
+        "Normal START; native RAF; legal stageDriver(5,evasive) steering only (seeded road-control RNG). No simulation stepping, police/health placement or forced explosions.",
       viewport: { width: innerWidth, height: innerHeight },
       elapsed: s.elapsed,
       result: s.result,

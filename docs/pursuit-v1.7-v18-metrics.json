@@ -1,0 +1,5771 @@
+{
+ "root": "V1.7 (78b0c6d)",
+ "summary": {
+  "runs": 48,
+  "arrests": 24,
+  "destroyed": 0,
+  "avgPoliceWithin15": 2.06,
+  "frontPressurePct": 9.4,
+  "sidePressurePct": 17.3,
+  "frontOrSidePct": 21.4,
+  "threeWithin15Pct": 34.5,
+  "explosionsPerRun": 12.33,
+  "visibleExplosionsPerRun": 10.56,
+  "visibleSharePct": 85.6,
+  "farExplosionsPerRun": 0.08,
+  "visibleMultiMomentsPerRun": 2.94,
+  "chainGroups2to3PerRun": 2.25,
+  "chainGroups4plusPerRun": 1.4,
+  "causes": {
+   "vehicle": 228,
+   "blast": 363,
+   "wall": 1
+  }
+ },
+ "runs": [
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 1,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 19.966666666666665,
+     "cause": "vehicle",
+     "frameKey": "0:1198",
+     "visible": true,
+     "distance": 9.292832317934993
+    },
+    {
+     "run": 0,
+     "time": 19.966666666666665,
+     "cause": "blast",
+     "frameKey": "0:1198",
+     "visible": true,
+     "distance": 12.17433379559716
+    },
+    {
+     "run": 0,
+     "time": 20.2,
+     "cause": "vehicle",
+     "frameKey": "0:1212",
+     "visible": true,
+     "distance": 13.521529180071369
+    },
+    {
+     "run": 0,
+     "time": 26.283333333333335,
+     "cause": "vehicle",
+     "frameKey": "0:1577",
+     "visible": true,
+     "distance": 9.161120256624544
+    },
+    {
+     "run": 0,
+     "time": 26.283333333333335,
+     "cause": "blast",
+     "frameKey": "0:1577",
+     "visible": true,
+     "distance": 11.745860671438427
+    },
+    {
+     "run": 0,
+     "time": 26.283333333333335,
+     "cause": "blast",
+     "frameKey": "0:1577",
+     "visible": true,
+     "distance": 5.493573410870758
+    },
+    {
+     "run": 0,
+     "time": 26.283333333333335,
+     "cause": "blast",
+     "frameKey": "0:1577",
+     "visible": true,
+     "distance": 2.920071963222293
+    },
+    {
+     "run": 0,
+     "time": 26.283333333333335,
+     "cause": "blast",
+     "frameKey": "0:1577",
+     "visible": true,
+     "distance": 6.952759923632216
+    },
+    {
+     "run": 0,
+     "time": 42.25,
+     "cause": "vehicle",
+     "frameKey": "0:2535",
+     "visible": false,
+     "distance": 12.251535947569202
+    },
+    {
+     "run": 0,
+     "time": 42.25,
+     "cause": "blast",
+     "frameKey": "0:2535",
+     "visible": false,
+     "distance": 10.46949394704862
+    },
+    {
+     "run": 0,
+     "time": 42.25,
+     "cause": "blast",
+     "frameKey": "0:2535",
+     "visible": false,
+     "distance": 13.696733033498358
+    },
+    {
+     "run": 0,
+     "time": 43.5,
+     "cause": "vehicle",
+     "frameKey": "0:2610",
+     "visible": false,
+     "distance": 7.137030693021004
+    },
+    {
+     "run": 0,
+     "time": 43.5,
+     "cause": "blast",
+     "frameKey": "0:2610",
+     "visible": false,
+     "distance": 10.305783849115913
+    },
+    {
+     "run": 0,
+     "time": 43.5,
+     "cause": "blast",
+     "frameKey": "0:2610",
+     "visible": false,
+     "distance": 7.598992811081426
+    },
+    {
+     "run": 0,
+     "time": 43.5,
+     "cause": "blast",
+     "frameKey": "0:2610",
+     "visible": false,
+     "distance": 11.175466403825906
+    },
+    {
+     "run": 0,
+     "time": 55.11666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:3307",
+     "visible": true,
+     "distance": 8.631894199548343
+    },
+    {
+     "run": 0,
+     "time": 55.11666666666667,
+     "cause": "blast",
+     "frameKey": "0:3307",
+     "visible": true,
+     "distance": 11.994582934687548
+    },
+    {
+     "run": 0,
+     "time": 55.11666666666667,
+     "cause": "blast",
+     "frameKey": "0:3307",
+     "visible": true,
+     "distance": 14.853852084783009
+    }
+   ],
+   "frames": 3600,
+   "within15": 8927,
+   "front": 342,
+   "side": 1038,
+   "frontOrSide": 1202,
+   "surround3": 1398,
+   "arrestSeconds": 8.700000000000012,
+   "restarts": 1,
+   "multiMoments": 3
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 2,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 14.316666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:859",
+     "visible": true,
+     "distance": 10.01596078574624
+    },
+    {
+     "run": 0,
+     "time": 17.433333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1046",
+     "visible": true,
+     "distance": 10.446967555246573
+    },
+    {
+     "run": 0,
+     "time": 17.433333333333334,
+     "cause": "blast",
+     "frameKey": "0:1046",
+     "visible": true,
+     "distance": 9.878837499312997
+    },
+    {
+     "run": 0,
+     "time": 17.433333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1046",
+     "visible": true,
+     "distance": 10.110123441652023
+    },
+    {
+     "run": 1,
+     "time": 56.733333333333334,
+     "cause": "vehicle",
+     "frameKey": "1:3404",
+     "visible": true,
+     "distance": 34.65086315208174
+    },
+    {
+     "run": 1,
+     "time": 56.733333333333334,
+     "cause": "vehicle",
+     "frameKey": "1:3404",
+     "visible": true,
+     "distance": 35.43170470701926
+    },
+    {
+     "run": 1,
+     "time": 56.733333333333334,
+     "cause": "blast",
+     "frameKey": "1:3404",
+     "visible": true,
+     "distance": 31.71663294371926
+    }
+   ],
+   "frames": 3600,
+   "within15": 7546,
+   "front": 755,
+   "side": 1070,
+   "frontOrSide": 1252,
+   "surround3": 1136,
+   "arrestSeconds": 7.6333333333333115,
+   "restarts": 1,
+   "multiMoments": 2
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 3,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 21.083333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1265",
+     "visible": true,
+     "distance": 34.65086315208174
+    },
+    {
+     "run": 0,
+     "time": 21.083333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1265",
+     "visible": true,
+     "distance": 35.43170470701926
+    },
+    {
+     "run": 0,
+     "time": 21.083333333333332,
+     "cause": "blast",
+     "frameKey": "0:1265",
+     "visible": true,
+     "distance": 31.71663294371926
+    },
+    {
+     "run": 0,
+     "time": 33.36666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2002",
+     "visible": true,
+     "distance": 14.87510291790986
+    },
+    {
+     "run": 0,
+     "time": 33.36666666666667,
+     "cause": "blast",
+     "frameKey": "0:2002",
+     "visible": true,
+     "distance": 11.38659835056296
+    },
+    {
+     "run": 0,
+     "time": 43.78333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2627",
+     "visible": true,
+     "distance": 10.444563247500529
+    },
+    {
+     "run": 0,
+     "time": 43.78333333333333,
+     "cause": "blast",
+     "frameKey": "0:2627",
+     "visible": true,
+     "distance": 13.247422914065888
+    },
+    {
+     "run": 0,
+     "time": 44.95,
+     "cause": "vehicle",
+     "frameKey": "0:2697",
+     "visible": true,
+     "distance": 12.908489864196195
+    },
+    {
+     "run": 0,
+     "time": 53.416666666666664,
+     "cause": "vehicle",
+     "frameKey": "0:3205",
+     "visible": false,
+     "distance": 13.616256307937139
+    },
+    {
+     "run": 0,
+     "time": 53.416666666666664,
+     "cause": "blast",
+     "frameKey": "0:3205",
+     "visible": false,
+     "distance": 9.633919337969754
+    },
+    {
+     "run": 0,
+     "time": 53.416666666666664,
+     "cause": "blast",
+     "frameKey": "0:3205",
+     "visible": false,
+     "distance": 13.159572147589847
+    }
+   ],
+   "frames": 3600,
+   "within15": 8442,
+   "front": 273,
+   "side": 790,
+   "frontOrSide": 861,
+   "surround3": 1349,
+   "arrestSeconds": 11.133333333333466,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 4,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 23.95,
+     "cause": "vehicle",
+     "frameKey": "0:1437",
+     "visible": true,
+     "distance": 7.412213530892448
+    },
+    {
+     "run": 0,
+     "time": 23.95,
+     "cause": "blast",
+     "frameKey": "0:1437",
+     "visible": true,
+     "distance": 9.68704000694322
+    },
+    {
+     "run": 0,
+     "time": 23.95,
+     "cause": "blast",
+     "frameKey": "0:1437",
+     "visible": true,
+     "distance": 8.62343116026285
+    },
+    {
+     "run": 0,
+     "time": 23.95,
+     "cause": "blast",
+     "frameKey": "0:1437",
+     "visible": true,
+     "distance": 13.384701936954572
+    },
+    {
+     "run": 0,
+     "time": 38.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:2309",
+     "visible": true,
+     "distance": 16.532339125768964
+    },
+    {
+     "run": 0,
+     "time": 38.483333333333334,
+     "cause": "blast",
+     "frameKey": "0:2309",
+     "visible": true,
+     "distance": 9.179136824022224
+    },
+    {
+     "run": 0,
+     "time": 38.483333333333334,
+     "cause": "blast",
+     "frameKey": "0:2309",
+     "visible": true,
+     "distance": 12.796262786746945
+    },
+    {
+     "run": 0,
+     "time": 52.96666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:3178",
+     "visible": true,
+     "distance": 21.896046510782316
+    },
+    {
+     "run": 0,
+     "time": 52.983333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:3179",
+     "visible": true,
+     "distance": 19.6518213741841
+    },
+    {
+     "run": 0,
+     "time": 52.983333333333334,
+     "cause": "blast",
+     "frameKey": "0:3179",
+     "visible": true,
+     "distance": 14.351363825947121
+    },
+    {
+     "run": 0,
+     "time": 52.983333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:3179",
+     "visible": true,
+     "distance": 16.494501405118893
+    },
+    {
+     "run": 0,
+     "time": 52.983333333333334,
+     "cause": "blast",
+     "frameKey": "0:3179",
+     "visible": true,
+     "distance": 18.84638595197242
+    },
+    {
+     "run": 0,
+     "time": 56.38333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3383",
+     "visible": true,
+     "distance": 7.250348843828768
+    },
+    {
+     "run": 0,
+     "time": 56.38333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3383",
+     "visible": true,
+     "distance": 5.888472750938277
+    }
+   ],
+   "frames": 3600,
+   "within15": 6607,
+   "front": 284,
+   "side": 246,
+   "frontOrSide": 502,
+   "surround3": 1185,
+   "arrestSeconds": 3.433333333333326,
+   "restarts": 0,
+   "multiMoments": 4
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 5,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 24.65,
+     "cause": "vehicle",
+     "frameKey": "0:1479",
+     "visible": true,
+     "distance": 17.614327530220546
+    },
+    {
+     "run": 0,
+     "time": 24.65,
+     "cause": "blast",
+     "frameKey": "0:1479",
+     "visible": true,
+     "distance": 14.636510705229883
+    },
+    {
+     "run": 0,
+     "time": 24.65,
+     "cause": "blast",
+     "frameKey": "0:1479",
+     "visible": true,
+     "distance": 13.101295615921961
+    },
+    {
+     "run": 0,
+     "time": 32.95,
+     "cause": "vehicle",
+     "frameKey": "0:1977",
+     "visible": true,
+     "distance": 9.914796926487378
+    },
+    {
+     "run": 0,
+     "time": 35.7,
+     "cause": "vehicle",
+     "frameKey": "0:2142",
+     "visible": true,
+     "distance": 8.91790051346669
+    },
+    {
+     "run": 0,
+     "time": 35.7,
+     "cause": "blast",
+     "frameKey": "0:2142",
+     "visible": true,
+     "distance": 8.770239117144195
+    },
+    {
+     "run": 0,
+     "time": 35.7,
+     "cause": "blast",
+     "frameKey": "0:2142",
+     "visible": true,
+     "distance": 6.521981090173154
+    },
+    {
+     "run": 0,
+     "time": 35.7,
+     "cause": "blast",
+     "frameKey": "0:2142",
+     "visible": false,
+     "distance": 9.630470741227134
+    },
+    {
+     "run": 0,
+     "time": 41.63333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2498",
+     "visible": true,
+     "distance": 6.237481448636504
+    },
+    {
+     "run": 0,
+     "time": 41.63333333333333,
+     "cause": "blast",
+     "frameKey": "0:2498",
+     "visible": true,
+     "distance": 7.865469952850109
+    }
+   ],
+   "frames": 3600,
+   "within15": 8358,
+   "front": 753,
+   "side": 892,
+   "frontOrSide": 1072,
+   "surround3": 1434,
+   "arrestSeconds": 9.883333333333404,
+   "restarts": 1,
+   "multiMoments": 3
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 6,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 14.033333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:842",
+     "visible": false,
+     "distance": 12.415627953834347
+    },
+    {
+     "run": 0,
+     "time": 17.433333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1046",
+     "visible": true,
+     "distance": 11.516184773638367
+    },
+    {
+     "run": 0,
+     "time": 17.433333333333334,
+     "cause": "blast",
+     "frameKey": "0:1046",
+     "visible": true,
+     "distance": 12.16745197734425
+    },
+    {
+     "run": 0,
+     "time": 17.433333333333334,
+     "cause": "blast",
+     "frameKey": "0:1046",
+     "visible": true,
+     "distance": 10.458673731179985
+    },
+    {
+     "run": 0,
+     "time": 28.316666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1699",
+     "visible": true,
+     "distance": 10.279819093932117
+    },
+    {
+     "run": 0,
+     "time": 28.316666666666666,
+     "cause": "blast",
+     "frameKey": "0:1699",
+     "visible": true,
+     "distance": 14.237893693753357
+    },
+    {
+     "run": 0,
+     "time": 28.316666666666666,
+     "cause": "blast",
+     "frameKey": "0:1699",
+     "visible": true,
+     "distance": 13.05879857400551
+    },
+    {
+     "run": 0,
+     "time": 28.316666666666666,
+     "cause": "blast",
+     "frameKey": "0:1699",
+     "visible": true,
+     "distance": 6.844381585260718
+    },
+    {
+     "run": 0,
+     "time": 28.316666666666666,
+     "cause": "blast",
+     "frameKey": "0:1699",
+     "visible": true,
+     "distance": 11.465698632440413
+    },
+    {
+     "run": 0,
+     "time": 28.316666666666666,
+     "cause": "blast",
+     "frameKey": "0:1699",
+     "visible": true,
+     "distance": 13.17700504824429
+    },
+    {
+     "run": 0,
+     "time": 47.28333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2837",
+     "visible": false,
+     "distance": 13.419984586653888
+    },
+    {
+     "run": 0,
+     "time": 47.28333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2837",
+     "visible": false,
+     "distance": 9.826653749547397
+    },
+    {
+     "run": 0,
+     "time": 49.266666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:2956",
+     "visible": true,
+     "distance": 12.743005542685754
+    },
+    {
+     "run": 0,
+     "time": 49.266666666666666,
+     "cause": "blast",
+     "frameKey": "0:2956",
+     "visible": true,
+     "distance": 9.127514760476846
+    },
+    {
+     "run": 0,
+     "time": 49.266666666666666,
+     "cause": "blast",
+     "frameKey": "0:2956",
+     "visible": true,
+     "distance": 14.284061924701415
+    },
+    {
+     "run": 0,
+     "time": 49.9,
+     "cause": "vehicle",
+     "frameKey": "0:2994",
+     "visible": true,
+     "distance": 13.424573436769482
+    },
+    {
+     "run": 0,
+     "time": 49.9,
+     "cause": "blast",
+     "frameKey": "0:2994",
+     "visible": true,
+     "distance": 10.038256190133774
+    },
+    {
+     "run": 0,
+     "time": 49.9,
+     "cause": "blast",
+     "frameKey": "0:2994",
+     "visible": true,
+     "distance": 11.161591507792968
+    }
+   ],
+   "frames": 3600,
+   "within15": 5572,
+   "front": 183,
+   "side": 426,
+   "frontOrSide": 550,
+   "surround3": 964,
+   "arrestSeconds": 3.6999999999999917,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 7,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 25.083333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1505",
+     "visible": true,
+     "distance": 29.59727858947525
+    },
+    {
+     "run": 0,
+     "time": 25.083333333333332,
+     "cause": "blast",
+     "frameKey": "0:1505",
+     "visible": true,
+     "distance": 26.304689950346113
+    },
+    {
+     "run": 0,
+     "time": 29.683333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1781",
+     "visible": true,
+     "distance": 7.664929552907949
+    },
+    {
+     "run": 0,
+     "time": 29.683333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1781",
+     "visible": true,
+     "distance": 9.814032135430956
+    },
+    {
+     "run": 1,
+     "time": 52.25,
+     "cause": "vehicle",
+     "frameKey": "1:3135",
+     "visible": true,
+     "distance": 14.089443222975047
+    },
+    {
+     "run": 1,
+     "time": 52.25,
+     "cause": "blast",
+     "frameKey": "1:3135",
+     "visible": true,
+     "distance": 10.080457005938777
+    },
+    {
+     "run": 1,
+     "time": 52.25,
+     "cause": "blast",
+     "frameKey": "1:3135",
+     "visible": true,
+     "distance": 12.35340660810128
+    },
+    {
+     "run": 1,
+     "time": 52.25,
+     "cause": "blast",
+     "frameKey": "1:3135",
+     "visible": true,
+     "distance": 9.601335851381585
+    },
+    {
+     "run": 1,
+     "time": 52.25,
+     "cause": "blast",
+     "frameKey": "1:3135",
+     "visible": true,
+     "distance": 11.786165045655315
+    }
+   ],
+   "frames": 3600,
+   "within15": 5942,
+   "front": 364,
+   "side": 573,
+   "frontOrSide": 652,
+   "surround3": 986,
+   "arrestSeconds": 8.483333333333334,
+   "restarts": 1,
+   "multiMoments": 3
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 8,
+   "results": {
+    "arrested": 2,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 16.466666666666665,
+     "cause": "vehicle",
+     "frameKey": "0:988",
+     "visible": true,
+     "distance": 14.089443222975047
+    },
+    {
+     "run": 0,
+     "time": 16.466666666666665,
+     "cause": "blast",
+     "frameKey": "0:988",
+     "visible": true,
+     "distance": 10.080457005938777
+    },
+    {
+     "run": 0,
+     "time": 16.466666666666665,
+     "cause": "blast",
+     "frameKey": "0:988",
+     "visible": true,
+     "distance": 12.35340660810128
+    },
+    {
+     "run": 0,
+     "time": 16.466666666666665,
+     "cause": "blast",
+     "frameKey": "0:988",
+     "visible": true,
+     "distance": 9.601335851381585
+    },
+    {
+     "run": 0,
+     "time": 16.466666666666665,
+     "cause": "blast",
+     "frameKey": "0:988",
+     "visible": true,
+     "distance": 11.786165045655315
+    },
+    {
+     "run": 1,
+     "time": 45.3,
+     "cause": "vehicle",
+     "frameKey": "1:2718",
+     "visible": false,
+     "distance": 13.992433377211258
+    },
+    {
+     "run": 1,
+     "time": 45.3,
+     "cause": "blast",
+     "frameKey": "1:2718",
+     "visible": false,
+     "distance": 16.608349308781452
+    },
+    {
+     "run": 1,
+     "time": 45.3,
+     "cause": "blast",
+     "frameKey": "1:2718",
+     "visible": false,
+     "distance": 16.787631015689563
+    },
+    {
+     "run": 1,
+     "time": 45.3,
+     "cause": "blast",
+     "frameKey": "1:2718",
+     "visible": false,
+     "distance": 14.330443298423258
+    }
+   ],
+   "frames": 3600,
+   "within15": 5114,
+   "front": 417,
+   "side": 440,
+   "frontOrSide": 682,
+   "surround3": 997,
+   "arrestSeconds": 10.400000000000096,
+   "restarts": 2,
+   "multiMoments": 1
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 9,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 18.783333333333335,
+     "cause": "vehicle",
+     "frameKey": "0:1127",
+     "visible": false,
+     "distance": 13.992433377211258
+    },
+    {
+     "run": 0,
+     "time": 18.783333333333335,
+     "cause": "blast",
+     "frameKey": "0:1127",
+     "visible": false,
+     "distance": 16.608349308781452
+    },
+    {
+     "run": 0,
+     "time": 18.783333333333335,
+     "cause": "blast",
+     "frameKey": "0:1127",
+     "visible": false,
+     "distance": 16.787631015689563
+    },
+    {
+     "run": 0,
+     "time": 18.783333333333335,
+     "cause": "blast",
+     "frameKey": "0:1127",
+     "visible": false,
+     "distance": 14.330443298423258
+    },
+    {
+     "run": 1,
+     "time": 46.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "1:2789",
+     "visible": false,
+     "distance": 8.71427612927606
+    },
+    {
+     "run": 1,
+     "time": 46.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "1:2789",
+     "visible": false,
+     "distance": 11.975296650207337
+    },
+    {
+     "run": 1,
+     "time": 46.483333333333334,
+     "cause": "blast",
+     "frameKey": "1:2789",
+     "visible": false,
+     "distance": 9.148076816519213
+    },
+    {
+     "run": 1,
+     "time": 48.333333333333336,
+     "cause": "vehicle",
+     "frameKey": "1:2900",
+     "visible": true,
+     "distance": 9.211442404731166
+    },
+    {
+     "run": 1,
+     "time": 48.333333333333336,
+     "cause": "blast",
+     "frameKey": "1:2900",
+     "visible": true,
+     "distance": 6.047109160829247
+    }
+   ],
+   "frames": 3600,
+   "within15": 5349,
+   "front": 360,
+   "side": 472,
+   "frontOrSide": 705,
+   "surround3": 945,
+   "arrestSeconds": 7.4666666666666455,
+   "restarts": 1,
+   "multiMoments": 1
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 10,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 19.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1169",
+     "visible": false,
+     "distance": 8.71427612927606
+    },
+    {
+     "run": 0,
+     "time": 19.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1169",
+     "visible": false,
+     "distance": 11.975296650207337
+    },
+    {
+     "run": 0,
+     "time": 19.483333333333334,
+     "cause": "blast",
+     "frameKey": "0:1169",
+     "visible": false,
+     "distance": 9.148076816519213
+    },
+    {
+     "run": 0,
+     "time": 21.333333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1280",
+     "visible": true,
+     "distance": 9.211442404731166
+    },
+    {
+     "run": 0,
+     "time": 21.333333333333332,
+     "cause": "blast",
+     "frameKey": "0:1280",
+     "visible": true,
+     "distance": 6.047109160829247
+    },
+    {
+     "run": 0,
+     "time": 37.766666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:2266",
+     "visible": true,
+     "distance": 6.507037915582088
+    },
+    {
+     "run": 0,
+     "time": 37.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:2266",
+     "visible": true,
+     "distance": 7.022511651577668
+    },
+    {
+     "run": 0,
+     "time": 37.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:2266",
+     "visible": true,
+     "distance": 10.673681693658406
+    }
+   ],
+   "frames": 3600,
+   "within15": 5092,
+   "front": 474,
+   "side": 418,
+   "frontOrSide": 695,
+   "surround3": 746,
+   "arrestSeconds": 4.333333333333323,
+   "restarts": 1,
+   "multiMoments": 2
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 11,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 29.766666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1786",
+     "visible": true,
+     "distance": 20.083921790048922
+    },
+    {
+     "run": 0,
+     "time": 29.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:1786",
+     "visible": true,
+     "distance": 16.292471367192043
+    },
+    {
+     "run": 0,
+     "time": 29.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:1786",
+     "visible": true,
+     "distance": 14.987180608166536
+    },
+    {
+     "run": 0,
+     "time": 29.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:1786",
+     "visible": true,
+     "distance": 17.660692054432158
+    },
+    {
+     "run": 0,
+     "time": 29.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:1786",
+     "visible": true,
+     "distance": 21.09584729072674
+    },
+    {
+     "run": 0,
+     "time": 29.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:1786",
+     "visible": true,
+     "distance": 15.256992280769252
+    },
+    {
+     "run": 0,
+     "time": 41.56666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2494",
+     "visible": false,
+     "distance": 21.915055590008045
+    },
+    {
+     "run": 0,
+     "time": 41.56666666666667,
+     "cause": "blast",
+     "frameKey": "0:2494",
+     "visible": false,
+     "distance": 18.989771954746043
+    },
+    {
+     "run": 0,
+     "time": 41.56666666666667,
+     "cause": "blast",
+     "frameKey": "0:2494",
+     "visible": false,
+     "distance": 20.587289614235203
+    },
+    {
+     "run": 0,
+     "time": 41.56666666666667,
+     "cause": "blast",
+     "frameKey": "0:2494",
+     "visible": false,
+     "distance": 16.56724076696789
+    },
+    {
+     "run": 0,
+     "time": 41.56666666666667,
+     "cause": "blast",
+     "frameKey": "0:2494",
+     "visible": false,
+     "distance": 12.67665342353208
+    },
+    {
+     "run": 0,
+     "time": 51.35,
+     "cause": "vehicle",
+     "frameKey": "0:3081",
+     "visible": true,
+     "distance": 14.616946652319184
+    },
+    {
+     "run": 0,
+     "time": 51.35,
+     "cause": "blast",
+     "frameKey": "0:3081",
+     "visible": true,
+     "distance": 11.957666849210598
+    },
+    {
+     "run": 0,
+     "time": 51.35,
+     "cause": "blast",
+     "frameKey": "0:3081",
+     "visible": true,
+     "distance": 11.00107486462529
+    },
+    {
+     "run": 0,
+     "time": 51.35,
+     "cause": "blast",
+     "frameKey": "0:3081",
+     "visible": true,
+     "distance": 10.032882306498392
+    },
+    {
+     "run": 0,
+     "time": 52.4,
+     "cause": "vehicle",
+     "frameKey": "0:3144",
+     "visible": true,
+     "distance": 16.789461554323527
+    },
+    {
+     "run": 0,
+     "time": 52.4,
+     "cause": "blast",
+     "frameKey": "0:3144",
+     "visible": true,
+     "distance": 13.99406901171028
+    },
+    {
+     "run": 0,
+     "time": 52.4,
+     "cause": "blast",
+     "frameKey": "0:3144",
+     "visible": true,
+     "distance": 13.040636721936984
+    }
+   ],
+   "frames": 3600,
+   "within15": 7620,
+   "front": 477,
+   "side": 471,
+   "frontOrSide": 834,
+   "surround3": 1131,
+   "arrestSeconds": 8.433333333333332,
+   "restarts": 0,
+   "multiMoments": 2
+  },
+  {
+   "width": 1100,
+   "mode": "roads",
+   "seed": 12,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 25.9,
+     "cause": "vehicle",
+     "frameKey": "0:1554",
+     "visible": true,
+     "distance": 5.367200921477974
+    },
+    {
+     "run": 0,
+     "time": 25.9,
+     "cause": "blast",
+     "frameKey": "0:1554",
+     "visible": true,
+     "distance": 8.72261656821026
+    },
+    {
+     "run": 0,
+     "time": 45.666666666666664,
+     "cause": "vehicle",
+     "frameKey": "0:2740",
+     "visible": true,
+     "distance": 9.762231299437785
+    },
+    {
+     "run": 0,
+     "time": 45.666666666666664,
+     "cause": "blast",
+     "frameKey": "0:2740",
+     "visible": true,
+     "distance": 13.073971017026375
+    }
+   ],
+   "frames": 3600,
+   "within15": 7428,
+   "front": 183,
+   "side": 478,
+   "frontOrSide": 628,
+   "surround3": 1021,
+   "arrestSeconds": 7.766666666666644,
+   "restarts": 1,
+   "multiMoments": 2
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 1,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 21.366666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:1282",
+     "visible": true,
+     "distance": 8.901927295678673
+    },
+    {
+     "run": 0,
+     "time": 21.366666666666667,
+     "cause": "blast",
+     "frameKey": "0:1282",
+     "visible": true,
+     "distance": 6.670871262375522
+    },
+    {
+     "run": 0,
+     "time": 26.383333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:1583",
+     "visible": true,
+     "distance": 5.358095888370985
+    },
+    {
+     "run": 0,
+     "time": 26.383333333333333,
+     "cause": "blast",
+     "frameKey": "0:1583",
+     "visible": true,
+     "distance": 8.354631456765473
+    },
+    {
+     "run": 0,
+     "time": 30.883333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:1853",
+     "visible": true,
+     "distance": 10.088873859068942
+    },
+    {
+     "run": 0,
+     "time": 30.883333333333333,
+     "cause": "blast",
+     "frameKey": "0:1853",
+     "visible": true,
+     "distance": 6.581446487968331
+    },
+    {
+     "run": 0,
+     "time": 33.8,
+     "cause": "vehicle",
+     "frameKey": "0:2028",
+     "visible": true,
+     "distance": 28.41895949762816
+    },
+    {
+     "run": 0,
+     "time": 34.85,
+     "cause": "vehicle",
+     "frameKey": "0:2091",
+     "visible": true,
+     "distance": 4.716751618584659
+    },
+    {
+     "run": 0,
+     "time": 34.85,
+     "cause": "blast",
+     "frameKey": "0:2091",
+     "visible": true,
+     "distance": 3.7346243871204594
+    },
+    {
+     "run": 0,
+     "time": 41.9,
+     "cause": "vehicle",
+     "frameKey": "0:2514",
+     "visible": true,
+     "distance": 3.747395557602804
+    },
+    {
+     "run": 0,
+     "time": 41.9,
+     "cause": "blast",
+     "frameKey": "0:2514",
+     "visible": true,
+     "distance": 3.003417832805651
+    },
+    {
+     "run": 0,
+     "time": 41.9,
+     "cause": "vehicle",
+     "frameKey": "0:2514",
+     "visible": true,
+     "distance": 3.404079794084284
+    },
+    {
+     "run": 0,
+     "time": 41.9,
+     "cause": "blast",
+     "frameKey": "0:2514",
+     "visible": true,
+     "distance": 7.172884550851901
+    },
+    {
+     "run": 0,
+     "time": 41.9,
+     "cause": "blast",
+     "frameKey": "0:2514",
+     "visible": true,
+     "distance": 5.571665458109587
+    },
+    {
+     "run": 0,
+     "time": 53.36666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:3202",
+     "visible": true,
+     "distance": 12.396466958610926
+    },
+    {
+     "run": 0,
+     "time": 53.36666666666667,
+     "cause": "blast",
+     "frameKey": "0:3202",
+     "visible": true,
+     "distance": 5.2142154369068665
+    }
+   ],
+   "frames": 3600,
+   "within15": 9256,
+   "front": 492,
+   "side": 905,
+   "frontOrSide": 1063,
+   "surround3": 1760,
+   "arrestSeconds": 8.216666666666654,
+   "restarts": 0,
+   "multiMoments": 6
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 2,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 23.366666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:1402",
+     "visible": true,
+     "distance": 14.492385190124295
+    },
+    {
+     "run": 0,
+     "time": 23.366666666666667,
+     "cause": "blast",
+     "frameKey": "0:1402",
+     "visible": true,
+     "distance": 11.676064873498204
+    },
+    {
+     "run": 0,
+     "time": 23.366666666666667,
+     "cause": "blast",
+     "frameKey": "0:1402",
+     "visible": true,
+     "distance": 9.63854682748807
+    },
+    {
+     "run": 0,
+     "time": 23.366666666666667,
+     "cause": "blast",
+     "frameKey": "0:1402",
+     "visible": true,
+     "distance": 17.457983807917184
+    },
+    {
+     "run": 0,
+     "time": 23.366666666666667,
+     "cause": "blast",
+     "frameKey": "0:1402",
+     "visible": true,
+     "distance": 7.190630619066281
+    },
+    {
+     "run": 0,
+     "time": 44.75,
+     "cause": "vehicle",
+     "frameKey": "0:2685",
+     "visible": true,
+     "distance": 16.903290204203078
+    },
+    {
+     "run": 0,
+     "time": 44.75,
+     "cause": "blast",
+     "frameKey": "0:2685",
+     "visible": true,
+     "distance": 9.183125199263847
+    },
+    {
+     "run": 0,
+     "time": 44.75,
+     "cause": "blast",
+     "frameKey": "0:2685",
+     "visible": true,
+     "distance": 12.97865132168457
+    },
+    {
+     "run": 0,
+     "time": 44.75,
+     "cause": "blast",
+     "frameKey": "0:2685",
+     "visible": true,
+     "distance": 12.027201727154614
+    },
+    {
+     "run": 0,
+     "time": 50.85,
+     "cause": "vehicle",
+     "frameKey": "0:3051",
+     "visible": false,
+     "distance": 37.474463861271325
+    },
+    {
+     "run": 0,
+     "time": 50.85,
+     "cause": "blast",
+     "frameKey": "0:3051",
+     "visible": false,
+     "distance": 35.2077441500337
+    },
+    {
+     "run": 0,
+     "time": 50.85,
+     "cause": "blast",
+     "frameKey": "0:3051",
+     "visible": false,
+     "distance": 39.8700909355701
+    },
+    {
+     "run": 0,
+     "time": 52.166666666666664,
+     "cause": "vehicle",
+     "frameKey": "0:3130",
+     "visible": true,
+     "distance": 28.3438160504776
+    },
+    {
+     "run": 0,
+     "time": 52.166666666666664,
+     "cause": "vehicle",
+     "frameKey": "0:3130",
+     "visible": true,
+     "distance": 28.418074916691516
+    },
+    {
+     "run": 0,
+     "time": 53.65,
+     "cause": "vehicle",
+     "frameKey": "0:3219",
+     "visible": true,
+     "distance": 3.8747041828079074
+    },
+    {
+     "run": 0,
+     "time": 53.65,
+     "cause": "blast",
+     "frameKey": "0:3219",
+     "visible": true,
+     "distance": 3.933267455022239
+    }
+   ],
+   "frames": 3600,
+   "within15": 6894,
+   "front": 183,
+   "side": 636,
+   "frontOrSide": 695,
+   "surround3": 936,
+   "arrestSeconds": 9.933333333333406,
+   "restarts": 0,
+   "multiMoments": 4
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 3,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 1,
+     "time": 47.35,
+     "cause": "vehicle",
+     "frameKey": "1:2841",
+     "visible": true,
+     "distance": 10.147903955386749
+    },
+    {
+     "run": 1,
+     "time": 47.35,
+     "cause": "vehicle",
+     "frameKey": "1:2841",
+     "visible": true,
+     "distance": 12.671898967269906
+    }
+   ],
+   "frames": 3600,
+   "within15": 8795,
+   "front": 72,
+   "side": 515,
+   "frontOrSide": 574,
+   "surround3": 1530,
+   "arrestSeconds": 7.1666666666666465,
+   "restarts": 1,
+   "multiMoments": 1
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 4,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 17.516666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1051",
+     "visible": true,
+     "distance": 10.147903955386749
+    },
+    {
+     "run": 0,
+     "time": 17.516666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1051",
+     "visible": true,
+     "distance": 12.671898967269906
+    },
+    {
+     "run": 0,
+     "time": 37.38333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2243",
+     "visible": true,
+     "distance": 16.27330550438289
+    },
+    {
+     "run": 0,
+     "time": 37.38333333333333,
+     "cause": "blast",
+     "frameKey": "0:2243",
+     "visible": true,
+     "distance": 17.117438618709397
+    },
+    {
+     "run": 0,
+     "time": 37.38333333333333,
+     "cause": "blast",
+     "frameKey": "0:2243",
+     "visible": true,
+     "distance": 13.508271977048647
+    },
+    {
+     "run": 0,
+     "time": 37.38333333333333,
+     "cause": "blast",
+     "frameKey": "0:2243",
+     "visible": true,
+     "distance": 11.427199205089291
+    },
+    {
+     "run": 0,
+     "time": 37.38333333333333,
+     "cause": "blast",
+     "frameKey": "0:2243",
+     "visible": true,
+     "distance": 8.524772316450372
+    },
+    {
+     "run": 0,
+     "time": 57.9,
+     "cause": "vehicle",
+     "frameKey": "0:3474",
+     "visible": true,
+     "distance": 12.768081665013522
+    },
+    {
+     "run": 0,
+     "time": 57.9,
+     "cause": "blast",
+     "frameKey": "0:3474",
+     "visible": true,
+     "distance": 8.630942319871485
+    },
+    {
+     "run": 0,
+     "time": 57.9,
+     "cause": "blast",
+     "frameKey": "0:3474",
+     "visible": true,
+     "distance": 14.147768239599763
+    },
+    {
+     "run": 0,
+     "time": 57.9,
+     "cause": "vehicle",
+     "frameKey": "0:3474",
+     "visible": true,
+     "distance": 16.537513339764807
+    },
+    {
+     "run": 0,
+     "time": 57.9,
+     "cause": "blast",
+     "frameKey": "0:3474",
+     "visible": true,
+     "distance": 12.396761146632821
+    },
+    {
+     "run": 0,
+     "time": 57.9,
+     "cause": "blast",
+     "frameKey": "0:3474",
+     "visible": true,
+     "distance": 8.37594206031412
+    },
+    {
+     "run": 0,
+     "time": 58.81666666666667,
+     "cause": "wall",
+     "frameKey": "0:3529",
+     "visible": true,
+     "distance": 27.724097700973257
+    }
+   ],
+   "frames": 3600,
+   "within15": 9668,
+   "front": 69,
+   "side": 863,
+   "frontOrSide": 871,
+   "surround3": 1483,
+   "arrestSeconds": 8.566666666666672,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 5,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 24.616666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:1477",
+     "visible": true,
+     "distance": 13.736058817605818
+    },
+    {
+     "run": 0,
+     "time": 24.616666666666667,
+     "cause": "blast",
+     "frameKey": "0:1477",
+     "visible": true,
+     "distance": 14.067534064139402
+    },
+    {
+     "run": 0,
+     "time": 24.616666666666667,
+     "cause": "blast",
+     "frameKey": "0:1477",
+     "visible": true,
+     "distance": 10.166533545952824
+    },
+    {
+     "run": 0,
+     "time": 24.616666666666667,
+     "cause": "blast",
+     "frameKey": "0:1477",
+     "visible": true,
+     "distance": 8.219350486605654
+    },
+    {
+     "run": 0,
+     "time": 24.616666666666667,
+     "cause": "blast",
+     "frameKey": "0:1477",
+     "visible": true,
+     "distance": 16.015753112754144
+    },
+    {
+     "run": 1,
+     "time": 53.3,
+     "cause": "vehicle",
+     "frameKey": "1:3198",
+     "visible": true,
+     "distance": 19.62263937453491
+    },
+    {
+     "run": 1,
+     "time": 53.3,
+     "cause": "blast",
+     "frameKey": "1:3198",
+     "visible": true,
+     "distance": 22.608799843870795
+    },
+    {
+     "run": 1,
+     "time": 53.3,
+     "cause": "blast",
+     "frameKey": "1:3198",
+     "visible": true,
+     "distance": 20.956587049092835
+    },
+    {
+     "run": 1,
+     "time": 53.3,
+     "cause": "blast",
+     "frameKey": "1:3198",
+     "visible": true,
+     "distance": 14.36460570380885
+    }
+   ],
+   "frames": 3600,
+   "within15": 7831,
+   "front": 296,
+   "side": 736,
+   "frontOrSide": 778,
+   "surround3": 1631,
+   "arrestSeconds": 7.066666666666647,
+   "restarts": 1,
+   "multiMoments": 2
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 6,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 16.383333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:983",
+     "visible": true,
+     "distance": 19.62263937453491
+    },
+    {
+     "run": 0,
+     "time": 16.383333333333333,
+     "cause": "blast",
+     "frameKey": "0:983",
+     "visible": true,
+     "distance": 22.608799843870795
+    },
+    {
+     "run": 0,
+     "time": 16.383333333333333,
+     "cause": "blast",
+     "frameKey": "0:983",
+     "visible": true,
+     "distance": 20.956587049092835
+    },
+    {
+     "run": 0,
+     "time": 16.383333333333333,
+     "cause": "blast",
+     "frameKey": "0:983",
+     "visible": true,
+     "distance": 14.36460570380885
+    },
+    {
+     "run": 0,
+     "time": 32.516666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1951",
+     "visible": true,
+     "distance": 8.787667785455431
+    },
+    {
+     "run": 0,
+     "time": 32.516666666666666,
+     "cause": "blast",
+     "frameKey": "0:1951",
+     "visible": true,
+     "distance": 12.142235814625526
+    },
+    {
+     "run": 0,
+     "time": 35.21666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2113",
+     "visible": true,
+     "distance": 16.27512581113599
+    },
+    {
+     "run": 0,
+     "time": 35.21666666666667,
+     "cause": "blast",
+     "frameKey": "0:2113",
+     "visible": true,
+     "distance": 22.217249138355875
+    },
+    {
+     "run": 0,
+     "time": 35.21666666666667,
+     "cause": "blast",
+     "frameKey": "0:2113",
+     "visible": true,
+     "distance": 18.7551833709514
+    },
+    {
+     "run": 0,
+     "time": 37.75,
+     "cause": "vehicle",
+     "frameKey": "0:2265",
+     "visible": true,
+     "distance": 6.223003938763664
+    },
+    {
+     "run": 0,
+     "time": 37.75,
+     "cause": "blast",
+     "frameKey": "0:2265",
+     "visible": true,
+     "distance": 8.710426445407842
+    },
+    {
+     "run": 0,
+     "time": 48.96666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2938",
+     "visible": true,
+     "distance": 24.513023894644878
+    },
+    {
+     "run": 0,
+     "time": 48.96666666666667,
+     "cause": "blast",
+     "frameKey": "0:2938",
+     "visible": true,
+     "distance": 22.981417198609055
+    },
+    {
+     "run": 0,
+     "time": 48.96666666666667,
+     "cause": "blast",
+     "frameKey": "0:2938",
+     "visible": true,
+     "distance": 22.63010770611471
+    },
+    {
+     "run": 0,
+     "time": 48.96666666666667,
+     "cause": "blast",
+     "frameKey": "0:2938",
+     "visible": true,
+     "distance": 18.25282686582039
+    },
+    {
+     "run": 0,
+     "time": 48.96666666666667,
+     "cause": "blast",
+     "frameKey": "0:2938",
+     "visible": true,
+     "distance": 19.20457110288557
+    },
+    {
+     "run": 0,
+     "time": 48.96666666666667,
+     "cause": "blast",
+     "frameKey": "0:2938",
+     "visible": true,
+     "distance": 20.280496093392077
+    },
+    {
+     "run": 0,
+     "time": 48.96666666666667,
+     "cause": "blast",
+     "frameKey": "0:2938",
+     "visible": true,
+     "distance": 13.995526025581535
+    }
+   ],
+   "frames": 3600,
+   "within15": 6213,
+   "front": 175,
+   "side": 393,
+   "frontOrSide": 540,
+   "surround3": 997,
+   "arrestSeconds": 6.633333333333315,
+   "restarts": 0,
+   "multiMoments": 5
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 7,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 14.583333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:875",
+     "visible": false,
+     "distance": 9.262115811300497
+    },
+    {
+     "run": 0,
+     "time": 14.583333333333334,
+     "cause": "blast",
+     "frameKey": "0:875",
+     "visible": false,
+     "distance": 11.073803136057117
+    },
+    {
+     "run": 0,
+     "time": 14.583333333333334,
+     "cause": "blast",
+     "frameKey": "0:875",
+     "visible": true,
+     "distance": 6.1524761383949915
+    },
+    {
+     "run": 0,
+     "time": 14.583333333333334,
+     "cause": "blast",
+     "frameKey": "0:875",
+     "visible": true,
+     "distance": 5.278897290179794
+    },
+    {
+     "run": 0,
+     "time": 22.983333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1379",
+     "visible": true,
+     "distance": 5.175068891492667
+    },
+    {
+     "run": 0,
+     "time": 22.983333333333334,
+     "cause": "blast",
+     "frameKey": "0:1379",
+     "visible": true,
+     "distance": 6.20370301218529
+    },
+    {
+     "run": 0,
+     "time": 28.366666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:1702",
+     "visible": true,
+     "distance": 9.102294489984175
+    },
+    {
+     "run": 0,
+     "time": 28.366666666666667,
+     "cause": "blast",
+     "frameKey": "0:1702",
+     "visible": true,
+     "distance": 5.650337037977901
+    },
+    {
+     "run": 0,
+     "time": 29.95,
+     "cause": "vehicle",
+     "frameKey": "0:1797",
+     "visible": true,
+     "distance": 5.531085291974319
+    },
+    {
+     "run": 0,
+     "time": 34.95,
+     "cause": "vehicle",
+     "frameKey": "0:2097",
+     "visible": true,
+     "distance": 6.025936821891331
+    },
+    {
+     "run": 0,
+     "time": 34.95,
+     "cause": "blast",
+     "frameKey": "0:2097",
+     "visible": true,
+     "distance": 8.09893657852036
+    },
+    {
+     "run": 0,
+     "time": 41,
+     "cause": "vehicle",
+     "frameKey": "0:2460",
+     "visible": true,
+     "distance": 16.706718837878377
+    },
+    {
+     "run": 0,
+     "time": 41,
+     "cause": "blast",
+     "frameKey": "0:2460",
+     "visible": true,
+     "distance": 14.134132379586498
+    },
+    {
+     "run": 0,
+     "time": 41,
+     "cause": "blast",
+     "frameKey": "0:2460",
+     "visible": true,
+     "distance": 17.376072504167023
+    },
+    {
+     "run": 0,
+     "time": 41,
+     "cause": "blast",
+     "frameKey": "0:2460",
+     "visible": true,
+     "distance": 18.073314837527914
+    },
+    {
+     "run": 0,
+     "time": 41,
+     "cause": "blast",
+     "frameKey": "0:2460",
+     "visible": true,
+     "distance": 12.252323330211356
+    },
+    {
+     "run": 0,
+     "time": 41,
+     "cause": "blast",
+     "frameKey": "0:2460",
+     "visible": true,
+     "distance": 9.183512441957358
+    }
+   ],
+   "frames": 3600,
+   "within15": 8219,
+   "front": 392,
+   "side": 953,
+   "frontOrSide": 1084,
+   "surround3": 1515,
+   "arrestSeconds": 9.500000000000052,
+   "restarts": 1,
+   "multiMoments": 5
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 8,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 14.566666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:874",
+     "visible": true,
+     "distance": 9.065186339768358
+    },
+    {
+     "run": 0,
+     "time": 14.566666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:874",
+     "visible": true,
+     "distance": 12.539000728953017
+    },
+    {
+     "run": 0,
+     "time": 22.516666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1351",
+     "visible": true,
+     "distance": 14.723291319652523
+    },
+    {
+     "run": 0,
+     "time": 22.516666666666666,
+     "cause": "blast",
+     "frameKey": "0:1351",
+     "visible": true,
+     "distance": 8.871371027472316
+    },
+    {
+     "run": 0,
+     "time": 22.516666666666666,
+     "cause": "blast",
+     "frameKey": "0:1351",
+     "visible": true,
+     "distance": 12.68662033790098
+    },
+    {
+     "run": 0,
+     "time": 22.516666666666666,
+     "cause": "blast",
+     "frameKey": "0:1351",
+     "visible": true,
+     "distance": 12.30883521108022
+    },
+    {
+     "run": 0,
+     "time": 43.5,
+     "cause": "vehicle",
+     "frameKey": "0:2610",
+     "visible": true,
+     "distance": 6.920636294607681
+    },
+    {
+     "run": 0,
+     "time": 43.5,
+     "cause": "blast",
+     "frameKey": "0:2610",
+     "visible": true,
+     "distance": 4.564634505712027
+    },
+    {
+     "run": 0,
+     "time": 46.8,
+     "cause": "vehicle",
+     "frameKey": "0:2808",
+     "visible": true,
+     "distance": 18.764340553924356
+    },
+    {
+     "run": 0,
+     "time": 46.8,
+     "cause": "blast",
+     "frameKey": "0:2808",
+     "visible": true,
+     "distance": 14.991085217422102
+    },
+    {
+     "run": 0,
+     "time": 46.8,
+     "cause": "blast",
+     "frameKey": "0:2808",
+     "visible": true,
+     "distance": 14.422376090621423
+    },
+    {
+     "run": 0,
+     "time": 46.8,
+     "cause": "blast",
+     "frameKey": "0:2808",
+     "visible": true,
+     "distance": 16.22058009848632
+    },
+    {
+     "run": 0,
+     "time": 46.8,
+     "cause": "blast",
+     "frameKey": "0:2808",
+     "visible": true,
+     "distance": 9.85569502366727
+    },
+    {
+     "run": 0,
+     "time": 54.68333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3281",
+     "visible": true,
+     "distance": 9.857975013814984
+    },
+    {
+     "run": 0,
+     "time": 54.68333333333333,
+     "cause": "blast",
+     "frameKey": "0:3281",
+     "visible": true,
+     "distance": 6.64204763549173
+    },
+    {
+     "run": 0,
+     "time": 54.68333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3281",
+     "visible": true,
+     "distance": 12.621805569424339
+    }
+   ],
+   "frames": 3600,
+   "within15": 8531,
+   "front": 435,
+   "side": 761,
+   "frontOrSide": 1022,
+   "surround3": 1509,
+   "arrestSeconds": 9.716666666666729,
+   "restarts": 0,
+   "multiMoments": 5
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 9,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 13.616666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:817",
+     "visible": false,
+     "distance": 10.726982136539318
+    },
+    {
+     "run": 0,
+     "time": 13.616666666666667,
+     "cause": "blast",
+     "frameKey": "0:817",
+     "visible": true,
+     "distance": 7.274476312603311
+    },
+    {
+     "run": 0,
+     "time": 15.7,
+     "cause": "vehicle",
+     "frameKey": "0:942",
+     "visible": true,
+     "distance": 13.144617827575656
+    },
+    {
+     "run": 0,
+     "time": 15.7,
+     "cause": "blast",
+     "frameKey": "0:942",
+     "visible": true,
+     "distance": 11.212414081683123
+    },
+    {
+     "run": 0,
+     "time": 18.733333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1124",
+     "visible": true,
+     "distance": 5.109410413409627
+    },
+    {
+     "run": 0,
+     "time": 18.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:1124",
+     "visible": true,
+     "distance": 2.872606676890372
+    },
+    {
+     "run": 0,
+     "time": 36.81666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2209",
+     "visible": true,
+     "distance": 6.81118654636881
+    },
+    {
+     "run": 0,
+     "time": 36.81666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2209",
+     "visible": true,
+     "distance": 10.540509084775715
+    },
+    {
+     "run": 0,
+     "time": 36.81666666666667,
+     "cause": "blast",
+     "frameKey": "0:2209",
+     "visible": true,
+     "distance": 11.755250999923533
+    },
+    {
+     "run": 0,
+     "time": 36.81666666666667,
+     "cause": "blast",
+     "frameKey": "0:2209",
+     "visible": true,
+     "distance": 5.905799744974521
+    },
+    {
+     "run": 0,
+     "time": 36.81666666666667,
+     "cause": "blast",
+     "frameKey": "0:2209",
+     "visible": true,
+     "distance": 10.856291153735189
+    },
+    {
+     "run": 0,
+     "time": 36.81666666666667,
+     "cause": "blast",
+     "frameKey": "0:2209",
+     "visible": true,
+     "distance": 13.620326515570337
+    },
+    {
+     "run": 0,
+     "time": 45.9,
+     "cause": "vehicle",
+     "frameKey": "0:2754",
+     "visible": true,
+     "distance": 5.9316293673019835
+    },
+    {
+     "run": 0,
+     "time": 45.9,
+     "cause": "blast",
+     "frameKey": "0:2754",
+     "visible": true,
+     "distance": 8.31704622459477
+    },
+    {
+     "run": 0,
+     "time": 51.916666666666664,
+     "cause": "vehicle",
+     "frameKey": "0:3115",
+     "visible": true,
+     "distance": 8.463455634976723
+    },
+    {
+     "run": 0,
+     "time": 51.916666666666664,
+     "cause": "blast",
+     "frameKey": "0:3115",
+     "visible": true,
+     "distance": 4.834618669181405
+    }
+   ],
+   "frames": 3600,
+   "within15": 7378,
+   "front": 356,
+   "side": 546,
+   "frontOrSide": 684,
+   "surround3": 1277,
+   "arrestSeconds": 3.0833333333333273,
+   "restarts": 0,
+   "multiMoments": 5
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 10,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 31.9,
+     "cause": "vehicle",
+     "frameKey": "0:1914",
+     "visible": true,
+     "distance": 9.19236928386274
+    },
+    {
+     "run": 0,
+     "time": 31.9,
+     "cause": "blast",
+     "frameKey": "0:1914",
+     "visible": true,
+     "distance": 9.769065648528498
+    },
+    {
+     "run": 0,
+     "time": 31.9,
+     "cause": "blast",
+     "frameKey": "0:1914",
+     "visible": true,
+     "distance": 14.953952017477175
+    },
+    {
+     "run": 1,
+     "time": 57.06666666666667,
+     "cause": "vehicle",
+     "frameKey": "1:3424",
+     "visible": true,
+     "distance": 9.280277217796918
+    },
+    {
+     "run": 1,
+     "time": 57.06666666666667,
+     "cause": "blast",
+     "frameKey": "1:3424",
+     "visible": true,
+     "distance": 12.94852534115636
+    }
+   ],
+   "frames": 3600,
+   "within15": 7356,
+   "front": 350,
+   "side": 581,
+   "frontOrSide": 675,
+   "surround3": 1284,
+   "arrestSeconds": 8.299999999999992,
+   "restarts": 1,
+   "multiMoments": 2
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 11,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 20.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1229",
+     "visible": true,
+     "distance": 9.280277217796918
+    },
+    {
+     "run": 0,
+     "time": 20.483333333333334,
+     "cause": "blast",
+     "frameKey": "0:1229",
+     "visible": true,
+     "distance": 12.94852534115636
+    },
+    {
+     "run": 0,
+     "time": 33.8,
+     "cause": "vehicle",
+     "frameKey": "0:2028",
+     "visible": true,
+     "distance": 14.02090228536212
+    },
+    {
+     "run": 0,
+     "time": 34.25,
+     "cause": "vehicle",
+     "frameKey": "0:2055",
+     "visible": true,
+     "distance": 11.958244793584546
+    },
+    {
+     "run": 0,
+     "time": 34.25,
+     "cause": "blast",
+     "frameKey": "0:2055",
+     "visible": true,
+     "distance": 12.29425302648488
+    },
+    {
+     "run": 0,
+     "time": 34.25,
+     "cause": "blast",
+     "frameKey": "0:2055",
+     "visible": true,
+     "distance": 12.823174415030188
+    }
+   ],
+   "frames": 3600,
+   "within15": 6793,
+   "front": 340,
+   "side": 463,
+   "frontOrSide": 599,
+   "surround3": 1130,
+   "arrestSeconds": 4.966666666666654,
+   "restarts": 1,
+   "multiMoments": 2
+  },
+  {
+   "width": 1100,
+   "mode": "evasive",
+   "seed": 12,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 22.9,
+     "cause": "vehicle",
+     "frameKey": "0:1374",
+     "visible": true,
+     "distance": 9.278974992327742
+    },
+    {
+     "run": 0,
+     "time": 22.9,
+     "cause": "vehicle",
+     "frameKey": "0:1374",
+     "visible": true,
+     "distance": 12.931062588401867
+    },
+    {
+     "run": 0,
+     "time": 26.116666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:1567",
+     "visible": true,
+     "distance": 14.124687658807387
+    },
+    {
+     "run": 0,
+     "time": 26.116666666666667,
+     "cause": "blast",
+     "frameKey": "0:1567",
+     "visible": true,
+     "distance": 14.787736782679572
+    },
+    {
+     "run": 0,
+     "time": 38.31666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2299",
+     "visible": true,
+     "distance": 8.1803011542483
+    },
+    {
+     "run": 0,
+     "time": 38.31666666666667,
+     "cause": "blast",
+     "frameKey": "0:2299",
+     "visible": true,
+     "distance": 6.004487625012302
+    },
+    {
+     "run": 0,
+     "time": 48.25,
+     "cause": "vehicle",
+     "frameKey": "0:2895",
+     "visible": true,
+     "distance": 9.251346502706696
+    },
+    {
+     "run": 0,
+     "time": 48.25,
+     "cause": "blast",
+     "frameKey": "0:2895",
+     "visible": true,
+     "distance": 12.408857981633455
+    },
+    {
+     "run": 0,
+     "time": 48.25,
+     "cause": "blast",
+     "frameKey": "0:2895",
+     "visible": true,
+     "distance": 12.698133245224554
+    },
+    {
+     "run": 0,
+     "time": 48.25,
+     "cause": "blast",
+     "frameKey": "0:2895",
+     "visible": false,
+     "distance": 12.247616495920969
+    },
+    {
+     "run": 0,
+     "time": 48.25,
+     "cause": "blast",
+     "frameKey": "0:2895",
+     "visible": true,
+     "distance": 16.29098596117267
+    },
+    {
+     "run": 0,
+     "time": 48.25,
+     "cause": "blast",
+     "frameKey": "0:2895",
+     "visible": true,
+     "distance": 7.753567413815796
+    }
+   ],
+   "frames": 3600,
+   "within15": 5980,
+   "front": 18,
+   "side": 508,
+   "frontOrSide": 508,
+   "surround3": 835,
+   "arrestSeconds": 7.033333333333314,
+   "restarts": 1,
+   "multiMoments": 4
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 1,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 27.583333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1655",
+     "visible": false,
+     "distance": 41.80281338056247
+    },
+    {
+     "run": 0,
+     "time": 27.583333333333332,
+     "cause": "blast",
+     "frameKey": "0:1655",
+     "visible": false,
+     "distance": 40.10715800404871
+    },
+    {
+     "run": 0,
+     "time": 30.7,
+     "cause": "vehicle",
+     "frameKey": "0:1842",
+     "visible": false,
+     "distance": 48.12409161193424
+    },
+    {
+     "run": 0,
+     "time": 30.7,
+     "cause": "blast",
+     "frameKey": "0:1842",
+     "visible": false,
+     "distance": 50.8907915017099
+    },
+    {
+     "run": 0,
+     "time": 39.766666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:2386",
+     "visible": false,
+     "distance": 11.264865474530987
+    },
+    {
+     "run": 0,
+     "time": 41.46666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2488",
+     "visible": false,
+     "distance": 11.951070416488628
+    },
+    {
+     "run": 0,
+     "time": 48.983333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:2939",
+     "visible": true,
+     "distance": 30.81709759286677
+    },
+    {
+     "run": 0,
+     "time": 48.983333333333334,
+     "cause": "blast",
+     "frameKey": "0:2939",
+     "visible": true,
+     "distance": 33.732085053052494
+    },
+    {
+     "run": 0,
+     "time": 48.983333333333334,
+     "cause": "blast",
+     "frameKey": "0:2939",
+     "visible": true,
+     "distance": 35.41247692635178
+    },
+    {
+     "run": 0,
+     "time": 48.983333333333334,
+     "cause": "blast",
+     "frameKey": "0:2939",
+     "visible": true,
+     "distance": 32.83693173779282
+    },
+    {
+     "run": 0,
+     "time": 48.983333333333334,
+     "cause": "blast",
+     "frameKey": "0:2939",
+     "visible": true,
+     "distance": 37.55307149455809
+    },
+    {
+     "run": 0,
+     "time": 51.95,
+     "cause": "vehicle",
+     "frameKey": "0:3117",
+     "visible": true,
+     "distance": 8.684992349078122
+    },
+    {
+     "run": 0,
+     "time": 51.95,
+     "cause": "blast",
+     "frameKey": "0:3117",
+     "visible": true,
+     "distance": 7.745187301753114
+    },
+    {
+     "run": 0,
+     "time": 59,
+     "cause": "vehicle",
+     "frameKey": "0:3540",
+     "visible": true,
+     "distance": 5.884146169999908
+    },
+    {
+     "run": 0,
+     "time": 59,
+     "cause": "blast",
+     "frameKey": "0:3540",
+     "visible": true,
+     "distance": 6.226057464309389
+    }
+   ],
+   "frames": 3600,
+   "within15": 6697,
+   "front": 133,
+   "side": 458,
+   "frontOrSide": 510,
+   "surround3": 929,
+   "arrestSeconds": 6.9999999999999805,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 2,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 17.783333333333335,
+     "cause": "vehicle",
+     "frameKey": "0:1067",
+     "visible": true,
+     "distance": 8.468946602118969
+    },
+    {
+     "run": 0,
+     "time": 17.783333333333335,
+     "cause": "blast",
+     "frameKey": "0:1067",
+     "visible": true,
+     "distance": 10.76202692346622
+    },
+    {
+     "run": 0,
+     "time": 17.783333333333335,
+     "cause": "blast",
+     "frameKey": "0:1067",
+     "visible": true,
+     "distance": 10.62344814659435
+    },
+    {
+     "run": 0,
+     "time": 30.6,
+     "cause": "vehicle",
+     "frameKey": "0:1836",
+     "visible": true,
+     "distance": 10.934805946866595
+    },
+    {
+     "run": 0,
+     "time": 30.6,
+     "cause": "vehicle",
+     "frameKey": "0:1836",
+     "visible": true,
+     "distance": 7.307630215154465
+    },
+    {
+     "run": 0,
+     "time": 31.016666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1861",
+     "visible": true,
+     "distance": 9.501823088280076
+    },
+    {
+     "run": 0,
+     "time": 31.016666666666666,
+     "cause": "blast",
+     "frameKey": "0:1861",
+     "visible": true,
+     "distance": 10.074775307656243
+    },
+    {
+     "run": 0,
+     "time": 34.75,
+     "cause": "vehicle",
+     "frameKey": "0:2085",
+     "visible": false,
+     "distance": 7.859965973760764
+    },
+    {
+     "run": 0,
+     "time": 34.75,
+     "cause": "blast",
+     "frameKey": "0:2085",
+     "visible": false,
+     "distance": 10.526854331759314
+    },
+    {
+     "run": 0,
+     "time": 41.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:2489",
+     "visible": true,
+     "distance": 12.873710632301856
+    },
+    {
+     "run": 0,
+     "time": 41.483333333333334,
+     "cause": "blast",
+     "frameKey": "0:2489",
+     "visible": true,
+     "distance": 16.08217593509325
+    },
+    {
+     "run": 0,
+     "time": 41.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:2489",
+     "visible": true,
+     "distance": 11.003346763563865
+    },
+    {
+     "run": 0,
+     "time": 54.55,
+     "cause": "vehicle",
+     "frameKey": "0:3273",
+     "visible": true,
+     "distance": 8.024183781938232
+    },
+    {
+     "run": 0,
+     "time": 54.55,
+     "cause": "blast",
+     "frameKey": "0:3273",
+     "visible": true,
+     "distance": 5.736249582194813
+    }
+   ],
+   "frames": 3600,
+   "within15": 6336,
+   "front": 525,
+   "side": 507,
+   "frontOrSide": 825,
+   "surround3": 837,
+   "arrestSeconds": 3.2333333333333267,
+   "restarts": 0,
+   "multiMoments": 4
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 3,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 22.916666666666668,
+     "cause": "vehicle",
+     "frameKey": "0:1375",
+     "visible": true,
+     "distance": 27.87075602670907
+    },
+    {
+     "run": 0,
+     "time": 22.916666666666668,
+     "cause": "blast",
+     "frameKey": "0:1375",
+     "visible": true,
+     "distance": 25.24682796892988
+    },
+    {
+     "run": 0,
+     "time": 22.916666666666668,
+     "cause": "blast",
+     "frameKey": "0:1375",
+     "visible": true,
+     "distance": 20.28038135669814
+    },
+    {
+     "run": 0,
+     "time": 22.916666666666668,
+     "cause": "blast",
+     "frameKey": "0:1375",
+     "visible": true,
+     "distance": 24.838329962658687
+    },
+    {
+     "run": 0,
+     "time": 39.85,
+     "cause": "vehicle",
+     "frameKey": "0:2391",
+     "visible": true,
+     "distance": 22.397134579547515
+    },
+    {
+     "run": 0,
+     "time": 39.85,
+     "cause": "blast",
+     "frameKey": "0:2391",
+     "visible": true,
+     "distance": 23.604979514768576
+    },
+    {
+     "run": 0,
+     "time": 41.53333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2492",
+     "visible": false,
+     "distance": 14.686389529700532
+    },
+    {
+     "run": 0,
+     "time": 41.53333333333333,
+     "cause": "blast",
+     "frameKey": "0:2492",
+     "visible": false,
+     "distance": 14.641743193798794
+    },
+    {
+     "run": 0,
+     "time": 41.53333333333333,
+     "cause": "blast",
+     "frameKey": "0:2492",
+     "visible": false,
+     "distance": 18.053516024244008
+    },
+    {
+     "run": 0,
+     "time": 41.53333333333333,
+     "cause": "blast",
+     "frameKey": "0:2492",
+     "visible": false,
+     "distance": 22.273965193419546
+    },
+    {
+     "run": 0,
+     "time": 41.53333333333333,
+     "cause": "blast",
+     "frameKey": "0:2492",
+     "visible": false,
+     "distance": 22.275959907613693
+    },
+    {
+     "run": 0,
+     "time": 56.733333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:3404",
+     "visible": true,
+     "distance": 8.721300362718884
+    },
+    {
+     "run": 0,
+     "time": 56.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:3404",
+     "visible": true,
+     "distance": 12.603151519959411
+    },
+    {
+     "run": 0,
+     "time": 56.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:3404",
+     "visible": true,
+     "distance": 12.984451996456963
+    },
+    {
+     "run": 0,
+     "time": 56.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:3404",
+     "visible": true,
+     "distance": 11.510737935033216
+    }
+   ],
+   "frames": 3600,
+   "within15": 7668,
+   "front": 255,
+   "side": 500,
+   "frontOrSide": 632,
+   "surround3": 1325,
+   "arrestSeconds": 5.349999999999986,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 4,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 13.7,
+     "cause": "vehicle",
+     "frameKey": "0:822",
+     "visible": false,
+     "distance": 10.826205826884589
+    },
+    {
+     "run": 0,
+     "time": 13.7,
+     "cause": "blast",
+     "frameKey": "0:822",
+     "visible": false,
+     "distance": 8.854017620670389
+    },
+    {
+     "run": 0,
+     "time": 13.7,
+     "cause": "blast",
+     "frameKey": "0:822",
+     "visible": true,
+     "distance": 12.236198422679989
+    },
+    {
+     "run": 0,
+     "time": 13.7,
+     "cause": "blast",
+     "frameKey": "0:822",
+     "visible": true,
+     "distance": 5.482334799809675
+    },
+    {
+     "run": 0,
+     "time": 13.7,
+     "cause": "blast",
+     "frameKey": "0:822",
+     "visible": true,
+     "distance": 20.19703609558158
+    },
+    {
+     "run": 0,
+     "time": 34.1,
+     "cause": "vehicle",
+     "frameKey": "0:2046",
+     "visible": true,
+     "distance": 11.497044070751015
+    },
+    {
+     "run": 0,
+     "time": 34.1,
+     "cause": "blast",
+     "frameKey": "0:2046",
+     "visible": true,
+     "distance": 9.552222338359163
+    },
+    {
+     "run": 0,
+     "time": 34.1,
+     "cause": "blast",
+     "frameKey": "0:2046",
+     "visible": true,
+     "distance": 6.032663048978482
+    },
+    {
+     "run": 0,
+     "time": 34.1,
+     "cause": "blast",
+     "frameKey": "0:2046",
+     "visible": true,
+     "distance": 11.273935169066013
+    },
+    {
+     "run": 0,
+     "time": 34.1,
+     "cause": "blast",
+     "frameKey": "0:2046",
+     "visible": true,
+     "distance": 5.228545268047484
+    },
+    {
+     "run": 0,
+     "time": 34.1,
+     "cause": "blast",
+     "frameKey": "0:2046",
+     "visible": true,
+     "distance": 10.394790472054073
+    },
+    {
+     "run": 0,
+     "time": 50.416666666666664,
+     "cause": "vehicle",
+     "frameKey": "0:3025",
+     "visible": true,
+     "distance": 12.512472090754486
+    },
+    {
+     "run": 0,
+     "time": 50.416666666666664,
+     "cause": "blast",
+     "frameKey": "0:3025",
+     "visible": true,
+     "distance": 13.840308331481543
+    },
+    {
+     "run": 0,
+     "time": 50.416666666666664,
+     "cause": "blast",
+     "frameKey": "0:3025",
+     "visible": true,
+     "distance": 14.64374846414937
+    },
+    {
+     "run": 0,
+     "time": 50.416666666666664,
+     "cause": "blast",
+     "frameKey": "0:3025",
+     "visible": true,
+     "distance": 9.902527952981439
+    }
+   ],
+   "frames": 3600,
+   "within15": 6146,
+   "front": 308,
+   "side": 654,
+   "frontOrSide": 724,
+   "surround3": 1147,
+   "arrestSeconds": 5.666666666666652,
+   "restarts": 1,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 5,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 26.333333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1580",
+     "visible": true,
+     "distance": 9.349588527261625
+    },
+    {
+     "run": 0,
+     "time": 26.333333333333332,
+     "cause": "blast",
+     "frameKey": "0:1580",
+     "visible": true,
+     "distance": 13.478602514137348
+    },
+    {
+     "run": 0,
+     "time": 26.333333333333332,
+     "cause": "blast",
+     "frameKey": "0:1580",
+     "visible": true,
+     "distance": 12.1387205576253
+    },
+    {
+     "run": 0,
+     "time": 26.333333333333332,
+     "cause": "blast",
+     "frameKey": "0:1580",
+     "visible": true,
+     "distance": 12.52354391892969
+    },
+    {
+     "run": 0,
+     "time": 26.333333333333332,
+     "cause": "blast",
+     "frameKey": "0:1580",
+     "visible": true,
+     "distance": 15.801901716936344
+    },
+    {
+     "run": 0,
+     "time": 44.21666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2653",
+     "visible": true,
+     "distance": 3.422047376102789
+    },
+    {
+     "run": 0,
+     "time": 45.53333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2732",
+     "visible": true,
+     "distance": 13.460621027375733
+    },
+    {
+     "run": 0,
+     "time": 45.53333333333333,
+     "cause": "blast",
+     "frameKey": "0:2732",
+     "visible": true,
+     "distance": 7.88753957373646
+    },
+    {
+     "run": 0,
+     "time": 45.53333333333333,
+     "cause": "blast",
+     "frameKey": "0:2732",
+     "visible": true,
+     "distance": 11.269041711816874
+    },
+    {
+     "run": 0,
+     "time": 45.53333333333333,
+     "cause": "blast",
+     "frameKey": "0:2732",
+     "visible": true,
+     "distance": 10.32783395746436
+    },
+    {
+     "run": 0,
+     "time": 57.63333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3458",
+     "visible": true,
+     "distance": 13.350844221021774
+    },
+    {
+     "run": 0,
+     "time": 57.63333333333333,
+     "cause": "blast",
+     "frameKey": "0:3458",
+     "visible": true,
+     "distance": 12.173368505822364
+    },
+    {
+     "run": 0,
+     "time": 57.63333333333333,
+     "cause": "blast",
+     "frameKey": "0:3458",
+     "visible": true,
+     "distance": 10.796215915066279
+    },
+    {
+     "run": 0,
+     "time": 57.63333333333333,
+     "cause": "blast",
+     "frameKey": "0:3458",
+     "visible": true,
+     "distance": 15.478016883329861
+    }
+   ],
+   "frames": 3600,
+   "within15": 10052,
+   "front": 491,
+   "side": 826,
+   "frontOrSide": 1098,
+   "surround3": 1620,
+   "arrestSeconds": 8.766666666666682,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 6,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 18.2,
+     "cause": "vehicle",
+     "frameKey": "0:1092",
+     "visible": false,
+     "distance": 39.307578372756474
+    },
+    {
+     "run": 0,
+     "time": 19.233333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1154",
+     "visible": false,
+     "distance": 11.655801810146835
+    },
+    {
+     "run": 0,
+     "time": 23.383333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:1403",
+     "visible": true,
+     "distance": 8.50328470041042
+    },
+    {
+     "run": 0,
+     "time": 23.383333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:1403",
+     "visible": true,
+     "distance": 6.493687563554762
+    },
+    {
+     "run": 0,
+     "time": 26.15,
+     "cause": "vehicle",
+     "frameKey": "0:1569",
+     "visible": true,
+     "distance": 7.42839394788564
+    },
+    {
+     "run": 0,
+     "time": 32.53333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:1952",
+     "visible": true,
+     "distance": 27.0429165636769
+    },
+    {
+     "run": 0,
+     "time": 33.833333333333336,
+     "cause": "vehicle",
+     "frameKey": "0:2030",
+     "visible": true,
+     "distance": 12.327172881145326
+    },
+    {
+     "run": 0,
+     "time": 33.833333333333336,
+     "cause": "blast",
+     "frameKey": "0:2030",
+     "visible": true,
+     "distance": 9.165427937519942
+    },
+    {
+     "run": 0,
+     "time": 54.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:3269",
+     "visible": true,
+     "distance": 12.04499368295789
+    },
+    {
+     "run": 0,
+     "time": 54.483333333333334,
+     "cause": "blast",
+     "frameKey": "0:3269",
+     "visible": true,
+     "distance": 12.908815453680395
+    },
+    {
+     "run": 0,
+     "time": 54.483333333333334,
+     "cause": "blast",
+     "frameKey": "0:3269",
+     "visible": true,
+     "distance": 8.398883674729722
+    },
+    {
+     "run": 0,
+     "time": 54.483333333333334,
+     "cause": "blast",
+     "frameKey": "0:3269",
+     "visible": true,
+     "distance": 12.207669115978213
+    }
+   ],
+   "frames": 3600,
+   "within15": 6722,
+   "front": 364,
+   "side": 498,
+   "frontOrSide": 755,
+   "surround3": 908,
+   "arrestSeconds": 3.516666666666659,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 7,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 1,
+     "time": 41.5,
+     "cause": "vehicle",
+     "frameKey": "1:2490",
+     "visible": true,
+     "distance": 6.54705288837057
+    },
+    {
+     "run": 1,
+     "time": 41.5,
+     "cause": "blast",
+     "frameKey": "1:2490",
+     "visible": true,
+     "distance": 9.53558881245045
+    },
+    {
+     "run": 1,
+     "time": 41.5,
+     "cause": "blast",
+     "frameKey": "1:2490",
+     "visible": true,
+     "distance": 7.83165563351024
+    },
+    {
+     "run": 1,
+     "time": 41.5,
+     "cause": "blast",
+     "frameKey": "1:2490",
+     "visible": true,
+     "distance": 11.481099674602268
+    },
+    {
+     "run": 1,
+     "time": 41.5,
+     "cause": "blast",
+     "frameKey": "1:2490",
+     "visible": false,
+     "distance": 13.8992376433243
+    },
+    {
+     "run": 1,
+     "time": 54.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "1:3269",
+     "visible": true,
+     "distance": 2.8659412848303587
+    }
+   ],
+   "frames": 3600,
+   "within15": 5657,
+   "front": 512,
+   "side": 607,
+   "frontOrSide": 798,
+   "surround3": 842,
+   "arrestSeconds": 4.866666666666655,
+   "restarts": 1,
+   "multiMoments": 1
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 8,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 20.733333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1244",
+     "visible": true,
+     "distance": 6.54705288837057
+    },
+    {
+     "run": 0,
+     "time": 20.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:1244",
+     "visible": true,
+     "distance": 9.53558881245045
+    },
+    {
+     "run": 0,
+     "time": 20.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:1244",
+     "visible": true,
+     "distance": 7.83165563351024
+    },
+    {
+     "run": 0,
+     "time": 20.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:1244",
+     "visible": true,
+     "distance": 11.481099674602268
+    },
+    {
+     "run": 0,
+     "time": 20.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:1244",
+     "visible": false,
+     "distance": 13.8992376433243
+    },
+    {
+     "run": 0,
+     "time": 33.71666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2023",
+     "visible": true,
+     "distance": 2.8659412848303587
+    },
+    {
+     "run": 0,
+     "time": 39.7,
+     "cause": "vehicle",
+     "frameKey": "0:2382",
+     "visible": true,
+     "distance": 5.768832305319554
+    },
+    {
+     "run": 0,
+     "time": 39.7,
+     "cause": "vehicle",
+     "frameKey": "0:2382",
+     "visible": true,
+     "distance": 6.713361724548444
+    },
+    {
+     "run": 0,
+     "time": 40.3,
+     "cause": "vehicle",
+     "frameKey": "0:2418",
+     "visible": true,
+     "distance": 7.121553166369133
+    },
+    {
+     "run": 0,
+     "time": 40.3,
+     "cause": "blast",
+     "frameKey": "0:2418",
+     "visible": true,
+     "distance": 12.93949527796354
+    },
+    {
+     "run": 0,
+     "time": 40.3,
+     "cause": "blast",
+     "frameKey": "0:2418",
+     "visible": true,
+     "distance": 5.0048825058118895
+    },
+    {
+     "run": 0,
+     "time": 46.766666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:2806",
+     "visible": true,
+     "distance": 3.9556358687437996
+    },
+    {
+     "run": 0,
+     "time": 46.766666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:2806",
+     "visible": true,
+     "distance": 4.615858693529336
+    }
+   ],
+   "frames": 3600,
+   "within15": 5230,
+   "front": 708,
+   "side": 628,
+   "frontOrSide": 917,
+   "surround3": 685,
+   "arrestSeconds": 5.099999999999987,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 9,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 19.816666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1189",
+     "visible": true,
+     "distance": 11.281617405418205
+    },
+    {
+     "run": 0,
+     "time": 19.816666666666666,
+     "cause": "blast",
+     "frameKey": "0:1189",
+     "visible": true,
+     "distance": 6.881957287052185
+    },
+    {
+     "run": 0,
+     "time": 19.816666666666666,
+     "cause": "blast",
+     "frameKey": "0:1189",
+     "visible": true,
+     "distance": 10.192399352332615
+    },
+    {
+     "run": 0,
+     "time": 19.816666666666666,
+     "cause": "blast",
+     "frameKey": "0:1189",
+     "visible": true,
+     "distance": 6.037154315556642
+    },
+    {
+     "run": 0,
+     "time": 19.816666666666666,
+     "cause": "blast",
+     "frameKey": "0:1189",
+     "visible": true,
+     "distance": 10.877325776112558
+    },
+    {
+     "run": 0,
+     "time": 48.916666666666664,
+     "cause": "vehicle",
+     "frameKey": "0:2935",
+     "visible": true,
+     "distance": 12.92018791027942
+    },
+    {
+     "run": 0,
+     "time": 48.916666666666664,
+     "cause": "blast",
+     "frameKey": "0:2935",
+     "visible": true,
+     "distance": 9.54862164437216
+    },
+    {
+     "run": 0,
+     "time": 53.75,
+     "cause": "vehicle",
+     "frameKey": "0:3225",
+     "visible": false,
+     "distance": 12.48271897693064
+    },
+    {
+     "run": 0,
+     "time": 53.75,
+     "cause": "vehicle",
+     "frameKey": "0:3225",
+     "visible": false,
+     "distance": 9.276091859452004
+    },
+    {
+     "run": 0,
+     "time": 53.75,
+     "cause": "blast",
+     "frameKey": "0:3225",
+     "visible": false,
+     "distance": 16.177944658502987
+    }
+   ],
+   "frames": 3600,
+   "within15": 8333,
+   "front": 326,
+   "side": 677,
+   "frontOrSide": 816,
+   "surround3": 1509,
+   "arrestSeconds": 9.616666666666724,
+   "restarts": 0,
+   "multiMoments": 2
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 10,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 18.583333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1115",
+     "visible": true,
+     "distance": 10.736721076157014
+    },
+    {
+     "run": 0,
+     "time": 18.583333333333332,
+     "cause": "blast",
+     "frameKey": "0:1115",
+     "visible": true,
+     "distance": 14.610733329605438
+    },
+    {
+     "run": 0,
+     "time": 18.583333333333332,
+     "cause": "blast",
+     "frameKey": "0:1115",
+     "visible": true,
+     "distance": 11.2232988954105
+    },
+    {
+     "run": 0,
+     "time": 18.583333333333332,
+     "cause": "blast",
+     "frameKey": "0:1115",
+     "visible": true,
+     "distance": 13.735378633882066
+    },
+    {
+     "run": 1,
+     "time": 48.78333333333333,
+     "cause": "vehicle",
+     "frameKey": "1:2927",
+     "visible": false,
+     "distance": 34.3921337360947
+    },
+    {
+     "run": 1,
+     "time": 48.78333333333333,
+     "cause": "blast",
+     "frameKey": "1:2927",
+     "visible": false,
+     "distance": 30.773789176480932
+    },
+    {
+     "run": 1,
+     "time": 48.78333333333333,
+     "cause": "blast",
+     "frameKey": "1:2927",
+     "visible": false,
+     "distance": 33.2278053910292
+    }
+   ],
+   "frames": 3600,
+   "within15": 8009,
+   "front": 410,
+   "side": 541,
+   "frontOrSide": 730,
+   "surround3": 1240,
+   "arrestSeconds": 7.0833333333333135,
+   "restarts": 1,
+   "multiMoments": 1
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 11,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 21.466666666666665,
+     "cause": "vehicle",
+     "frameKey": "0:1288",
+     "visible": false,
+     "distance": 34.3921337360947
+    },
+    {
+     "run": 0,
+     "time": 21.466666666666665,
+     "cause": "blast",
+     "frameKey": "0:1288",
+     "visible": false,
+     "distance": 30.773789176480932
+    },
+    {
+     "run": 0,
+     "time": 21.466666666666665,
+     "cause": "blast",
+     "frameKey": "0:1288",
+     "visible": false,
+     "distance": 33.2278053910292
+    },
+    {
+     "run": 0,
+     "time": 49.5,
+     "cause": "vehicle",
+     "frameKey": "0:2970",
+     "visible": true,
+     "distance": 9.47682359614122
+    },
+    {
+     "run": 0,
+     "time": 49.5,
+     "cause": "vehicle",
+     "frameKey": "0:2970",
+     "visible": true,
+     "distance": 12.812313077286301
+    },
+    {
+     "run": 0,
+     "time": 50.45,
+     "cause": "vehicle",
+     "frameKey": "0:3027",
+     "visible": true,
+     "distance": 8.93922143697388
+    },
+    {
+     "run": 0,
+     "time": 50.45,
+     "cause": "blast",
+     "frameKey": "0:3027",
+     "visible": true,
+     "distance": 5.127919220499146
+    },
+    {
+     "run": 0,
+     "time": 50.45,
+     "cause": "vehicle",
+     "frameKey": "0:3027",
+     "visible": true,
+     "distance": 10.098163093654732
+    }
+   ],
+   "frames": 3600,
+   "within15": 8692,
+   "front": 182,
+   "side": 329,
+   "frontOrSide": 464,
+   "surround3": 1637,
+   "arrestSeconds": 4.166666666666657,
+   "restarts": 0,
+   "multiMoments": 1
+  },
+  {
+   "width": 390,
+   "mode": "roads",
+   "seed": 12,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 25.916666666666668,
+     "cause": "vehicle",
+     "frameKey": "0:1555",
+     "visible": true,
+     "distance": 5.241020394116712
+    },
+    {
+     "run": 0,
+     "time": 25.916666666666668,
+     "cause": "blast",
+     "frameKey": "0:1555",
+     "visible": true,
+     "distance": 8.56593909940708
+    },
+    {
+     "run": 0,
+     "time": 41.21666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2473",
+     "visible": false,
+     "distance": 33.296036794481964
+    },
+    {
+     "run": 0,
+     "time": 41.21666666666667,
+     "cause": "blast",
+     "frameKey": "0:2473",
+     "visible": false,
+     "distance": 32.72224587042968
+    },
+    {
+     "run": 0,
+     "time": 43.78333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2627",
+     "visible": true,
+     "distance": 8.378134113015172
+    },
+    {
+     "run": 0,
+     "time": 43.78333333333333,
+     "cause": "blast",
+     "frameKey": "0:2627",
+     "visible": true,
+     "distance": 6.733003031663128
+    },
+    {
+     "run": 0,
+     "time": 43.78333333333333,
+     "cause": "blast",
+     "frameKey": "0:2627",
+     "visible": true,
+     "distance": 11.978007174936357
+    },
+    {
+     "run": 0,
+     "time": 52.166666666666664,
+     "cause": "vehicle",
+     "frameKey": "0:3130",
+     "visible": true,
+     "distance": 14.376363551927072
+    },
+    {
+     "run": 0,
+     "time": 52.166666666666664,
+     "cause": "blast",
+     "frameKey": "0:3130",
+     "visible": true,
+     "distance": 16.69225902307211
+    },
+    {
+     "run": 0,
+     "time": 52.166666666666664,
+     "cause": "blast",
+     "frameKey": "0:3130",
+     "visible": true,
+     "distance": 15.608164869029727
+    },
+    {
+     "run": 0,
+     "time": 52.166666666666664,
+     "cause": "blast",
+     "frameKey": "0:3130",
+     "visible": true,
+     "distance": 14.607584763621908
+    },
+    {
+     "run": 0,
+     "time": 52.166666666666664,
+     "cause": "blast",
+     "frameKey": "0:3130",
+     "visible": true,
+     "distance": 15.799263119969812
+    }
+   ],
+   "frames": 3600,
+   "within15": 8276,
+   "front": 165,
+   "side": 445,
+   "frontOrSide": 608,
+   "surround3": 1362,
+   "arrestSeconds": 9.133333333333367,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 1,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 21.516666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1291",
+     "visible": true,
+     "distance": 13.252110858318984
+    },
+    {
+     "run": 0,
+     "time": 21.516666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1291",
+     "visible": true,
+     "distance": 9.49026663477804
+    },
+    {
+     "run": 0,
+     "time": 32.68333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:1961",
+     "visible": true,
+     "distance": 8.014606878884841
+    },
+    {
+     "run": 0,
+     "time": 32.68333333333333,
+     "cause": "blast",
+     "frameKey": "0:1961",
+     "visible": true,
+     "distance": 6.4464563884409944
+    },
+    {
+     "run": 0,
+     "time": 43.833333333333336,
+     "cause": "vehicle",
+     "frameKey": "0:2630",
+     "visible": true,
+     "distance": 3.465611659554579
+    },
+    {
+     "run": 0,
+     "time": 43.833333333333336,
+     "cause": "blast",
+     "frameKey": "0:2630",
+     "visible": true,
+     "distance": 3.698490869465521
+    },
+    {
+     "run": 0,
+     "time": 44.55,
+     "cause": "vehicle",
+     "frameKey": "0:2673",
+     "visible": true,
+     "distance": 5.818393977859326
+    },
+    {
+     "run": 0,
+     "time": 44.55,
+     "cause": "blast",
+     "frameKey": "0:2673",
+     "visible": true,
+     "distance": 2.9418300996517157
+    },
+    {
+     "run": 0,
+     "time": 54.93333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3296",
+     "visible": false,
+     "distance": 11.128752560802555
+    },
+    {
+     "run": 0,
+     "time": 54.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3296",
+     "visible": false,
+     "distance": 15.018043567136777
+    },
+    {
+     "run": 0,
+     "time": 54.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3296",
+     "visible": false,
+     "distance": 13.86391854027352
+    },
+    {
+     "run": 0,
+     "time": 54.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3296",
+     "visible": false,
+     "distance": 11.047392334505707
+    },
+    {
+     "run": 0,
+     "time": 54.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3296",
+     "visible": true,
+     "distance": 12.568676726328947
+    }
+   ],
+   "frames": 3600,
+   "within15": 7887,
+   "front": 329,
+   "side": 442,
+   "frontOrSide": 669,
+   "surround3": 1366,
+   "arrestSeconds": 6.083333333333317,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 2,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 16.933333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1016",
+     "visible": true,
+     "distance": 11.891866873909398
+    },
+    {
+     "run": 0,
+     "time": 16.933333333333334,
+     "cause": "blast",
+     "frameKey": "0:1016",
+     "visible": true,
+     "distance": 9.365927864816882
+    },
+    {
+     "run": 0,
+     "time": 26.7,
+     "cause": "vehicle",
+     "frameKey": "0:1602",
+     "visible": true,
+     "distance": 5.55637304084418
+    },
+    {
+     "run": 0,
+     "time": 26.7,
+     "cause": "blast",
+     "frameKey": "0:1602",
+     "visible": true,
+     "distance": 6.221916069340516
+    },
+    {
+     "run": 0,
+     "time": 27.15,
+     "cause": "vehicle",
+     "frameKey": "0:1629",
+     "visible": true,
+     "distance": 7.011920827670985
+    },
+    {
+     "run": 0,
+     "time": 27.15,
+     "cause": "blast",
+     "frameKey": "0:1629",
+     "visible": true,
+     "distance": 5.368653790955752
+    },
+    {
+     "run": 0,
+     "time": 40.93333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2456",
+     "visible": true,
+     "distance": 8.353342381996832
+    },
+    {
+     "run": 0,
+     "time": 40.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:2456",
+     "visible": true,
+     "distance": 12.799589319729476
+    },
+    {
+     "run": 0,
+     "time": 40.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:2456",
+     "visible": true,
+     "distance": 9.735374233211186
+    },
+    {
+     "run": 0,
+     "time": 40.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:2456",
+     "visible": true,
+     "distance": 5.851194399238088
+    },
+    {
+     "run": 0,
+     "time": 40.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:2456",
+     "visible": true,
+     "distance": 11.022693383840952
+    }
+   ],
+   "frames": 3600,
+   "within15": 6143,
+   "front": 56,
+   "side": 579,
+   "frontOrSide": 633,
+   "surround3": 1015,
+   "arrestSeconds": 8.133333333333317,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 3,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 24.816666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1489",
+     "visible": true,
+     "distance": 9.054338989789112
+    },
+    {
+     "run": 0,
+     "time": 24.816666666666666,
+     "cause": "blast",
+     "frameKey": "0:1489",
+     "visible": true,
+     "distance": 11.872630845964508
+    },
+    {
+     "run": 0,
+     "time": 24.816666666666666,
+     "cause": "blast",
+     "frameKey": "0:1489",
+     "visible": true,
+     "distance": 7.572117826223132
+    },
+    {
+     "run": 0,
+     "time": 24.816666666666666,
+     "cause": "blast",
+     "frameKey": "0:1489",
+     "visible": true,
+     "distance": 13.538199716980017
+    },
+    {
+     "run": 0,
+     "time": 43.733333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:2624",
+     "visible": true,
+     "distance": 7.336026369977247
+    },
+    {
+     "run": 0,
+     "time": 43.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:2624",
+     "visible": true,
+     "distance": 5.718988922321931
+    },
+    {
+     "run": 0,
+     "time": 43.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:2624",
+     "visible": true,
+     "distance": 10.213401015899016
+    },
+    {
+     "run": 0,
+     "time": 43.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:2624",
+     "visible": true,
+     "distance": 11.696552486557657
+    },
+    {
+     "run": 0,
+     "time": 43.733333333333334,
+     "cause": "blast",
+     "frameKey": "0:2624",
+     "visible": true,
+     "distance": 11.96347151267225
+    }
+   ],
+   "frames": 3600,
+   "within15": 9046,
+   "front": 331,
+   "side": 563,
+   "frontOrSide": 646,
+   "surround3": 1459,
+   "arrestSeconds": 5.049999999999987,
+   "restarts": 1,
+   "multiMoments": 2
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 4,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 24.583333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1475",
+     "visible": true,
+     "distance": 9.227699828132396
+    },
+    {
+     "run": 0,
+     "time": 24.583333333333332,
+     "cause": "blast",
+     "frameKey": "0:1475",
+     "visible": true,
+     "distance": 6.328709130142531
+    },
+    {
+     "run": 0,
+     "time": 24.583333333333332,
+     "cause": "blast",
+     "frameKey": "0:1475",
+     "visible": true,
+     "distance": 10.78281003243165
+    },
+    {
+     "run": 0,
+     "time": 24.583333333333332,
+     "cause": "blast",
+     "frameKey": "0:1475",
+     "visible": true,
+     "distance": 10.353672277693825
+    },
+    {
+     "run": 0,
+     "time": 24.583333333333332,
+     "cause": "blast",
+     "frameKey": "0:1475",
+     "visible": true,
+     "distance": 9.44669305519189
+    },
+    {
+     "run": 1,
+     "time": 57.38333333333333,
+     "cause": "vehicle",
+     "frameKey": "1:3443",
+     "visible": true,
+     "distance": 11.319555521494019
+    },
+    {
+     "run": 1,
+     "time": 57.38333333333333,
+     "cause": "blast",
+     "frameKey": "1:3443",
+     "visible": true,
+     "distance": 8.11970143607883
+    },
+    {
+     "run": 1,
+     "time": 57.38333333333333,
+     "cause": "blast",
+     "frameKey": "1:3443",
+     "visible": true,
+     "distance": 8.825589682869538
+    },
+    {
+     "run": 1,
+     "time": 57.38333333333333,
+     "cause": "blast",
+     "frameKey": "1:3443",
+     "visible": true,
+     "distance": 10.107031376438288
+    }
+   ],
+   "frames": 3600,
+   "within15": 8328,
+   "front": 331,
+   "side": 765,
+   "frontOrSide": 800,
+   "surround3": 1529,
+   "arrestSeconds": 7.349999999999979,
+   "restarts": 1,
+   "multiMoments": 2
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 5,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 19.433333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1166",
+     "visible": true,
+     "distance": 11.319555521494019
+    },
+    {
+     "run": 0,
+     "time": 19.433333333333334,
+     "cause": "blast",
+     "frameKey": "0:1166",
+     "visible": true,
+     "distance": 8.11970143607883
+    },
+    {
+     "run": 0,
+     "time": 19.433333333333334,
+     "cause": "blast",
+     "frameKey": "0:1166",
+     "visible": true,
+     "distance": 8.825589682869538
+    },
+    {
+     "run": 0,
+     "time": 19.433333333333334,
+     "cause": "blast",
+     "frameKey": "0:1166",
+     "visible": true,
+     "distance": 10.107031376438288
+    },
+    {
+     "run": 0,
+     "time": 35.28333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:2117",
+     "visible": true,
+     "distance": 3.1252654915452323
+    },
+    {
+     "run": 0,
+     "time": 35.28333333333333,
+     "cause": "blast",
+     "frameKey": "0:2117",
+     "visible": true,
+     "distance": 3.8826380656209905
+    },
+    {
+     "run": 0,
+     "time": 35.28333333333333,
+     "cause": "blast",
+     "frameKey": "0:2117",
+     "visible": true,
+     "distance": 5.510208535989489
+    },
+    {
+     "run": 0,
+     "time": 35.28333333333333,
+     "cause": "blast",
+     "frameKey": "0:2117",
+     "visible": true,
+     "distance": 9.379733493970013
+    },
+    {
+     "run": 0,
+     "time": 35.28333333333333,
+     "cause": "blast",
+     "frameKey": "0:2117",
+     "visible": true,
+     "distance": 7.984371589687503
+    },
+    {
+     "run": 0,
+     "time": 55.333333333333336,
+     "cause": "vehicle",
+     "frameKey": "0:3320",
+     "visible": true,
+     "distance": 24.095765360214266
+    },
+    {
+     "run": 0,
+     "time": 55.333333333333336,
+     "cause": "blast",
+     "frameKey": "0:3320",
+     "visible": true,
+     "distance": 20.936000284482986
+    },
+    {
+     "run": 0,
+     "time": 55.333333333333336,
+     "cause": "blast",
+     "frameKey": "0:3320",
+     "visible": true,
+     "distance": 17.081512972704463
+    },
+    {
+     "run": 0,
+     "time": 55.333333333333336,
+     "cause": "blast",
+     "frameKey": "0:3320",
+     "visible": true,
+     "distance": 24.458378110076723
+    },
+    {
+     "run": 0,
+     "time": 55.333333333333336,
+     "cause": "blast",
+     "frameKey": "0:3320",
+     "visible": true,
+     "distance": 14.68333667617919
+    },
+    {
+     "run": 0,
+     "time": 58.68333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3521",
+     "visible": true,
+     "distance": 5.893315124781452
+    },
+    {
+     "run": 0,
+     "time": 58.68333333333333,
+     "cause": "blast",
+     "frameKey": "0:3521",
+     "visible": true,
+     "distance": 8.327265389832426
+    }
+   ],
+   "frames": 3600,
+   "within15": 7478,
+   "front": 244,
+   "side": 617,
+   "frontOrSide": 745,
+   "surround3": 1354,
+   "arrestSeconds": 5.416666666666653,
+   "restarts": 0,
+   "multiMoments": 4
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 6,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 18.916666666666668,
+     "cause": "vehicle",
+     "frameKey": "0:1135",
+     "visible": false,
+     "distance": 22.186374643032494
+    },
+    {
+     "run": 0,
+     "time": 18.916666666666668,
+     "cause": "blast",
+     "frameKey": "0:1135",
+     "visible": false,
+     "distance": 25.84944215632562
+    },
+    {
+     "run": 0,
+     "time": 18.916666666666668,
+     "cause": "blast",
+     "frameKey": "0:1135",
+     "visible": true,
+     "distance": 22.245998532087416
+    },
+    {
+     "run": 0,
+     "time": 18.916666666666668,
+     "cause": "blast",
+     "frameKey": "0:1135",
+     "visible": false,
+     "distance": 27.505823706953986
+    },
+    {
+     "run": 0,
+     "time": 27.65,
+     "cause": "vehicle",
+     "frameKey": "0:1659",
+     "visible": true,
+     "distance": 10.386838044434771
+    },
+    {
+     "run": 0,
+     "time": 27.65,
+     "cause": "vehicle",
+     "frameKey": "0:1659",
+     "visible": true,
+     "distance": 13.023599922814604
+    },
+    {
+     "run": 0,
+     "time": 28.683333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1721",
+     "visible": true,
+     "distance": 11.398122465829228
+    },
+    {
+     "run": 0,
+     "time": 28.683333333333334,
+     "cause": "blast",
+     "frameKey": "0:1721",
+     "visible": true,
+     "distance": 11.488067336532422
+    },
+    {
+     "run": 0,
+     "time": 28.683333333333334,
+     "cause": "blast",
+     "frameKey": "0:1721",
+     "visible": true,
+     "distance": 14.58277092784216
+    },
+    {
+     "run": 0,
+     "time": 45.266666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:2716",
+     "visible": true,
+     "distance": 13.38316237546011
+    },
+    {
+     "run": 0,
+     "time": 50.38333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3023",
+     "visible": true,
+     "distance": 10.86998032637545
+    },
+    {
+     "run": 0,
+     "time": 50.38333333333333,
+     "cause": "blast",
+     "frameKey": "0:3023",
+     "visible": true,
+     "distance": 14.342976805185403
+    },
+    {
+     "run": 0,
+     "time": 52.766666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:3166",
+     "visible": true,
+     "distance": 7.685277257966794
+    },
+    {
+     "run": 0,
+     "time": 52.766666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:3166",
+     "visible": true,
+     "distance": 8.526572113999014
+    }
+   ],
+   "frames": 3600,
+   "within15": 7278,
+   "front": 94,
+   "side": 472,
+   "frontOrSide": 529,
+   "surround3": 1169,
+   "arrestSeconds": 8.033333333333312,
+   "restarts": 0,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 7,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 14.566666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:874",
+     "visible": true,
+     "distance": 9.28728500639375
+    },
+    {
+     "run": 0,
+     "time": 14.566666666666666,
+     "cause": "blast",
+     "frameKey": "0:874",
+     "visible": true,
+     "distance": 11.196934265594255
+    },
+    {
+     "run": 0,
+     "time": 14.566666666666666,
+     "cause": "blast",
+     "frameKey": "0:874",
+     "visible": true,
+     "distance": 6.347370713419226
+    },
+    {
+     "run": 0,
+     "time": 14.566666666666666,
+     "cause": "blast",
+     "frameKey": "0:874",
+     "visible": true,
+     "distance": 13.845278049680173
+    },
+    {
+     "run": 0,
+     "time": 14.566666666666666,
+     "cause": "blast",
+     "frameKey": "0:874",
+     "visible": true,
+     "distance": 5.230641673332764
+    },
+    {
+     "run": 0,
+     "time": 31.383333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:1883",
+     "visible": true,
+     "distance": 18.024137247231216
+    },
+    {
+     "run": 0,
+     "time": 31.383333333333333,
+     "cause": "blast",
+     "frameKey": "0:1883",
+     "visible": true,
+     "distance": 15.01180137844294
+    },
+    {
+     "run": 0,
+     "time": 31.383333333333333,
+     "cause": "blast",
+     "frameKey": "0:1883",
+     "visible": true,
+     "distance": 18.082681273083093
+    },
+    {
+     "run": 0,
+     "time": 31.383333333333333,
+     "cause": "blast",
+     "frameKey": "0:1883",
+     "visible": true,
+     "distance": 12.123968312639144
+    },
+    {
+     "run": 0,
+     "time": 31.383333333333333,
+     "cause": "blast",
+     "frameKey": "0:1883",
+     "visible": true,
+     "distance": 15.282078716114519
+    },
+    {
+     "run": 0,
+     "time": 38.05,
+     "cause": "vehicle",
+     "frameKey": "0:2283",
+     "visible": true,
+     "distance": 6.263632317172
+    },
+    {
+     "run": 0,
+     "time": 38.05,
+     "cause": "blast",
+     "frameKey": "0:2283",
+     "visible": true,
+     "distance": 9.833855997856368
+    }
+   ],
+   "frames": 3600,
+   "within15": 9055,
+   "front": 402,
+   "side": 988,
+   "frontOrSide": 1119,
+   "surround3": 1689,
+   "arrestSeconds": 9.016666666666694,
+   "restarts": 1,
+   "multiMoments": 3
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 8,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 16.516666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:991",
+     "visible": true,
+     "distance": 9.188498388532539
+    },
+    {
+     "run": 0,
+     "time": 16.516666666666666,
+     "cause": "blast",
+     "frameKey": "0:991",
+     "visible": true,
+     "distance": 13.91111494452392
+    },
+    {
+     "run": 0,
+     "time": 16.516666666666666,
+     "cause": "blast",
+     "frameKey": "0:991",
+     "visible": true,
+     "distance": 7.430767042855585
+    },
+    {
+     "run": 0,
+     "time": 16.516666666666666,
+     "cause": "blast",
+     "frameKey": "0:991",
+     "visible": true,
+     "distance": 16.64134483952785
+    },
+    {
+     "run": 0,
+     "time": 16.516666666666666,
+     "cause": "blast",
+     "frameKey": "0:991",
+     "visible": true,
+     "distance": 13.286332740889218
+    },
+    {
+     "run": 0,
+     "time": 24.1,
+     "cause": "vehicle",
+     "frameKey": "0:1446",
+     "visible": true,
+     "distance": 13.50830186705265
+    },
+    {
+     "run": 0,
+     "time": 24.1,
+     "cause": "blast",
+     "frameKey": "0:1446",
+     "visible": true,
+     "distance": 11.490373786629494
+    },
+    {
+     "run": 0,
+     "time": 25.116666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:1507",
+     "visible": false,
+     "distance": 14.093124760723452
+    },
+    {
+     "run": 0,
+     "time": 25.116666666666667,
+     "cause": "blast",
+     "frameKey": "0:1507",
+     "visible": false,
+     "distance": 11.58177499894746
+    },
+    {
+     "run": 0,
+     "time": 25.116666666666667,
+     "cause": "blast",
+     "frameKey": "0:1507",
+     "visible": false,
+     "distance": 13.96304848151776
+    },
+    {
+     "run": 0,
+     "time": 40.61666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2437",
+     "visible": true,
+     "distance": 13.541259699817605
+    },
+    {
+     "run": 0,
+     "time": 40.61666666666667,
+     "cause": "blast",
+     "frameKey": "0:2437",
+     "visible": true,
+     "distance": 9.730063609328758
+    },
+    {
+     "run": 0,
+     "time": 40.61666666666667,
+     "cause": "blast",
+     "frameKey": "0:2437",
+     "visible": true,
+     "distance": 13.139390840319281
+    },
+    {
+     "run": 0,
+     "time": 40.61666666666667,
+     "cause": "blast",
+     "frameKey": "0:2437",
+     "visible": true,
+     "distance": 13.27831862357704
+    },
+    {
+     "run": 0,
+     "time": 40.61666666666667,
+     "cause": "blast",
+     "frameKey": "0:2437",
+     "visible": true,
+     "distance": 11.547619873102315
+    },
+    {
+     "run": 0,
+     "time": 40.61666666666667,
+     "cause": "blast",
+     "frameKey": "0:2437",
+     "visible": true,
+     "distance": 16.994114107377083
+    },
+    {
+     "run": 0,
+     "time": 47.85,
+     "cause": "vehicle",
+     "frameKey": "0:2871",
+     "visible": true,
+     "distance": 3.358508782051472
+    },
+    {
+     "run": 0,
+     "time": 47.85,
+     "cause": "blast",
+     "frameKey": "0:2871",
+     "visible": true,
+     "distance": 3.680268163155106
+    },
+    {
+     "run": 0,
+     "time": 47.85,
+     "cause": "blast",
+     "frameKey": "0:2871",
+     "visible": true,
+     "distance": 7.586436697149163
+    },
+    {
+     "run": 0,
+     "time": 48.483333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:2909",
+     "visible": true,
+     "distance": 3.2660938949435927
+    },
+    {
+     "run": 0,
+     "time": 48.483333333333334,
+     "cause": "blast",
+     "frameKey": "0:2909",
+     "visible": true,
+     "distance": 3.6232220652736653
+    }
+   ],
+   "frames": 3600,
+   "within15": 6798,
+   "front": 770,
+   "side": 1012,
+   "frontOrSide": 1241,
+   "surround3": 1138,
+   "arrestSeconds": 12.000000000000176,
+   "restarts": 1,
+   "multiMoments": 4
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 9,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 13.6,
+     "cause": "vehicle",
+     "frameKey": "0:816",
+     "visible": false,
+     "distance": 10.684964419478709
+    },
+    {
+     "run": 0,
+     "time": 13.6,
+     "cause": "blast",
+     "frameKey": "0:816",
+     "visible": true,
+     "distance": 7.150418615162005
+    },
+    {
+     "run": 0,
+     "time": 18.9,
+     "cause": "vehicle",
+     "frameKey": "0:1134",
+     "visible": true,
+     "distance": 4.065456965971735
+    },
+    {
+     "run": 0,
+     "time": 18.9,
+     "cause": "blast",
+     "frameKey": "0:1134",
+     "visible": true,
+     "distance": 9.113293084106875
+    },
+    {
+     "run": 0,
+     "time": 18.9,
+     "cause": "blast",
+     "frameKey": "0:1134",
+     "visible": true,
+     "distance": 2.947087220178598
+    },
+    {
+     "run": 0,
+     "time": 18.9,
+     "cause": "vehicle",
+     "frameKey": "0:1134",
+     "visible": true,
+     "distance": 7.7418290628987005
+    },
+    {
+     "run": 0,
+     "time": 33.233333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:1994",
+     "visible": true,
+     "distance": 3.8486442526159803
+    },
+    {
+     "run": 0,
+     "time": 33.233333333333334,
+     "cause": "blast",
+     "frameKey": "0:1994",
+     "visible": true,
+     "distance": 7.322946773195018
+    },
+    {
+     "run": 0,
+     "time": 33.233333333333334,
+     "cause": "blast",
+     "frameKey": "0:1994",
+     "visible": true,
+     "distance": 3.850030219223954
+    },
+    {
+     "run": 0,
+     "time": 33.233333333333334,
+     "cause": "blast",
+     "frameKey": "0:1994",
+     "visible": true,
+     "distance": 7.739614889241373
+    },
+    {
+     "run": 0,
+     "time": 33.233333333333334,
+     "cause": "blast",
+     "frameKey": "0:1994",
+     "visible": true,
+     "distance": 8.698884709865645
+    },
+    {
+     "run": 0,
+     "time": 33.233333333333334,
+     "cause": "blast",
+     "frameKey": "0:1994",
+     "visible": true,
+     "distance": 11.4044285994002
+    }
+   ],
+   "frames": 3600,
+   "within15": 7849,
+   "front": 459,
+   "side": 963,
+   "frontOrSide": 1149,
+   "surround3": 1266,
+   "arrestSeconds": 6.399999999999983,
+   "restarts": 1,
+   "multiMoments": 2
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 10,
+   "results": {
+    "arrested": 1,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 15.933333333333334,
+     "cause": "vehicle",
+     "frameKey": "0:956",
+     "visible": true,
+     "distance": 19.528023461943
+    },
+    {
+     "run": 0,
+     "time": 15.933333333333334,
+     "cause": "blast",
+     "frameKey": "0:956",
+     "visible": true,
+     "distance": 18.582765312666556
+    },
+    {
+     "run": 0,
+     "time": 15.933333333333334,
+     "cause": "blast",
+     "frameKey": "0:956",
+     "visible": true,
+     "distance": 20.72315605107331
+    },
+    {
+     "run": 0,
+     "time": 15.933333333333334,
+     "cause": "blast",
+     "frameKey": "0:956",
+     "visible": true,
+     "distance": 14.477220661729378
+    },
+    {
+     "run": 0,
+     "time": 15.933333333333334,
+     "cause": "blast",
+     "frameKey": "0:956",
+     "visible": true,
+     "distance": 14.979514046434344
+    },
+    {
+     "run": 0,
+     "time": 33.266666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:1996",
+     "visible": true,
+     "distance": 10.222028071149305
+    },
+    {
+     "run": 0,
+     "time": 33.266666666666666,
+     "cause": "blast",
+     "frameKey": "0:1996",
+     "visible": true,
+     "distance": 10.440087053568746
+    },
+    {
+     "run": 0,
+     "time": 33.266666666666666,
+     "cause": "blast",
+     "frameKey": "0:1996",
+     "visible": true,
+     "distance": 12.937823740755782
+    },
+    {
+     "run": 0,
+     "time": 33.266666666666666,
+     "cause": "blast",
+     "frameKey": "0:1996",
+     "visible": true,
+     "distance": 9.138309910587315
+    },
+    {
+     "run": 0,
+     "time": 33.266666666666666,
+     "cause": "blast",
+     "frameKey": "0:1996",
+     "visible": true,
+     "distance": 10.012371232128162
+    },
+    {
+     "run": 0,
+     "time": 40.583333333333336,
+     "cause": "vehicle",
+     "frameKey": "0:2435",
+     "visible": true,
+     "distance": 7.203077391318794
+    },
+    {
+     "run": 0,
+     "time": 40.583333333333336,
+     "cause": "vehicle",
+     "frameKey": "0:2435",
+     "visible": true,
+     "distance": 8.731661775390394
+    },
+    {
+     "run": 0,
+     "time": 41.95,
+     "cause": "vehicle",
+     "frameKey": "0:2517",
+     "visible": true,
+     "distance": 19.682499346972012
+    },
+    {
+     "run": 0,
+     "time": 41.95,
+     "cause": "blast",
+     "frameKey": "0:2517",
+     "visible": true,
+     "distance": 22.83140150160471
+    },
+    {
+     "run": 0,
+     "time": 50.65,
+     "cause": "vehicle",
+     "frameKey": "0:3039",
+     "visible": true,
+     "distance": 12.160506610342624
+    },
+    {
+     "run": 0,
+     "time": 51.75,
+     "cause": "vehicle",
+     "frameKey": "0:3105",
+     "visible": true,
+     "distance": 4.872599435896296
+    },
+    {
+     "run": 0,
+     "time": 51.75,
+     "cause": "blast",
+     "frameKey": "0:3105",
+     "visible": true,
+     "distance": 8.756486901030916
+    },
+    {
+     "run": 0,
+     "time": 51.75,
+     "cause": "blast",
+     "frameKey": "0:3105",
+     "visible": true,
+     "distance": 8.880157961954982
+    },
+    {
+     "run": 0,
+     "time": 51.75,
+     "cause": "blast",
+     "frameKey": "0:3105",
+     "visible": true,
+     "distance": 5.67811630959434
+    }
+   ],
+   "frames": 3600,
+   "within15": 6885,
+   "front": 324,
+   "side": 546,
+   "frontOrSide": 670,
+   "surround3": 1332,
+   "arrestSeconds": 5.633333333333319,
+   "restarts": 1,
+   "multiMoments": 5
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 11,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 24.416666666666668,
+     "cause": "vehicle",
+     "frameKey": "0:1465",
+     "visible": true,
+     "distance": 9.107784786113683
+    },
+    {
+     "run": 0,
+     "time": 24.416666666666668,
+     "cause": "blast",
+     "frameKey": "0:1465",
+     "visible": true,
+     "distance": 12.640720846595784
+    },
+    {
+     "run": 0,
+     "time": 24.416666666666668,
+     "cause": "blast",
+     "frameKey": "0:1465",
+     "visible": false,
+     "distance": 17.646109915251067
+    },
+    {
+     "run": 0,
+     "time": 24.416666666666668,
+     "cause": "blast",
+     "frameKey": "0:1465",
+     "visible": true,
+     "distance": 21.355280773504454
+    },
+    {
+     "run": 0,
+     "time": 24.416666666666668,
+     "cause": "blast",
+     "frameKey": "0:1465",
+     "visible": true,
+     "distance": 5.853299643617174
+    },
+    {
+     "run": 0,
+     "time": 24.416666666666668,
+     "cause": "blast",
+     "frameKey": "0:1465",
+     "visible": true,
+     "distance": 20.372673305509945
+    },
+    {
+     "run": 0,
+     "time": 44.86666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2692",
+     "visible": true,
+     "distance": 14.068637702289077
+    },
+    {
+     "run": 0,
+     "time": 44.86666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:2692",
+     "visible": true,
+     "distance": 10.46995975071983
+    },
+    {
+     "run": 0,
+     "time": 51.78333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3107",
+     "visible": true,
+     "distance": 13.894773118183496
+    },
+    {
+     "run": 0,
+     "time": 51.78333333333333,
+     "cause": "blast",
+     "frameKey": "0:3107",
+     "visible": true,
+     "distance": 16.364367256263225
+    },
+    {
+     "run": 0,
+     "time": 59.1,
+     "cause": "vehicle",
+     "frameKey": "0:3546",
+     "visible": true,
+     "distance": 11.16164095927454
+    },
+    {
+     "run": 0,
+     "time": 59.1,
+     "cause": "blast",
+     "frameKey": "0:3546",
+     "visible": true,
+     "distance": 7.258553177792469
+    },
+    {
+     "run": 0,
+     "time": 59.1,
+     "cause": "blast",
+     "frameKey": "0:3546",
+     "visible": true,
+     "distance": 11.19201199367792
+    },
+    {
+     "run": 0,
+     "time": 59.1,
+     "cause": "blast",
+     "frameKey": "0:3546",
+     "visible": true,
+     "distance": 11.004898609333045
+    }
+   ],
+   "frames": 3600,
+   "within15": 10024,
+   "front": 139,
+   "side": 540,
+   "frontOrSide": 596,
+   "surround3": 1995,
+   "arrestSeconds": 8.733333333333347,
+   "restarts": 0,
+   "multiMoments": 4
+  },
+  {
+   "width": 390,
+   "mode": "evasive",
+   "seed": 12,
+   "results": {
+    "arrested": 0,
+    "destroyed": 0,
+    "success": 0
+   },
+   "explosions": [
+    {
+     "run": 0,
+     "time": 22.116666666666667,
+     "cause": "vehicle",
+     "frameKey": "0:1327",
+     "visible": false,
+     "distance": 6.708362370477136
+    },
+    {
+     "run": 0,
+     "time": 22.116666666666667,
+     "cause": "blast",
+     "frameKey": "0:1327",
+     "visible": false,
+     "distance": 10.558662204102177
+    },
+    {
+     "run": 0,
+     "time": 22.966666666666665,
+     "cause": "vehicle",
+     "frameKey": "0:1378",
+     "visible": true,
+     "distance": 5.566580128568694
+    },
+    {
+     "run": 0,
+     "time": 22.966666666666665,
+     "cause": "blast",
+     "frameKey": "0:1378",
+     "visible": true,
+     "distance": 8.009291053256518
+    },
+    {
+     "run": 0,
+     "time": 23.583333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1415",
+     "visible": false,
+     "distance": 9.570097461545835
+    },
+    {
+     "run": 0,
+     "time": 23.583333333333332,
+     "cause": "vehicle",
+     "frameKey": "0:1415",
+     "visible": true,
+     "distance": 8.805422148651312
+    },
+    {
+     "run": 0,
+     "time": 47.766666666666666,
+     "cause": "vehicle",
+     "frameKey": "0:2866",
+     "visible": true,
+     "distance": 9.10385336425214
+    },
+    {
+     "run": 0,
+     "time": 47.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:2866",
+     "visible": true,
+     "distance": 12.805996603182658
+    },
+    {
+     "run": 0,
+     "time": 47.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:2866",
+     "visible": true,
+     "distance": 16.01049048968607
+    },
+    {
+     "run": 0,
+     "time": 47.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:2866",
+     "visible": true,
+     "distance": 12.401892364229033
+    },
+    {
+     "run": 0,
+     "time": 47.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:2866",
+     "visible": true,
+     "distance": 20.03565926320712
+    },
+    {
+     "run": 0,
+     "time": 47.766666666666666,
+     "cause": "blast",
+     "frameKey": "0:2866",
+     "visible": true,
+     "distance": 16.487465421330914
+    },
+    {
+     "run": 0,
+     "time": 53.93333333333333,
+     "cause": "vehicle",
+     "frameKey": "0:3236",
+     "visible": true,
+     "distance": 14.855644566599844
+    },
+    {
+     "run": 0,
+     "time": 53.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3236",
+     "visible": true,
+     "distance": 16.29813303296216
+    },
+    {
+     "run": 0,
+     "time": 53.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3236",
+     "visible": true,
+     "distance": 11.507501897790595
+    },
+    {
+     "run": 0,
+     "time": 53.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3236",
+     "visible": true,
+     "distance": 12.980235980411715
+    },
+    {
+     "run": 0,
+     "time": 53.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3236",
+     "visible": true,
+     "distance": 12.829175609379995
+    },
+    {
+     "run": 0,
+     "time": 53.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3236",
+     "visible": true,
+     "distance": 8.878399606359423
+    },
+    {
+     "run": 0,
+     "time": 53.93333333333333,
+     "cause": "blast",
+     "frameKey": "0:3236",
+     "visible": true,
+     "distance": 7.656043865471927
+    }
+   ],
+   "frames": 3600,
+   "within15": 6852,
+   "front": 299,
+   "side": 570,
+   "frontOrSide": 644,
+   "surround3": 1029,
+   "arrestSeconds": 7.09999999999998,
+   "restarts": 0,
+   "multiMoments": 3
+  }
+ ]
+}

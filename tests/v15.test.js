@@ -222,8 +222,9 @@ test("persistent fire, smoke and fragments reuse shared materials without per-fr
   assert.equal(r.pool.length, CONFIG.initialWreckSlots);
   const slot = r.pool.find((p) => p.group.visible);
   assert.ok(slot);
-  assert.equal(slot.flames.length, 3);
-  assert.equal(slot.smoke.length, 4);
+  // V1.8 strengthens the persistent fire (5 flames) and smoke column (6 puffs).
+  assert.equal(slot.flames.length, 5);
+  assert.equal(slot.smoke.length, 6);
   assert.ok(slot.smoke.some((m) => m.position.y > 2));
   assert.ok(slot.group.children.filter((m) => m.position.y < 0.3).length >= 4);
   assert.equal(r.pool[0].flames[0].material, r.pool[1].flames[0].material);

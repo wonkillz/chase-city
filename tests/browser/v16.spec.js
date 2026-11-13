@@ -256,8 +256,9 @@ test("permanent collision wreck/fire at 30 and 60 seconds, offscreen return, gro
   await screenshot(page, info, "wreck-60");
   expect(a.sameData && b.sameData && c.sameData).toBe(true);
   expect(b.visible && c.visible && b.solid && c.solid).toBe(true);
-  expect(b.flames).toBe(3);
-  expect(c.smoke).toBe(4);
+  // V1.8: stronger persistent fire (5 flames) and smoke column (6 puffs).
+  expect(b.flames).toBe(5);
+  expect(c.smoke).toBe(6);
   expect(c.smokeY).not.toEqual(a.smokeY);
   const away = await page.evaluate(() => {
     const { sim: s, renderer: r } = window.__CHASE__;

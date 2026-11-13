@@ -25,12 +25,12 @@ for (const [name, engine, options] of [
       errors = [];
     page.on("pageerror", (e) => errors.push(e.message));
     await page.goto(baseURL + "/?debug");
-    await expect(page).toHaveTitle(/CHASE CITY V1\.7/);
+    await expect(page).toHaveTitle(/CHASE CITY V1\.8/);
     expect(await page.evaluate(() => window.__CHASE__ === undefined)).toBe(
       true,
     );
     await expect(page.locator("#eyebrow")).toHaveText(
-      "MISSION BRIEFING / V1.7",
+      "MISSION BRIEFING / V1.8",
     );
     await page.locator("#start").click();
     await expect(page.locator("#overlay")).toBeHidden();
@@ -64,7 +64,7 @@ for (const [name, engine, options] of [
   }
 }
 await writeFile(
-  "docs/production-smoke-v1.7.json",
-  JSON.stringify({ version: "1.7", baseURL, results }, null, 2) + "\n",
+  "docs/production-smoke-v1.8.json",
+  JSON.stringify({ version: "1.8", baseURL, results }, null, 2) + "\n",
 );
 console.log(JSON.stringify(results, null, 2));

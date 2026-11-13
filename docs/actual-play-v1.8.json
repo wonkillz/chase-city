@@ -1,0 +1,722 @@
+{
+ "method": "Normal START, native requestAnimationFrame loop, legal stageDriver(5,evasive) steering only, seeded road-control RNG random(40003). Phone = iPhone 13 viewport/touch emulation on Chromium (WebKit not installed in this environment).",
+ "desktop": {
+  "summary": {
+   "elapsed": 60.05,
+   "viewport": {
+    "width": 1100,
+    "height": 740
+   },
+   "frontPct": 31.6,
+   "sidePct": 6.6,
+   "frontVisibleSamples": 50,
+   "explosions": 20,
+   "visibleExplosions": 18,
+   "visibleMultiMoments": 7,
+   "chainLinks": 8,
+   "maxShake": 0.51,
+   "wrecks": 20,
+   "debris": 360,
+   "checkpoints": [
+    {
+     "stage": "front",
+     "time": 7.65,
+     "wrecks": 0,
+     "debris": 0
+    },
+    {
+     "stage": "multi",
+     "time": 16.35,
+     "wrecks": 2,
+     "debris": 0
+    },
+    {
+     "stage": "sixty",
+     "time": 60.05,
+     "wrecks": 20,
+     "debris": 360
+    }
+   ]
+  },
+  "record": {
+   "method": "Normal START; native RAF; legal stageDriver(5,evasive) steering only (seeded road-control RNG). No simulation stepping, police/health placement or forced explosions.",
+   "viewport": {
+    "width": 1100,
+    "height": 740
+   },
+   "elapsed": 60.04999999999787,
+   "result": null,
+   "stats": {
+    "explosions": 20,
+    "chainExplosions": 6,
+    "wallCollisions": 0,
+    "pairCollisions": 30,
+    "wallDamage": 0,
+    "pairDamage": 2052.0810477075574,
+    "barricadeCollisions": 0,
+    "barricadeDamage": 0,
+    "boostSeconds": 11.683333333333493,
+    "spawnDeferrals": 29
+   },
+   "wrecks": 20,
+   "wrecksInView": 0,
+   "wrecksDrawn": 0,
+   "debris": 360,
+   "explosions": [
+    {
+     "id": 1,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 1
+    },
+    {
+     "id": 2,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 1
+    },
+    {
+     "id": 3,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 3
+    },
+    {
+     "id": 4,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 4
+    },
+    {
+     "id": 5,
+     "cause": "vehicle",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 4
+    },
+    {
+     "id": 6,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 6
+    },
+    {
+     "id": 7,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 7
+    },
+    {
+     "id": 8,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 7
+    },
+    {
+     "id": 9,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 9
+    },
+    {
+     "id": 10,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 9
+    },
+    {
+     "id": 11,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 11
+    },
+    {
+     "id": 12,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 11
+    },
+    {
+     "id": 13,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 13
+    },
+    {
+     "id": 14,
+     "cause": "vehicle",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 13
+    },
+    {
+     "id": 15,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 15
+    },
+    {
+     "id": 16,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 16
+    },
+    {
+     "id": 17,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 17
+    },
+    {
+     "id": 18,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 17
+    },
+    {
+     "id": 19,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 19
+    },
+    {
+     "id": 20,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 19
+    }
+   ],
+   "screen": {
+    "sampledSeconds": 59.97980000000005,
+    "policeVisibleSeconds": 56.19690000000001,
+    "visibleExplosions": 18,
+    "explosions": 20,
+    "nearestDistanceTime": 730.3881378561714,
+    "chaseSeconds": 56.4135
+   },
+   "samples": 301,
+   "front": 95,
+   "side": 20,
+   "frontVisible": 50,
+   "shown": [
+    {
+     "id": 1,
+     "root": 1,
+     "depth": 0,
+     "shown": 16.033333333333704,
+     "visible": true
+    },
+    {
+     "id": 2,
+     "root": 1,
+     "depth": 1,
+     "shown": 16.253333333333703,
+     "visible": true
+    },
+    {
+     "id": 3,
+     "root": 3,
+     "depth": 0,
+     "shown": 23.899999999999924,
+     "visible": true
+    },
+    {
+     "id": 4,
+     "root": 4,
+     "depth": 0,
+     "shown": 28.249999999999677,
+     "visible": true
+    },
+    {
+     "id": 5,
+     "root": 4,
+     "depth": 1,
+     "shown": 28.469999999999676,
+     "visible": true
+    },
+    {
+     "id": 6,
+     "root": 6,
+     "depth": 0,
+     "shown": 32.41666666666611,
+     "visible": true
+    },
+    {
+     "id": 7,
+     "root": 7,
+     "depth": 0,
+     "shown": 34.39999999999933,
+     "visible": true
+    },
+    {
+     "id": 8,
+     "root": 7,
+     "depth": 1,
+     "shown": 34.61999999999933,
+     "visible": true
+    },
+    {
+     "id": 9,
+     "root": 9,
+     "depth": 0,
+     "shown": 40.74999999999897,
+     "visible": true
+    },
+    {
+     "id": 10,
+     "root": 9,
+     "depth": 1,
+     "shown": 40.96999999999897,
+     "visible": true
+    },
+    {
+     "id": 11,
+     "root": 11,
+     "depth": 0,
+     "shown": 46.46666666666531,
+     "visible": true
+    },
+    {
+     "id": 12,
+     "root": 11,
+     "depth": 1,
+     "shown": 46.68666666666531,
+     "visible": true
+    },
+    {
+     "id": 13,
+     "root": 13,
+     "depth": 0,
+     "shown": 48.56666666666519,
+     "visible": true
+    },
+    {
+     "id": 14,
+     "root": 13,
+     "depth": 1,
+     "shown": 48.78666666666519,
+     "visible": true
+    },
+    {
+     "id": 15,
+     "root": 15,
+     "depth": 0,
+     "shown": 49.766666666665124,
+     "visible": true
+    },
+    {
+     "id": 16,
+     "root": 16,
+     "depth": 0,
+     "shown": 52.08333333333166,
+     "visible": true
+    },
+    {
+     "id": 17,
+     "root": 17,
+     "depth": 0,
+     "shown": 53.48333333333158,
+     "visible": false
+    },
+    {
+     "id": 18,
+     "root": 17,
+     "depth": 1,
+     "shown": 53.70333333333158,
+     "visible": false
+    },
+    {
+     "id": 19,
+     "root": 19,
+     "depth": 0,
+     "shown": 55.69999999999812,
+     "visible": true
+    },
+    {
+     "id": 20,
+     "root": 19,
+     "depth": 1,
+     "shown": 55.91999999999812,
+     "visible": true
+    }
+   ],
+   "maxShake": 0.5083265596446824,
+   "last": 300,
+   "checkpoints": [
+    {
+     "stage": "front",
+     "time": 7.649999999999978,
+     "explosions": 0,
+     "wreckIds": [],
+     "renderedWrecks": 0,
+     "debris": 0
+    },
+    {
+     "stage": "multi",
+     "time": 16.350000000000353,
+     "explosions": 2,
+     "wreckIds": [
+      1,
+      2
+     ],
+     "renderedWrecks": 0,
+     "debris": 0
+    },
+    {
+     "stage": "sixty",
+     "time": 60.04999999999787,
+     "explosions": 20,
+     "wreckIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+     ],
+     "renderedWrecks": 0,
+     "debris": 360
+    }
+   ]
+  }
+ },
+ "phone": {
+  "summary": {
+   "elapsed": 60.05,
+   "viewport": {
+    "width": 390,
+    "height": 664
+   },
+   "frontPct": 34.2,
+   "sidePct": 2.3,
+   "frontVisibleSamples": 43,
+   "explosions": 13,
+   "visibleExplosions": 9,
+   "visibleMultiMoments": 4,
+   "chainLinks": 8,
+   "maxShake": 0.6,
+   "wrecks": 13,
+   "debris": 234,
+   "checkpoints": [
+    {
+     "stage": "front",
+     "time": 9.92,
+     "wrecks": 0,
+     "debris": 0
+    },
+    {
+     "stage": "multi",
+     "time": 16.32,
+     "wrecks": 2,
+     "debris": 0
+    },
+    {
+     "stage": "sixty",
+     "time": 60.05,
+     "wrecks": 13,
+     "debris": 234
+    }
+   ]
+  },
+  "record": {
+   "method": "Normal START; native RAF; legal stageDriver(5,evasive) steering only (seeded road-control RNG). No simulation stepping, police/health placement or forced explosions.",
+   "viewport": {
+    "width": 390,
+    "height": 664
+   },
+   "elapsed": 60.04999999999787,
+   "result": null,
+   "stats": {
+    "explosions": 13,
+    "chainExplosions": 8,
+    "wallCollisions": 0,
+    "pairCollisions": 30,
+    "wallDamage": 0,
+    "pairDamage": 1599.9471545337472,
+    "barricadeCollisions": 0,
+    "barricadeDamage": 0,
+    "boostSeconds": 15.23333333333367,
+    "spawnDeferrals": 11
+   },
+   "wrecks": 13,
+   "wrecksInView": 0,
+   "wrecksDrawn": 0,
+   "debris": 234,
+   "explosions": [
+    {
+     "id": 1,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 1
+    },
+    {
+     "id": 2,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 1
+    },
+    {
+     "id": 3,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 3
+    },
+    {
+     "id": 4,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 3
+    },
+    {
+     "id": 5,
+     "cause": "blast",
+     "delay": 0.44,
+     "depth": 2,
+     "root": 3
+    },
+    {
+     "id": 6,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 6
+    },
+    {
+     "id": 7,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 6
+    },
+    {
+     "id": 8,
+     "cause": "blast",
+     "delay": 0.44,
+     "depth": 2,
+     "root": 6
+    },
+    {
+     "id": 9,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 9
+    },
+    {
+     "id": 10,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 9
+    },
+    {
+     "id": 11,
+     "cause": "vehicle",
+     "delay": 0,
+     "depth": 0,
+     "root": 11
+    },
+    {
+     "id": 12,
+     "cause": "blast",
+     "delay": 0.22,
+     "depth": 1,
+     "root": 11
+    },
+    {
+     "id": 13,
+     "cause": "blast",
+     "delay": 0.44,
+     "depth": 2,
+     "root": 11
+    }
+   ],
+   "screen": {
+    "sampledSeconds": 59.99740000000004,
+    "policeVisibleSeconds": 57.947600000000044,
+    "visibleExplosions": 9,
+    "explosions": 13,
+    "nearestDistanceTime": 589.4076393923038,
+    "chaseSeconds": 59.99740000000004
+   },
+   "samples": 301,
+   "front": 103,
+   "side": 7,
+   "frontVisible": 43,
+   "shown": [
+    {
+     "id": 1,
+     "root": 1,
+     "depth": 0,
+     "shown": 16.033333333333704,
+     "visible": true
+    },
+    {
+     "id": 2,
+     "root": 1,
+     "depth": 1,
+     "shown": 16.253333333333703,
+     "visible": true
+    },
+    {
+     "id": 3,
+     "root": 3,
+     "depth": 0,
+     "shown": 23.166666666666632,
+     "visible": false
+    },
+    {
+     "id": 4,
+     "root": 3,
+     "depth": 1,
+     "shown": 23.38666666666663,
+     "visible": false
+    },
+    {
+     "id": 5,
+     "root": 3,
+     "depth": 2,
+     "shown": 23.606666666666634,
+     "visible": false
+    },
+    {
+     "id": 6,
+     "root": 6,
+     "depth": 0,
+     "shown": 29.816666666666254,
+     "visible": true
+    },
+    {
+     "id": 7,
+     "root": 6,
+     "depth": 1,
+     "shown": 30.036666666666253,
+     "visible": false
+    },
+    {
+     "id": 8,
+     "root": 6,
+     "depth": 2,
+     "shown": 30.256666666666256,
+     "visible": true
+    },
+    {
+     "id": 9,
+     "root": 9,
+     "depth": 0,
+     "shown": 40.43333333333232,
+     "visible": true
+    },
+    {
+     "id": 10,
+     "root": 9,
+     "depth": 1,
+     "shown": 40.65333333333232,
+     "visible": true
+    },
+    {
+     "id": 11,
+     "root": 11,
+     "depth": 0,
+     "shown": 48.59999999999852,
+     "visible": true
+    },
+    {
+     "id": 12,
+     "root": 11,
+     "depth": 1,
+     "shown": 48.81999999999852,
+     "visible": true
+    },
+    {
+     "id": 13,
+     "root": 11,
+     "depth": 2,
+     "shown": 49.03999999999852,
+     "visible": true
+    }
+   ],
+   "maxShake": 0.595148800624149,
+   "last": 300,
+   "checkpoints": [
+    {
+     "stage": "front",
+     "time": 9.916666666666739,
+     "explosions": 0,
+     "wreckIds": [],
+     "renderedWrecks": 0,
+     "debris": 0
+    },
+    {
+     "stage": "multi",
+     "time": 16.31666666666702,
+     "explosions": 2,
+     "wreckIds": [
+      1,
+      2
+     ],
+     "renderedWrecks": 0,
+     "debris": 0
+    },
+    {
+     "stage": "sixty",
+     "time": 60.04999999999787,
+     "explosions": 13,
+     "wreckIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "renderedWrecks": 0,
+     "debris": 234
+    }
+   ]
+  }
+ }
+}

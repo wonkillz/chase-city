@@ -148,9 +148,15 @@ export class SoundSystem {
       return;
     const c = this.context,
       now = c.currentTime;
-    if (kind !== "tone" && now - (this.cooldowns[kind] ?? -100) < 0.07) return;
+    // Compare scheduled start times so staged chain-reaction explosions
+    // queued in the same frame each get their own voice.
+    if (
+      kind !== "tone" &&
+      Math.abs(now + delay - (this.cooldowns[kind] ?? -100)) < 0.07
+    )
+      return;
     if (this.voices.size >= 6) return;
-    this.cooldowns[kind] = now;
+    this.cooldowns[kind] = now + delay;
     const source =
       kind === "tone" ? c.createOscillator() : c.createBufferSource();
     const gain = c.createGain(),
@@ -228,6 +234,9 @@ export class SoundSystem {
                   Math.hypot(event.x - sim.player.x, event.z - sim.player.z) /
                     120,
                 ),
+              200,
+              // Staged chain-reaction links sound when they are shown.
+              event.delay || 0,
             );
         }
       for (const event of sim.impacts)

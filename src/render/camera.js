@@ -17,6 +17,37 @@ export class ChaseCamera {
   }
   reset() {
     this.follow.set(0, 0, 8);
+    this.shake = 0;
+  }
+  // V1.8 crash shake. It is only added around the actual draw call (see
+  // withShake), so spawning/visibility maths never see a shaken camera.
+  kick(amount) {
+    this.shake = Math.min(1.1, (this.shake || 0) + amount);
+  }
+  withShake(dt, time, draw) {
+    this.shake = (this.shake || 0) * Math.exp(-dt * 5);
+    if (this.shake < 0.01) return draw();
+    const s = this.shake,
+      offset = this.point.set(
+        Math.sin(time * 53) * s,
+        Math.sin(time * 41) * s * 0.6,
+        Math.cos(time * 47) * s,
+      ),
+      x = offset.x,
+      y = offset.y,
+      z = offset.z;
+    this.camera.position.x += x;
+    this.camera.position.y += y;
+    this.camera.position.z += z;
+    this.camera.updateMatrixWorld(true);
+    try {
+      return draw();
+    } finally {
+      this.camera.position.x -= x;
+      this.camera.position.y -= y;
+      this.camera.position.z -= z;
+      this.camera.updateMatrixWorld(true);
+    }
   }
   update(player, dt) {
     this.follow.lerp(

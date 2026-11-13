@@ -50,11 +50,32 @@ export function steerPolice(
     );
   const rank = ranked.indexOf(c),
     close = Math.hypot(c.x - player.x, c.z - player.z);
-  c.role = rank <= 1 ? "pursuit" : "intercept";
+  // V1.8 pressure roles: the nearest car presses from behind, the second
+  // rides alongside, and every other car races ahead to block from the front
+  // (half of the blockers via a parallel street, see `ambush`).
+  const forward = { x: -Math.sin(player.angle), z: -Math.cos(player.angle) },
+    side = { x: Math.cos(player.angle), z: -Math.sin(player.angle) },
+    along = (c.x - player.x) * forward.x + (c.z - player.z) * forward.z,
+    lateral = (c.x - player.x) * side.x + (c.z - player.z) * side.z;
+  // A slow/pinned player (or an officer already on top of it) gets the plain
+  // converge behaviour so the 3-second cordon can form; the positioning roles
+  // only make sense against a car that is actually driving away.
+  const playerMoving = (player.fleeSpeed ?? player.netSpeed ?? 24) > 13;
+  c.role =
+    rank === 0 || !playerMoving || close < 9
+      ? "pursuit"
+      : rank === 1
+        ? "flank"
+        : elapsed >= CONFIG.frontBlockStart
+          ? "front"
+          : "pursuit";
+  const difficulty = Math.min(1, elapsed / 60);
   const lead =
     c.role === "pursuit"
       ? 0
-      : 0.8 + Math.min(1, elapsed / 60) * 0.7 + (index % 3) * 0.6;
+      : c.role === "flank"
+        ? 0.3
+        : 1.2 + difficulty * 0.6 + (index % 3) * 0.45;
   const surrounding =
     (player.contained ||
       player.cordonCandidate ||
@@ -68,25 +89,53 @@ export function steerPolice(
   };
   c.mode = surrounding ? "contain" : "pursuit";
   c.role = surrounding ? "contain" : c.role;
-  const ahead = {
-    x: player.x + player.vx * lead,
-    z: player.z + player.vz * lead,
-  };
-  const prediction = navigation.allowed(ahead)
-    ? ahead
-    : navigation.allowed(player)
-      ? { x: player.x, z: player.z }
-      : { x: clamp(player.x, -95, 95), z: clamp(player.z, -95, 95) };
-  const flank = ((index % 3) - 1) * 2.1;
-  const chaseTarget =
-    c.role === "intercept"
-      ? {
-          x: prediction.x + Math.cos(player.angle) * flank,
-          z: prediction.z - Math.sin(player.angle) * flank,
-        }
-      : player;
+  // Walk the predicted point back toward the player until it is on a road.
+  let prediction = null;
+  for (let t = lead; t > 0 && !prediction; t -= 0.25) {
+    const ahead = { x: player.x + player.vx * t, z: player.z + player.vz * t };
+    if (navigation.allowed(ahead)) prediction = ahead;
+  }
+  prediction ??= navigation.allowed(player)
+    ? { x: player.x, z: player.z }
+    : { x: clamp(player.x, -95, 95), z: clamp(player.z, -95, 95) };
+  let chaseTarget = player;
+  if (c.role === "flank") {
+    // Ride alongside on the side the car already occupies and squeeze in.
+    const sign =
+      Math.abs(lateral) > 0.8 ? Math.sign(lateral) : c.id % 2 ? 1 : -1;
+    const offset = along > -10 && close < 16 ? 2.6 : 3.4;
+    chaseTarget = {
+      x: prediction.x + side.x * sign * offset,
+      z: prediction.z + side.z * sign * offset,
+    };
+  } else if (c.role === "front") {
+    const spread = ((index % 3) - 1) * 1.4;
+    // Once ahead of the player, turn into a head-on block instead of
+    // continuing to chase the predicted point.
+    chaseTarget =
+      along > 3 && close < 24
+        ? { x: player.x + side.x * spread, z: player.z + side.z * spread }
+        : {
+            x: prediction.x + side.x * spread,
+            z: prediction.z + side.z * spread,
+          };
+    if (!navigation.allowed(chaseTarget)) chaseTarget = prediction;
+  }
+  // Diagnostic label of where this officer is pressing the player from.
+  c.pressure =
+    c.role === "front" && along > 3
+      ? "front"
+      : c.role === "flank" && Math.abs(along) < 6
+        ? "side"
+        : "rear";
   const target = surrounding ? slot : chaseTarget;
-  const direct = close < 22 && navigation.clear(c, target);
+  // Ambushers (every other blocker) avoid the player's own road until they
+  // are in front, arriving from a side street or head-on instead.
+  const ambush = c.role === "front" && along < 3 && c.id % 2 === 0;
+  const avoid = ambush
+    ? { x: player.x, z: player.z, radius: 16, penalty: 70 }
+    : null;
+  const direct = !ambush && close < 22 && navigation.clear(c, target);
   let waypoint;
   if (direct) {
     waypoint = target;
@@ -98,11 +147,13 @@ export function steerPolice(
       c.routeTimer <= 0 ||
       !c.route?.length ||
       c.goalId !== goal?.id ||
+      c.ambush !== ambush ||
       c.navigationRevision !== navigation.revision
     ) {
       c.navigationRevision = navigation.revision;
-      c.route = navigation.findPath(c, prediction);
+      c.route = navigation.findPath(c, prediction, undefined, avoid);
       c.goalId = goal?.id;
+      c.ambush = ambush;
       c.routeTimer = 0.5 + (index % 3) * 0.08;
       c.replans = (c.replans || 0) + 1;
     }
@@ -126,23 +177,90 @@ export function steerPolice(
       return;
     }
   }
-  const dx = waypoint.x - c.x,
+  let dx = waypoint.x - c.x,
     dz = waypoint.z - c.z,
     d = Math.hypot(dx, dz);
+  // V1.8: officers travelling the same lane in the same direction must not
+  // rear-end each other into pointless self-destruction. Blockers and
+  // flankers overtake in the adjacent lane; the rear pursuer keeps a gap.
+  // Cars arriving from different directions (front blockers vs rear
+  // pursuers) are unaffected, so real crossing and head-on pile-ups remain.
+  let followCap = null;
+  c.following = false;
+  c.overtaking = false;
+  if (!surrounding && d > 0)
+    for (const other of fleet) {
+      if (other === c || other.state !== "active") continue;
+      const ox = other.x - c.x,
+        oz = other.z - c.z,
+        dist = Math.hypot(ox, oz),
+        otherSpeed = Math.hypot(other.vx, other.vz);
+      if (dist > 9 || dist === 0 || otherSpeed < 4) continue;
+      const inPath = (ox * dx + oz * dz) / (dist * d),
+        sameWay = (other.vx * dx + other.vz * dz) / (otherSpeed * d);
+      // Far from the suspect there is no reason to collide at all: oncoming
+      // or crossing officers keep right and slow down. Near the suspect
+      // (inside 22 units) contacts stay fully physical.
+      if (close > 22 && inPath > 0.55 && sameWay <= 0.75) {
+        const px = -dz / d,
+          pz = dx / d;
+        const keep = {
+          x: c.x + (dx / d) * 5 - px * 2.6,
+          z: c.z + (dz / d) * 5 - pz * 2.6,
+        };
+        if (
+          !c.overtaking &&
+          navigation.allowed(keep) &&
+          navigation.clear(c, keep)
+        ) {
+          dx = keep.x - c.x;
+          dz = keep.z - c.z;
+          d = Math.hypot(dx, dz);
+          c.overtaking = true;
+        }
+        followCap = Math.min(
+          followCap ?? Infinity,
+          8 + Math.max(0, dist - 3) * 2,
+        );
+        continue;
+      }
+      if (inPath <= 0.85 || sameWay <= 0.75) continue;
+      if (c.role !== "pursuit" && !c.overtaking) {
+        const px = -dz / d,
+          pz = dx / d,
+          sign = ox * px + oz * pz > 0 ? -1 : 1;
+        const pass = {
+          x: c.x + (dx / d) * 6 + px * sign * 3.2,
+          z: c.z + (dz / d) * 6 + pz * sign * 3.2,
+        };
+        if (navigation.allowed(pass) && navigation.clear(c, pass)) {
+          dx = pass.x - c.x;
+          dz = pass.z - c.z;
+          d = Math.hypot(dx, dz);
+          c.overtaking = true;
+          continue;
+        }
+      }
+      followCap = Math.min(
+        followCap ?? Infinity,
+        otherSpeed * sameWay + Math.max(0, dist - 4.4) * 1.8,
+      );
+      c.following = true;
+    }
   const desired = Math.atan2(-dx, -dz),
     error = angleDelta(desired, c.angle);
   const delta = clamp(error, -3.8 * dt, 3.8 * dt);
   c.angle += delta;
   c.turn = delta / dt;
   const corner = clamp(1 - Math.abs(error) * 0.45, 0.35, 1);
-  const difficulty = Math.min(1, elapsed / 60);
   c.boostCooldown = Math.max(0, (c.boostCooldown || 0) - dt);
   const behind =
     (c.x - player.x) * -Math.sin(player.angle) +
       (c.z - player.z) * -Math.cos(player.angle) <
     -6;
+  // Front blockers and flankers may also sprint to get into position.
   const canBoost =
-    c.type === "pursuit" &&
+    (c.type === "pursuit" || c.role !== "pursuit") &&
     rank <= 3 &&
     behind &&
     close > 11 &&
@@ -159,6 +277,18 @@ export function steerPolice(
     c.boostTimer = 2.8 + difficulty * 0.6;
   }
   c.effectiveSpeed = c.boostTimer > 0 ? 26 + difficulty * 2 : c.speed;
+  // Positioning sprint: blockers must out-run the player to get in front, and
+  // flankers to draw level. Only while still behind and not already close.
+  if (c.role === "front" && along < 3 && close > 7)
+    c.effectiveSpeed = Math.max(
+      c.effectiveSpeed,
+      CONFIG.frontSprintSpeed + difficulty * 2,
+    );
+  else if (c.role === "flank" && along < -3 && close > 5)
+    c.effectiveSpeed = Math.max(
+      c.effectiveSpeed,
+      CONFIG.flankSprintSpeed + difficulty,
+    );
   let speed = c.effectiveSpeed * corner;
   if (surrounding) {
     speed = Math.min(speed, Math.max(0, d - 0.12) * 2.2, 6);
@@ -194,6 +324,18 @@ export function steerPolice(
           Math.hypot(other.vx, other.vz) + Math.max(0, dist - 3.2) * 2,
         );
     }
+  if (followCap !== null) speed = Math.min(speed, followCap);
+  // A blocker that is already in front brakes into a roadblock instead of a
+  // 46-unit/s head-on charge: the player sees it coming and can still dodge.
+  if (!surrounding && c.role === "front" && along > 3)
+    speed = Math.min(
+      speed,
+      CONFIG.blockerApproachSpeed + Math.max(0, close - 6) * 0.6,
+    );
+  // Tailgate rather than grind: right behind the player the rear pursuer
+  // matches its pace instead of ramming it every second.
+  if (!surrounding && close < 5 && along < 0)
+    speed = Math.min(speed, (player.groundSpeed ?? player.speed ?? 24) + 2.5);
   const grip = 1 - Math.exp(-dt * 7);
   c.vx += ((dx / (d || 1)) * speed - c.vx) * grip;
   c.vz += ((dz / (d || 1)) * speed - c.vz) * grip;

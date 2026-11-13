@@ -23,6 +23,13 @@ export const CONFIG = Object.freeze({
   wreckSeconds: 0.9,
   initialWreckSlots: 16,
   respawnSeconds: 2.5,
+  // V1.8 pressure and chain-reaction tuning.
+  frontBlockStart: 0,
+  frontSprintSpeed: 27.5,
+  blockerApproachSpeed: 7,
+  flankSprintSpeed: 25.5,
+  chainStepSeconds: 0.22,
+  chainFalloff: 0.62,
 });
 export const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 export const angleDelta = (a, b) =>

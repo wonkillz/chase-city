@@ -1,5 +1,5 @@
 import { spawnView, inspectSpawn } from "../game/spawning.js";
-import { WreckRenderer } from "./wrecks.js";
+import { WreckRenderer, wreckPose } from "./wrecks.js";
 import * as THREE from "three";
 import { RoadEventsRenderer } from "./road-events.js";
 import { ChaseCamera } from "./camera.js";
@@ -152,7 +152,18 @@ export class CityRenderer {
       this.car(0xf2f0e5, true),
     );
     this.occlusion = new BuildingOcclusion(this.buildings);
-    this.effects = new ExplosionEffects(this.scene);
+    // Every explosion that goes off near the player shakes the camera; the
+    // links of a chain reaction each add their own kick.
+    this.effects = new ExplosionEffects(this.scene, (event) => {
+      const distance = Math.hypot(
+        event.x - this.cameraRig.follow.x,
+        event.z - this.cameraRig.follow.z,
+      );
+      const kick =
+        Math.max(0, 1 - distance / 50) *
+        (0.45 + 0.15 * (event.chainDepth || 0));
+      if (kick > 0) this.cameraRig.kick(kick);
+    });
     this.trails = new VehicleTrails(this.scene);
     this.wreckRenderer = new WreckRenderer(this.scene);
     this.roadEvents = new RoadEventsRenderer(this.scene);
@@ -255,16 +266,18 @@ export class CityRenderer {
     sim.police.forEach((c, i) => {
       const mesh = this.police[i];
       mesh.visible = c.state === "active" || c.wreckAge < CONFIG.wreckSeconds;
-      const t = c.wreckAge;
-      mesh.position.set(
-        c.x,
-        c.state === "wreck" ? Math.max(0, 9 * t - 10 * t * t) : 0,
-        c.z,
-      );
+      // A wreck launches, flips onto its roof and lands in the exact pose the
+      // persistent wreck model uses. Staged chain-reaction cars (negative
+      // wreckAge) stay put until their own explosion is shown.
+      const pose =
+        c.state === "wreck"
+          ? wreckPose(c.wreckAge)
+          : { y: 0, pitch: 0, roll: 0 };
+      mesh.position.set(c.x, pose.y, c.z);
       mesh.rotation.set(
-        c.state === "wreck" ? Math.min(t * 3, Math.PI) : 0,
+        pose.pitch,
         c.angle,
-        c.state === "wreck" ? Math.min(t * 2, 1.5) : -c.turn * 0.04,
+        c.state === "wreck" ? pose.roll : -c.turn * 0.04,
       );
       mesh.userData.red.visible =
         c.state === "active" && Math.floor(sim.elapsed * 8 + i) % 2 === 0;
@@ -317,7 +330,9 @@ export class CityRenderer {
     this.wreckRenderer.update(sim, this.camera);
     this.occlusion.update(this.camera.position, p, dt);
     if (running) this.sampleMetrics(sim, dt);
-    this.renderer.render(this.scene, this.camera);
+    this.cameraRig.withShake(dt, sim.elapsed, () =>
+      this.renderer.render(this.scene, this.camera),
+    );
   }
   captureFrame(width, height) {
     const target = new THREE.WebGLRenderTarget(width, height);

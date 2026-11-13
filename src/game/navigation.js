@@ -151,7 +151,10 @@ export class RoadNavigation {
         return n;
     return null;
   }
-  findPath(start, goal, radius) {
+  // `avoid` ({x, z, radius, penalty}) adds cost near a point so V1.8 front
+  // blockers can take a parallel street around the player instead of queuing
+  // behind it on the same road.
+  findPath(start, goal, radius, avoid = null) {
     this.searches++;
     const from = this.nearest(start, start, radius),
       to = this.nearest(goal);
@@ -181,7 +184,13 @@ export class RoadNavigation {
       open.delete(id);
       for (const next of this.nodes[id].neighbors) {
         if (!this.clear(this.nodes[id], this.nodes[next])) continue;
-        const cost = g.get(id) + distance(this.nodes[id], this.nodes[next]);
+        const node = this.nodes[next];
+        const cost =
+          g.get(id) +
+          distance(this.nodes[id], node) +
+          (avoid && next !== to.id && distance(node, avoid) < avoid.radius
+            ? avoid.penalty
+            : 0);
         if (cost < (g.get(next) ?? Infinity)) {
           came.set(next, id);
           g.set(next, cost);
